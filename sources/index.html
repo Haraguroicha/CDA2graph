@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<base href="#" target="_blank" />
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="author" content="腹黒い茶" />
+		<meta name="description" content="將EMR或CDA文件透過範本方式轉換為可供醫師及大眾皆可閱讀的圖表或報表資訊" />
+		<meta name="keywords" content="電子病歷,EMR,CDA,檢視器,Viewer,EHR,電子病歷檢視器,病歷" />
+		<title>電子病歷檢視器</title>
+		<link href="css/view.css" rel="stylesheet" media="screen" />
+		<script>
+			function $(n) { return document.getElementById(n); }
+			var core = new function core() {
+				this.setUI = function setUI() {
+					document.getElementsByClassName("page-viewpoint")[0].style.height = window.innerHeight - $("menubox").offsetHeight + "px";
+					document.getElementsByClassName("page-viewpoint")[0].style.top = $("menubox").offsetHeight + "px";
+				}
+				this.init = function init() {
+					this.setUI();
+					$("pageNum").innerText=this.getPageNumber();
+					window.addEventListener("resize", function (e) {
+						this.core.setUI();
+					}, false);
+					document.addEventListener("mousewheel", function (e) {
+						$("pageNum").innerText=this.core.getPageNumber();
+					}, false);
+					document.addEventListener("scroll", function (e) {
+						$("pageNum").innerText=this.core.getPageNumber();
+					}, true);
+					var iconLabels = document.getElementsByClassName("iconLabel");
+					for(var k in iconLabels) {
+						var il = iconLabels[k];
+						if(typeof(il)=="object")
+							il.parentElement.title = il.innerText;
+					}
+				}
+				this.getPageNumber = function getPageNumber() {
+					return Math.floor(1 + document.getElementsByClassName("page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight)) + " of " + document.getElementsByClassName("page-view").length;
+				}
+			}
+			window.core = core;
+			document.core = core;
+			document.addEventListener("DOMContentLoaded", function (e) {core.init();}, false);
+		</script>
+	</head>
+	<body>
+		<section id="baseView" style="visibility: hidden;position: absolute;"></section>
+		<section class="page-wrapper">
+			<header>
+				<nav>
+					<div id="menubox">
+						<ul>
+							<li><img src="" /><span class="iconLabel">test測試123</span></li>
+							<li><img src="" /><span class="iconLabel">test測試123</span></li>
+							<li><img src="" /><span class="iconLabel">test測試123</span></li>
+							<li><img src="" /><span class="iconLabel">test測試123</span></li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+			<article class="page-viewpoint">
+				<section class="page-viewpoint">
+					<header>
+						<div id="pageNum">#####</div>
+					</header>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+					<section class="page-view"></section>
+				</section>
+			</article>
+		</section>
+	</body>
+</html>
