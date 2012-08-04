@@ -11,7 +11,7 @@
 		<link href="css/view.css" rel="stylesheet" media="screen" />
 		<script>
 			function $(n) { return document.getElementById(n); }
-			var core = new function core() {
+			var core = new function _core() {
 				this.setUI = function setUI() {
 					document.getElementsByClassName("page-viewpoint")[0].style.height = window.innerHeight - $("menubox").offsetHeight + "px";
 					document.getElementsByClassName("page-viewpoint")[0].style.top = $("menubox").offsetHeight + "px";
@@ -28,12 +28,42 @@
 					document.addEventListener("scroll", function (e) {
 						$("pageNum").innerText=this.core.getPageNumber();
 					}, true);
-					var iconLabels = document.getElementsByClassName("iconLabel");
-					for(var k in iconLabels) {
-						var il = iconLabels[k];
+					this.setTitle("iconLabel", true);
+					this.addEventListener("iconLabel", "click", function() {core.setActive("iconLabel", this);}, true);
+				}
+				this.getEBCN = function getEBCN(cn, fn) {
+					var ls = document.getElementsByClassName(cn);
+					for(var k in ls) {
+						var il = ls[k];
 						if(typeof(il)=="object")
-							il.parentElement.title = il.innerText;
+							fn(il);
 					}
+				}
+				this.setTitle = function setTitle(cn, parent) {
+					this.getEBCN(cn, function(il) {
+							if(parent)
+								il.parentElement.title = il.innerText;
+							else
+								il.title = il.innerText;
+					});
+				}
+				this.addEventListener = function addEventListener(cn, evn, fn, parent) {
+					this.getEBCN(cn, function(il) {
+						if(parent)
+							il.parentElement.addEventListener(evn, fn);
+						else
+							il.addEventListener(evn, fn);
+					});
+				}
+				this.setActive = function setActive(cn, obj, parent) {
+					var cssClass = "selectedItem";
+					this.getEBCN(cssClass, function(il) {
+							il.className = il.className.replace(" " + cssClass, "");
+					});
+					if(parent)
+						obj.parentElement.className += " " + cssClass;
+					else
+						obj.className += " " + cssClass;
 				}
 				this.getPageNumber = function getPageNumber() {
 					return Math.floor(1 + document.getElementsByClassName("page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight)) + " of " + document.getElementsByClassName("page-view").length;
@@ -43,18 +73,19 @@
 			document.core = core;
 			document.addEventListener("DOMContentLoaded", function (e) {core.init();}, false);
 		</script>
+		<base target="_self" />
 	</head>
 	<body>
-		<section id="baseView" style="visibility: hidden;position: absolute;"></section>
+		<section id="baseView"></section>
 		<section class="page-wrapper">
 			<header>
 				<nav>
 					<div id="menubox">
 						<ul>
-							<li><img src="" /><span class="iconLabel">test測試123</span></li>
-							<li><img src="" /><span class="iconLabel">test測試123</span></li>
-							<li><img src="" /><span class="iconLabel">test測試123</span></li>
-							<li><img src="" /><span class="iconLabel">test測試123</span></li>
+							<li><a name="#"><img src="" /><span class="iconLabel">test測試123</span></a></li>
+							<li><a name="#"><img src="" /><span class="iconLabel">test測試123</span></a></li>
+							<li><a name="#"><img src="" /><span class="iconLabel">test測試123</span></a></li>
+							<li><a name="#"><img src="" /><span class="iconLabel">test測試123</span></a></li>
 						</ul>
 					</div>
 				</nav>
@@ -62,9 +93,22 @@
 			<article class="page-viewpoint">
 				<section class="page-viewpoint">
 					<header>
-						<div id="pageNum">#####</div>
+						<div id="pageNum"></div>
 					</header>
-					<section class="page-view"></section>
+					<section class="page-view">
+						<article>
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+							test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123 test測試123
+						</article>
+					</section>
 					<section class="page-view"></section>
 					<section class="page-view"></section>
 					<section class="page-view"></section>
