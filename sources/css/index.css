@@ -74,6 +74,8 @@ section.page-viewpoint {
 	height: 297mm;
 	visibility: hidden;
 	position: absolute;
+	top: -65535px;
+	left: -65535px;
 }
 .page-view {
 	margin-top: 15px;
