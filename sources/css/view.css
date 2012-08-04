@@ -147,3 +147,19 @@ section.page-viewpoint {
 	margin: 0px;
 	margin-top: 2px;
 }
+#fileImporter {
+	display: block;
+	position: absolute;
+	z-index: -1;
+	border: 5px dashed lightgray;
+	background-color: gray;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s linear;
+}
+#fileImporter.DragDropArea {
+	z-index: 100;
+	opacity: 0.75;
+}
+.NonDragDropArea {
+	cursor: no-drop;
+}

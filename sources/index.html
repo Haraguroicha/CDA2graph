@@ -9,70 +9,13 @@
 		<meta name="keywords" content="電子病歷,EMR,CDA,檢視器,Viewer,EHR,電子病歷檢視器,病歷" />
 		<title>電子病歷檢視器</title>
 		<link href="css/view.css" rel="stylesheet" media="screen" />
-		<script>
-			function $(n) { return document.getElementById(n); }
-			var core = new function _core() {
-				this.setUI = function setUI() {
-					document.getElementsByClassName("page-viewpoint")[0].style.height = window.innerHeight - $("menubox").offsetHeight + "px";
-					document.getElementsByClassName("page-viewpoint")[0].style.top = $("menubox").offsetHeight + "px";
-				}
-				this.init = function init() {
-					this.setUI();
-					$("pageNum").innerText=this.getPageNumber();
-					window.addEventListener("resize", function (e) {
-						this.core.setUI();
-					}, false);
-					document.addEventListener("mousewheel", function (e) {
-						$("pageNum").innerText=this.core.getPageNumber();
-					}, false);
-					document.addEventListener("scroll", function (e) {
-						$("pageNum").innerText=this.core.getPageNumber();
-					}, true);
-					this.setTitle("iconLabel", true);
-					this.addEventListener("iconLabel", "click", function() {core.setActive("iconLabel", this);}, true);
-				}
-				this.getEBCN = function getEBCN(cn, fn) {
-					var ls = document.getElementsByClassName(cn);
-					for(var k in ls) {
-						var il = ls[k];
-						if(typeof(il)=="object")
-							fn(il);
-					}
-				}
-				this.setTitle = function setTitle(cn, parent) {
-					this.getEBCN(cn, function(il) {
-							if(parent)
-								il.parentElement.title = il.innerText;
-							else
-								il.title = il.innerText;
-					});
-				}
-				this.addEventListener = function addEventListener(cn, evn, fn, parent) {
-					this.getEBCN(cn, function(il) {
-						if(parent)
-							il.parentElement.addEventListener(evn, fn);
-						else
-							il.addEventListener(evn, fn);
-					});
-				}
-				this.setActive = function setActive(cn, obj, parent) {
-					var cssClass = "selectedItem";
-					this.getEBCN(cssClass, function(il) {
-							il.className = il.className.replace(" " + cssClass, "");
-					});
-					if(parent)
-						obj.parentElement.className += " " + cssClass;
-					else
-						obj.className += " " + cssClass;
-				}
-				this.getPageNumber = function getPageNumber() {
-					return Math.floor(1 + document.getElementsByClassName("page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight)) + " of " + document.getElementsByClassName("page-view").length;
-				}
-			}
-			window.core = core;
-			document.core = core;
-			document.addEventListener("DOMContentLoaded", function (e) {core.init();}, false);
-		</script>
+		<script src="script/etc.first.js"></script>
+		<script src="script/stackTrace.js"></script>
+		<script src="script/core.js"></script>
+		<script src="script/core.Date.js"></script>
+		<script src="script/core.logger.js"></script>
+		<script src="script/core.UI.js"></script>
+		<script src="script/etc.last.js"></script>
 		<base target="_self" />
 	</head>
 	<body>
@@ -121,5 +64,6 @@
 				</section>
 			</article>
 		</section>
+		<div id="fileImporter"></div>
 	</body>
 </html>
