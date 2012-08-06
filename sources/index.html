@@ -9,13 +9,20 @@
 		<meta name="keywords" content="電子病歷,EMR,CDA,檢視器,Viewer,EHR,電子病歷檢視器,病歷" />
 		<title>電子病歷檢視器</title>
 		<link href="css/index.css" rel="stylesheet" media="screen" />
-		<script src="script/etc.first.js"></script>
-		<script src="script/stackTrace.js"></script>
-		<script src="script/core.js"></script>
-		<script src="script/core.Date.js"></script>
-		<script src="script/core.logger.js"></script>
-		<script src="script/core.UI.js"></script>
-		<script src="script/etc.last.js"></script>
+		<script src="script/pluginLoader.js"></script>
+		<script>
+			function initialization() {
+				pl.addModule("etc.first");
+				pl.addModule("stackTrace");
+				pl.addModule("core");
+				pl.addModule("core.Date");
+				pl.addModule("core.logger");
+				pl.addModule("core.UI");
+				pl.addModule("etc.last");
+				pl.init();
+			}
+			initialization();
+		</script>
 		<base target="_self" />
 	</head>
 	<body>
