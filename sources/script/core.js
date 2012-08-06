@@ -6,6 +6,9 @@ var core = new function _core() {
 	this.init = function init() {
 		this.setUI();
 		$("pageNum").innerText=this.getPageNumber();
+		window.addEventListener("scroll", function (e) {
+			window.scrollTo(0, 0);
+		}, false);
 		window.addEventListener("resize", function (e) {
 			this.core.setUI();
 		}, false);
