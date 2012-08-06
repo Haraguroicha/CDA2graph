@@ -1,3 +1,3 @@
 window.core = core;
 document.core = core;
-document.addEventListener("DOMContentLoaded", function (e) {core.init();}, false);
+window.addEventListener("load", function (e) {core.init();}, false);
