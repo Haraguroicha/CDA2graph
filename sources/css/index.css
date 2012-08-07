@@ -66,6 +66,7 @@ section.page-viewpoint {
 	border: solid 1px lightgray;
 	border-radius: 5px;
 	padding: 5px 7px 5px 7px;
+	background-color: rgba(80, 80, 80, 0.75);
 }
 #baseView {
 	width: 210mm;
