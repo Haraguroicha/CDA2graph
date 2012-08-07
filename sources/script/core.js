@@ -1,16 +1,12 @@
 var core = new function _core() {
-	this.setUI = function setUI() {
-		document.getElementsByClassName("page-viewpoint")[0].style.height = window.innerHeight - $("menubox").offsetHeight + "px";
-		document.getElementsByClassName("page-viewpoint")[0].style.top = $("menubox").offsetHeight + "px";
-	}
 	this.init = function init() {
-		this.setUI();
+		this.UI.setUI();
 		$("pageNum").innerText=this.getPageNumber();
 		window.addEventListener("scroll", function (e) {
 			window.scrollTo(0, 0);
 		}, false);
 		window.addEventListener("resize", function (e) {
-			this.core.setUI();
+			this.core.UI.setUI();
 		}, false);
 		document.addEventListener("mousewheel", function (e) {
 			$("pageNum").innerText=this.core.getPageNumber();
