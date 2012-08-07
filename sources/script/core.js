@@ -19,6 +19,9 @@ var core = new function _core() {
 		this.setDropArea(document.getElementsByClassName("page-wrapper")[0], $("fileImporter"));
 		this.UI.resize();
 	}
+	this.getPageNumber = function getPageNumber() {
+		return Math.floor(1 + document.getElementsByClassName("page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight + 17)) + " of " + document.getElementsByClassName("page-view").length;
+	}
 	this.getEBCN = function getEBCN(cn, fn) {
 		var ls = document.getElementsByClassName(cn);
 		for(var k in ls) {
@@ -135,7 +138,4 @@ var core = new function _core() {
 	}
 	var files = {};
 	this.__defineGetter__("files", function() {return files;});
-	this.getPageNumber = function getPageNumber() {
-		return Math.floor(1 + document.getElementsByClassName("page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight)) + " of " + document.getElementsByClassName("page-view").length;
-	}
 }
