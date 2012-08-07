@@ -154,6 +154,7 @@ section.page-viewpoint {
 	border: 5px dashed lightgray;
 	background-color: rgba(80, 80, 80, 0);
 	-webkit-transition: all 0.3s linear;
+	opacity: 0;
 }
 .text span {
 	display: table-cell;
@@ -163,6 +164,7 @@ section.page-viewpoint {
 #fileImporter.DragDropArea {
 	z-index: 100;
 	background-color: rgba(80, 80, 80, 0.75);
+	opacity: 1;
 }
 #fileImporter * {
 	font-size: 30pt;
