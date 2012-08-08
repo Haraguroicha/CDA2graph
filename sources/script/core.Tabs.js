@@ -37,7 +37,6 @@ core.Tabs = new function Tabs() {
 			menuList.appendChild(c.element);
 			buttons.push(c);
 			this.refresh();
-			core.UI.resize();
 		}
 	}
 	this.remove = function remove(name) {
@@ -48,19 +47,21 @@ core.Tabs = new function Tabs() {
 			mi.parentNode.removeChild(mi);
 			delete buttons[k];
 			this.refresh();
-			core.UI.resize()
 		}
 	}
 	this.tabClicked = function tabClicked() {
 		core.setActive($x("//span[@class='iconLabel']"), this);
 		var obj = buttons[core.Tabs.contains(this.title, true)];
-		if(obj) obj.function();
+		if(obj) obj.function(this);
 		core.logger.log(sprintf("Tab '%s' clicked and calling constructor > %s", this.title, obj));
 	}
 	this.refresh = function refresh() {
 		core.setTitle($x("//span[@class='iconLabel']"), 1);
 		core.removeEventListener($x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
 		core.addEventListener($x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
+		var mb = $("menubox");
+		mb.className = (mb.offsetHeight > 0) ? "show" : "";
+		setTimeout(function() {core.UI.resize();}, 500);
 	}
 	this.contains = function contains(name, needId) {
 		for(var k in buttons) {

@@ -39,6 +39,7 @@ article.page-viewpoint {
 	top: 0px;
 	left: 50%;
 	overflow: hidden;
+	z-index: -1;
 }
 section.page-viewpoint {
 	background-color: #222;
@@ -67,6 +68,7 @@ section.page-viewpoint {
 	border-radius: 5px;
 	padding: 5px 7px 5px 7px;
 	background-color: rgba(80, 80, 80, 0.75);
+	z-index: 99;
 }
 #baseView {
 	width: 210mm;
@@ -96,6 +98,12 @@ section.page-viewpoint {
 }
 #menubox {
 	background: -webkit-gradient(linear, left top, left bottom, from(#445566), to(#223344));
+	-webkit-transition: -webkit-transform 0.5s ease-out;
+	-webkit-transform: translateY(-80px);
+	z-index: 50;
+}
+#menubox.show {
+	-webkit-transform: translateY(0px);
 }
 #menubox ul {
 	padding: 0px;
@@ -151,7 +159,7 @@ section.page-viewpoint {
 #fileImporter {
 	display: table;
 	position: absolute;
-	z-index: -1;
+	z-index: -100;
 	border: 5px dashed lightgray;
 	background-color: rgba(80, 80, 80, 0);
 	-webkit-transition: all 0.3s linear;
