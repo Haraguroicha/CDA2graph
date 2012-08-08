@@ -1,7 +1,7 @@
 core.UI = new function _UI() {
 	this.setUI = function setUI() {
-		document.getElementsByClassName("page-viewpoint")[0].style.height = window.innerHeight - $("menubox").offsetHeight + "px";
-		document.getElementsByClassName("page-viewpoint")[0].style.top = $("menubox").offsetHeight + "px";
+		$$(".page-viewpoint")[0].style.height = window.innerHeight - $("menubox").offsetHeight + "px";
+		$$(".page-viewpoint")[0].style.top = $("menubox").offsetHeight + "px";
 	}
 	this.resize = function resize() {
 		var evt = document.createEvent('UIEvents');

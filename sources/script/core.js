@@ -14,47 +14,26 @@ var core = new function _core() {
 		document.addEventListener("scroll", function (e) {
 			$("pageNum").innerText=this.core.getPageNumber();
 		}, true);
-		this.setTitle("iconLabel", true);
-		this.addEventListener("iconLabel", "click", function() {core.setActive("iconLabel", this);}, true);
-		this.setDropArea(document.getElementsByClassName("page-wrapper")[0], $("fileImporter"));
+		
+		this.setDropArea($$(".page-wrapper")[0], $("fileImporter"));
 		this.UI.resize();
 	}
 	this.getPageNumber = function getPageNumber() {
-		return Math.floor(1 + document.getElementsByClassName("page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight + 17)) + " of " + document.getElementsByClassName("page-view").length;
+		return Math.floor(1 + $$(".page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight + 17)) + " of " + $$(".page-view").length;
 	}
-	this.getEBCN = function getEBCN(cn, fn) {
-		var ls = document.getElementsByClassName(cn);
-		for(var k in ls) {
-			var il = ls[k];
-			if(typeof(il)=="object")
-				fn(il);
-		}
+	this.setTitle = function setTitle(n, parent) {
+		n.enumerateCall(function(il) { il.getParent(parent).title = il.innerText; });
 	}
-	this.setTitle = function setTitle(cn, parent) {
-		this.getEBCN(cn, function(il) {
-				if(parent)
-					il.parentElement.title = il.innerText;
-				else
-					il.title = il.innerText;
-		});
+	this.addEventListener = function addEventListener(n, evn, fn, parent) {
+		n.enumerateCall(function(il) { il.getParent(parent).addEventListener(evn, fn); });
 	}
-	this.addEventListener = function addEventListener(cn, evn, fn, parent) {
-		this.getEBCN(cn, function(il) {
-			if(parent)
-				il.parentElement.addEventListener(evn, fn);
-			else
-				il.addEventListener(evn, fn);
-		});
+	this.removeEventListener = function removeEventListener(n, evn, fn, parent) {
+		n.enumerateCall(function(il) { il.getParent(parent).removeEventListener(evn, fn); });
 	}
-	this.setActive = function setActive(cn, obj, parent) {
+	this.setActive = function setActive(n, obj, parent) {
 		var cssClass = "selectedItem";
-		this.getEBCN(cssClass, function(il) {
-				il.className = il.classList.remove(cssClass);
-		});
-		if(parent)
-			obj.parentElement.classList.add(cssClass);
-		else
-			obj.classList.add(cssClass);
+		n.enumerateCall(function(il) { il.getParent(parent).classList.remove(cssClass); });
+		obj.getParent(parent).classList.add(cssClass);
 	}
 	this.setDropArea = function setDropArea(dpb, dpa) {
 		window.addEventListener("resize", function (e) {
@@ -68,12 +47,7 @@ var core = new function _core() {
 		}
 		var dpbf = function dpbDragHover(e) {
 			e.dataTransfer.dropEffect = "none";
-			var isFiles = false;
-			for(var k in e.dataTransfer.types) {
-				var f = e.dataTransfer.types[k];
-				if(f == "Files") isFiles = true;
-			}
-			if(e.type == "dragover" && isFiles && !(e.pageY < dpb.offsetHeight)) {
+			if(e.type == "dragover" && core.Files.isFiles(e) && !(e.pageY < dpb.offsetHeight)) {
 				dpa.classList.add("DragDropArea");
 				this.classList.add("NonDragDropArea");
 			} else {
@@ -83,12 +57,7 @@ var core = new function _core() {
 		}
 		var dpaf = function dpaDragHover(e) {
 			e.dataTransfer.dropEffect = "link";
-			var isFiles = false;
-			for(var k in e.dataTransfer.types) {
-				var f = e.dataTransfer.types[k];
-				if(f == "Files") isFiles = true;
-			}
-			if(e.type == "dragover" && isFiles) {
+			if(e.type == "dragover" && core.Files.isFiles(e)) {
 				this.classList.add("DragDropArea");
 				dpb.classList.add("NonDragDropArea");
 			} else {
@@ -100,34 +69,7 @@ var core = new function _core() {
 			e.preventDefault();
 			e.stopPropagation();
 			if(!this.classList.contains("NonDragDropArea")) {
-				if(e.dataTransfer.files.length > 0) {
-					var fss = e.dataTransfer.files;
-					files = { "./size": 0 };
-					for(var k in fss) {
-						var fs = fss[k];
-						if(typeof(fs)=="object") {
-							reader = new FileReader();
-							reader.onload = (
-								function (obj, fs) {
-									return function (e) {
-										obj[fs.name] = {};
-										var f = obj[fs.name];
-										f.name = fs.name;
-										f.data = e.target.result;
-										f.date = fs.lastModifiedDate;
-										f.size = e.total;
-										obj["./size"] += f.size;
-										core.logger.log(sprintf("loaded file: `%s`(%s bytes)", f.name, f.size));
-									};
-								}(files, fs)
-							);
-							reader.readAsText(fs);
-						}
-					}
-					files.__defineGetter__("size", function() {
-						return this["./size"];
-					});
-				}
+				core.Files.importFiles(e);
 			}
 			dpa.classList.remove("DragDropArea");
 			dpb.classList.remove("NonDragDropArea");
@@ -146,6 +88,4 @@ var core = new function _core() {
 		dpa.addEventListener("dragleave", dpaf);
 		dpa.addEventListener("drop", dpDrop, false);
 	}
-	var files = {};
-	this.__defineGetter__("files", function() {return files;});
 }
