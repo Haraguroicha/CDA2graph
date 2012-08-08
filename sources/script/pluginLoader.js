@@ -2,7 +2,10 @@ var pl = new function pluginLoader(mods) {
 	var modules = [];
 	var actived = 0;
 	this.loadModule = function loadModule(modName) {
-		console.log("** pl: Loading Module: " + modName);
+		var date = new Date().toISOString();
+		if(typeof(core) != "undefined")
+			if(typeof(core.Date) != "undefined") date = new core.Date();
+		console.log("** pl[" + date + "]: Loading Module: " + modName);
 		this.addScript("script/" + modName + ".js");
 		actived++;
 	}
@@ -10,6 +13,9 @@ var pl = new function pluginLoader(mods) {
 		var script = document.createElement("script");
 		script.setAttribute("type","text/javascript");
 		script.setAttribute("src", src);
+		script.onload = function () {
+			pl.init();
+		}
 		document.getElementsByTagName("head")[0].appendChild(script);
 	}
 	this.addModule = function addModule(modName) {
@@ -23,6 +29,7 @@ var pl = new function pluginLoader(mods) {
 			var mod = ms[k];
 			if(typeof(mod) == "string") {
 				this.loadModule(mod);
+				break;
 			}
 		}
 	}
