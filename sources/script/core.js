@@ -68,7 +68,12 @@ var core = new function _core() {
 		}
 		var dpbf = function dpbDragHover(e) {
 			e.dataTransfer.dropEffect = "none";
-			if(e.type == "dragover" && !(e.pageY < dpb.offsetHeight)) {
+			var isFiles = false;
+			for(var k in e.dataTransfer.types) {
+				var f = e.dataTransfer.types[k];
+				if(f == "Files") isFiles = true;
+			}
+			if(e.type == "dragover" && isFiles && !(e.pageY < dpb.offsetHeight)) {
 				dpa.classList.add("DragDropArea");
 				this.classList.add("NonDragDropArea");
 			} else {
@@ -78,7 +83,12 @@ var core = new function _core() {
 		}
 		var dpaf = function dpaDragHover(e) {
 			e.dataTransfer.dropEffect = "link";
-			if(e.type == "dragover") {
+			var isFiles = false;
+			for(var k in e.dataTransfer.types) {
+				var f = e.dataTransfer.types[k];
+				if(f == "Files") isFiles = true;
+			}
+			if(e.type == "dragover" && isFiles) {
 				this.classList.add("DragDropArea");
 				dpb.classList.add("NonDragDropArea");
 			} else {
