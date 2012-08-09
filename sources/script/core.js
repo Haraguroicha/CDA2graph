@@ -1,7 +1,6 @@
 var core = new function _core() {
 	this.init = function init() {
 		this.UI.setUI();
-		$("pageNum").innerText=this.getPageNumber();
 		window.addEventListener("scroll", function (e) {
 			window.scrollTo(0, 0);
 		}, false);
@@ -9,17 +8,20 @@ var core = new function _core() {
 			this.core.UI.setUI();
 		}, false);
 		document.addEventListener("mousewheel", function (e) {
-			$("pageNum").innerText=this.core.getPageNumber();
+			if($("pageNum").innerText)
+				$("pageNum").innerText=this.core.Pages.getPageNumber();
+			else
+				$("pageNum").innerHTML=this.core.Pages.getPageNumber();
 		}, false);
 		document.addEventListener("scroll", function (e) {
-			$("pageNum").innerText=this.core.getPageNumber();
+			if($("pageNum").innerText)
+				$("pageNum").innerText=this.core.Pages.getPageNumber();
+			else
+				$("pageNum").innerHTML=this.core.Pages.getPageNumber();
 		}, true);
 		
 		this.setDropArea($$(".page-wrapper")[0], $("fileImporter"));
 		this.UI.resize();
-	}
-	this.getPageNumber = function getPageNumber() {
-		return Math.floor(1 + $$(".page-viewpoint")[1].scrollTop / ($("baseView").offsetHeight + 17)) + " of " + $$(".page-view").length;
 	}
 	this.setTitle = function setTitle(n, parent) {
 		n.enumerateCall(function(il) { il.getParent(parent).title = il.innerText; });
@@ -30,9 +32,9 @@ var core = new function _core() {
 	this.removeEventListener = function removeEventListener(n, evn, fn, parent) {
 		n.enumerateCall(function(il) { il.getParent(parent).removeEventListener(evn, fn); });
 	}
-	this.setActive = function setActive(n, obj, parent) {
+	this.setActive = function setActive(obj, parent) {
 		var cssClass = "selectedItem";
-		n.enumerateCall(function(il) { il.getParent(parent).classList.remove(cssClass); });
+		$$("." + cssClass).enumerateCall(function(il) { il.getParent(parent).classList.remove(cssClass); });
 		obj.getParent(parent).classList.add(cssClass);
 	}
 	this.setDropArea = function setDropArea(dpb, dpa) {

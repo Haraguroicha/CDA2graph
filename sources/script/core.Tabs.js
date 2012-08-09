@@ -50,10 +50,12 @@ core.Tabs = new function Tabs() {
 		}
 	}
 	this.tabClicked = function tabClicked() {
-		core.setActive($x("//span[@class='iconLabel']"), this);
+		core.setActive(this);
 		var obj = buttons[core.Tabs.contains(this.title, true)];
-		if(obj) obj.function(this);
-		core.logger.log(sprintf("Tab '%s' clicked and calling constructor > %s", this.title, obj));
+		if(obj) {
+			core.logger.log(sprintf("Tab '%s' clicked and calling constructor > %s", this.title, obj.function));
+			if(typeof(obj.function) == "function") obj.function(this);
+		}
 	}
 	this.refresh = function refresh() {
 		core.setTitle($x("//span[@class='iconLabel']"), 1);
