@@ -26,11 +26,15 @@ core.Pages = new function Pages() {
 		this.scrollTo(this.getPages());
 	}
 	this.removePage = function removePage(p) {
-		var pv = $$(".page-view")[p - 1];
-		pv.parentNode.removeChild(pv);
-		this.scrollTo((p - 1 > 1) ? p - 1 : 1);
+		if($$(".page-view").length >= p) {
+			var pv = $$(".page-view")[p - 1];
+			pv.parentNode.removeChild(pv);
+			core.UI.resize();
+			this.scrollTo(p - 1);
+		}
 	}
 	this.scrollTo = function scrollTo(p) {
-		$$(".page-viewpoint")[1].scrollTop = $$(".page-view")[p - 1].offsetTop - 5;
+		if(p < $$(".page-view").length && p > 0)
+			$$(".page-viewpoint")[1].scrollTop = $$(".page-view")[p - 1].offsetTop - 5;
 	}
 }
