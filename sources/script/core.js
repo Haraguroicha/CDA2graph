@@ -8,34 +8,34 @@ var core = new function _core() {
 			this.core.UI.setUI();
 		}, false);
 		document.addEventListener("mousewheel", function (e) {
-			if($("pageNum").innerText)
-				$("pageNum").innerText=this.core.Pages.getPageNumber();
+			if(_$("pageNum").innerText)
+				_$("pageNum").innerText=this.core.Pages.getPageNumber();
 			else
-				$("pageNum").innerHTML=this.core.Pages.getPageNumber();
+				_$("pageNum").innerHTML=this.core.Pages.getPageNumber();
 		}, false);
 		document.addEventListener("scroll", function (e) {
-			if($("pageNum").innerText)
-				$("pageNum").innerText=this.core.Pages.getPageNumber();
+			if(_$("pageNum").innerText)
+				_$("pageNum").innerText=this.core.Pages.getPageNumber();
 			else
-				$("pageNum").innerHTML=this.core.Pages.getPageNumber();
+				_$("pageNum").innerHTML=this.core.Pages.getPageNumber();
 		}, true);
 		
-		this.setDropArea($$(".page-wrapper")[0], $("fileImporter"));
+		this.setDropArea(_$$(".page-wrapper")[0], _$("fileImporter"));
 		this.UI.resize();
 	}
 	this.setTitle = function setTitle(n, parent) {
-		n.enumerateCall(function(il) { il.getParent(parent).title = il.innerText; });
+		this.enumerateCall(n, function(il) { this.getParent(il, parent).title = il.innerText; });
 	}
 	this.addEventListener = function addEventListener(n, evn, fn, parent) {
-		n.enumerateCall(function(il) { il.getParent(parent).addEventListener(evn, fn); });
+		this.enumerateCall(n, function(il) { this.getParent(il, parent).addEventListener(evn, fn); });
 	}
 	this.removeEventListener = function removeEventListener(n, evn, fn, parent) {
-		n.enumerateCall(function(il) { il.getParent(parent).removeEventListener(evn, fn); });
+		this.enumerateCall(n, function(il) { this.getParent(il, parent).removeEventListener(evn, fn); });
 	}
 	this.setActive = function setActive(obj, parent) {
 		var cssClass = "selectedItem";
-		$$("." + cssClass).enumerateCall(function(il) { il.getParent(parent).classList.remove(cssClass); });
-		obj.getParent(parent).classList.add(cssClass);
+		this.enumerateCall(_$$("." + cssClass), function(il) { getParent(il, parent).classList.remove(cssClass); });
+		this.getParent(obj, parent).classList.add(cssClass);
 	}
 	this.setDropArea = function setDropArea(dpb, dpa) {
 		window.addEventListener("resize", function (e) {
@@ -89,5 +89,19 @@ var core = new function _core() {
 		dpa.addEventListener("dragover", dpaf);
 		dpa.addEventListener("dragleave", dpaf);
 		dpa.addEventListener("drop", dpDrop, false);
+	}
+	this.getParent = function getParent(t, p) {
+		if(p == undefined) p = 0;
+		var n = t;
+		for(var i = p; i > 0; i--)
+			n = n.parentNode;
+		return n;
+	}
+	this.enumerateCall = function enumerateCall(t, f) {
+		for(var k in t) {
+			var o = t[k];
+			if(typeof(o) == "object")
+				f(o);
+		}
 	}
 }

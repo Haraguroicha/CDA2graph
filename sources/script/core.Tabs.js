@@ -1,6 +1,6 @@
 core.Tabs = new function Tabs() {
 	var prefix = "menuItem_";
-	var menuList = $("menubox").getElementsByTagName("ul")[0];
+	var menuList = _$("menubox").getElementsByTagName("ul")[0];
 	var buttons = [];
 	var _constructor = function _constructor(px) {
 		var prefix = px;
@@ -9,7 +9,7 @@ core.Tabs = new function Tabs() {
 		this.function = undefined;
 		this.state = true;
 		this.isActived = function () {
-			return $(prefix + this.name).getElementsByTagName("a")[0].classList.contains("selectedItem");
+			return _$(prefix + this.name).getElementsByTagName("a")[0].classList.contains("selectedItem");
 		}
 		this.element = null;
 	};
@@ -58,10 +58,10 @@ core.Tabs = new function Tabs() {
 		}
 	}
 	this.refresh = function refresh() {
-		core.setTitle($x("//span[@class='iconLabel']"), 1);
-		core.removeEventListener($x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
-		core.addEventListener($x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
-		var mb = $("menubox");
+		core.setTitle(_$x("//span[@class='iconLabel']"), 1);
+		core.removeEventListener(_$x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
+		core.addEventListener(_$x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
+		var mb = _$("menubox");
 		mb.className = (mb.offsetHeight > 0) ? "show" : "";
 		setTimeout(function() {core.UI.resize();}, 500);
 	}
@@ -89,6 +89,6 @@ core.Tabs = new function Tabs() {
 		}
 	}
 	this.item = function item(name) {
-		return $(prefix + name);
+		return _$(prefix + name);
 	}
 }

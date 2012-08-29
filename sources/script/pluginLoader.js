@@ -14,6 +14,7 @@ var pl = new function pluginLoader(mods) {
 		script.setAttribute("type","text/javascript");
 		script.setAttribute("src", src);
 		script.onload = function () {
+			$( "#plProgress" ).progressbar({value: actived / modules.length * 100});
 			pl.init();
 		}
 		document.getElementsByTagName("head")[0].appendChild(script);
@@ -23,15 +24,18 @@ var pl = new function pluginLoader(mods) {
 		return modules[id - 1];
 	}
 	this.init = function init(ms) {
+		var isEnd = true;
 		if(ms == undefined) ms = modules;
 		if(typeof(ms) == "string") ms = ms.split(",");
 		for(var k = actived; k < ms.length; k++) {
 			var mod = ms[k];
 			if(typeof(mod) == "string") {
 				this.loadModule(mod);
+				isEnd = false;
 				break;
 			}
 		}
+		if(isEnd && typeof(main) == "function") main();
 	}
 	if(mods != undefined) {
 		this.init(mods);
