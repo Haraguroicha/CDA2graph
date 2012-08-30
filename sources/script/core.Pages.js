@@ -13,6 +13,9 @@ core.Pages = new function Pages() {
 	this.getPages = function getPages() {
 		return _$$(".page-view").length;
 	}
+	this.getLastPage = function getLastPage() {
+		return this.getPage(this.getPages());
+	}
 	this.getAvailableHeight = function getAvailableHeight(page) {
 		page = this.get(page);
 		page.appendChild(pageTester);
@@ -49,12 +52,15 @@ core.Pages = new function Pages() {
 			_$$(".page-viewpoint")[1].scrollTop = _$$(".page-view")[p - 1].offsetTop - 5;
 	}
 	this.appendHTML = function appendHTML(page, html, offsetTop) {
+		//If call this method directly by calling core.Pages.appendHTML(html[, offset]);
+		if(typeof(page) == "string" && (typeof(html) == "number" || typeof(html) == "undefined"))
+			return this.getLastPage().appendHTML(page, html);
 		var lastPage = this.addContent(this.getPage(page), html, offsetTop);
 		var prevWidgets = lastPage.getElementsByClassName("cda-widget");
 		var prevLastWidget = prevWidgets[prevWidgets.length - 1];
 		var prevPageScrollTop = prevLastWidget.offsetTop - lastPage.offsetTop;
 		if(prevLastWidget.scrollHeight + prevPageScrollTop > lastPage.offsetHeight) {
-			core.logger.log("Object is too large, page breaking.");
+			core.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1));
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return this.addPage(nextScrollTop).appendHTML(html);
 		}
@@ -90,11 +96,5 @@ core.Pages = new function Pages() {
 	}
 	this.contentFrom = function contentFrom(src) {
 		_$("baseView").innerHTML = src.innerHTML;
-	}
-	this.init = function init() {
-		var pageInitEvt = new CustomEvent("pageInit", {});
-		for(var p = 1; p <= this.getPages(); p++) {
-			this.getPage(p).dispatchEvent(pageInitEvt);
-		}
 	}
 }

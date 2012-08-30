@@ -35,7 +35,7 @@ var pl = new function pluginLoader(mods) {
 				break;
 			}
 		}
-		if(isEnd && typeof(main) == "function") main();
+		if(isEnd && typeof(main) == "function") setTimeout("main();", 500);
 	}
 	if(mods != undefined) {
 		this.init(mods);

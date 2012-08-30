@@ -1,7 +1,8 @@
 core.logger = new function logger() {
 	this.getMsg = function getMsg(msg, printStackTrace) {
 		var date = new core.Date();
-		return sprintf("** logger[%s]: %s%s", date, msg, (printStackTrace) ? "\n\t" + stackTrace().join("\n\t") : "");
+		var st = stackTrace();
+		return sprintf("** logger[%s]:\t%s\n\t\t\t\t\t\t\t\t%s%s", date, msg, st[2].replace(" ", "() "), (printStackTrace) ? "\n\t" + st.join("\n\t") : "");
 	}
 	this.log = function log(msg, printStackTrace) {
 		console.log(this.getMsg(msg, printStackTrace));
