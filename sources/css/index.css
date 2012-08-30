@@ -90,7 +90,7 @@ section.page-viewpoint {
 	height: 273mm;
 	box-shadow: 4px 4px 12px -2px rgba(90%,90%,95%,0.6);
 }
-.page-view article {
+.page-view > article {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -105,11 +105,11 @@ section.page-viewpoint {
 #menubox.show {
 	-webkit-transform: translateY(0px);
 }
-#menubox ul {
+#menubox > ul {
 	padding: 0px;
 	margin: 0px;
 }
-#menubox ul li {
+#menubox > ul > li {
 	list-style-type: none;
 	padding: 0px;
 	margin: 0px;
@@ -124,20 +124,20 @@ section.page-viewpoint {
 	cursor: pointer;
 	border-left: 2px solid #234;
 }
-#menubox ul li a {
+#menubox > ul > li > a {
 	width: 74px;
 	height: 100%;
 	padding-top: 7px;
 	padding-bottom: 7px;
 	display: inline-block;
 }
-#menubox ul li a:hover {
+#menubox > ul > li > a:hover {
 	background-color: #223344;
 }
-#menubox ul li a:active, #menubox ul li a.selectedItem {
+#menubox > ul > li > a:active, #menubox > ul > li > a.selectedItem {
 	background-color: #111122;
 }
-#menubox ul li a span.iconLabel {
+#menubox > ul > li > a > span.iconLabel {
 	display: inline-block;
 	color: white;
 	text-shadow: 0px 0px 0px transparent, 0px -1px 1px rgba(169, 169, 169, 0.75);
@@ -149,7 +149,7 @@ section.page-viewpoint {
 	width: 68px;
 	height: 15px;
 }
-#menubox ul li a img {
+#menubox > ul > li > a > img {
 	width: 32px;
 	height: 32px;
 	padding: 0px;
@@ -165,7 +165,7 @@ section.page-viewpoint {
 	-webkit-transition: all 0.3s linear;
 	opacity: 0;
 }
-.text span {
+.text > span {
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
@@ -183,4 +183,7 @@ section.page-viewpoint {
 }
 .NonDragDropArea {
 	cursor: no-drop;
+}
+.cda-widget {
+	width: 100%;
 }

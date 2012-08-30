@@ -32,7 +32,7 @@ core.Pages = new function Pages() {
 			this.scrollTop = this.defaultScrollTop || 0;
 			core.logger.log(sprintf("page #%s has raised pageInit event, scrollTop=%s", this.pageNum, this.scrollTop));
 		})
-		art.appendHTML = function(html) {core.Pages.appendHTML(this.pageNum, html);}
+		art.appendHTML = function(html) { return core.Pages.appendHTML(this.pageNum, html); }
 		$(art).scroll(function(event){ this.scrollTop = this.defaultScrollTop || 0; });
 		pageArticle.appendChild(sec);
 		core.UI.resize();
@@ -52,11 +52,30 @@ core.Pages = new function Pages() {
 			_$$(".page-viewpoint")[1].scrollTop = _$$(".page-view")[p - 1].offsetTop - 5;
 	}
 	this.appendHTML = function appendHTML(page, html) {
-		page = this.getPage(page);
-		if(typeof(html)=="object")
-			page.appendChild(html);
-		if(typeof(html)=="string")
-			page.innerHTML += html;
+		return this.addContent(this.getPage(page), html);
+	}
+	this.addContent = function addContent(page, html) {
+		var pack = this.packSection(html);
+		if(pack != null)
+			page.appendChild(pack);
+		return page;
+	}
+	this.packSection = function packSection(obj) {
+		function makeSection(html) {
+			var sec = document.createElement("section");
+			var art = document.createElement("article");
+			art.innerHTML = html;
+			sec.appendChild(art);
+			sec.className = "cda-widget";
+			return sec;
+		}
+		var pack = null;
+		if(typeof(obj) == "string")
+			pack = makeSection(obj);
+		if(typeof(obj) == "object")
+			if(typeof(obj.innerHTML) == "string")
+				pack = makeSection(obj.innerHTML);
+		return pack;
 	}
 	this.contentFrom = function contentFrom(src) {
 		_$("baseView").innerHTML = src.innerHTML;
