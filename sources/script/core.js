@@ -24,18 +24,18 @@ var core = new function _core() {
 		this.UI.resize();
 	}
 	this.setTitle = function setTitle(n, parent) {
-		this.enumerateCall(n, function(il) { this.getParent(il, parent).title = il.innerText; });
+		this.enumerateCall(n, function(il) { core.getParent(il, parent).title = il.innerText; });
 	}
 	this.addEventListener = function addEventListener(n, evn, fn, parent) {
-		this.enumerateCall(n, function(il) { this.getParent(il, parent).addEventListener(evn, fn); });
+		this.enumerateCall(n, function(il) { core.getParent(il, parent).addEventListener(evn, fn); });
 	}
 	this.removeEventListener = function removeEventListener(n, evn, fn, parent) {
-		this.enumerateCall(n, function(il) { this.getParent(il, parent).removeEventListener(evn, fn); });
+		this.enumerateCall(n, function(il) { core.getParent(il, parent).removeEventListener(evn, fn); });
 	}
 	this.setActive = function setActive(obj, parent) {
 		var cssClass = "selectedItem";
 		this.enumerateCall(_$$("." + cssClass), function(il) { getParent(il, parent).classList.remove(cssClass); });
-		this.getParent(obj, parent).classList.add(cssClass);
+		core.getParent(obj, parent).classList.add(cssClass);
 	}
 	this.setDropArea = function setDropArea(dpb, dpa) {
 		window.addEventListener("resize", function (e) {
