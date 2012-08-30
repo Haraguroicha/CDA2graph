@@ -21,19 +21,16 @@ core.Pages = new function Pages() {
 		pt.parentNode.removeChild(pt);
 		return availHeight;
 	}
-	this.addPage = function addPage() {
+	this.addPage = function addPage(defaultScrollTop) {
 		var pageNum = this.getPages() + 1;
 		var sec = document.createElement("section");
 		sec.className = "page-view";
 		var art = document.createElement("article");
 		sec.appendChild(art);
 		art.pageNum = pageNum;
-		art.addEventListener("pageInit", function(e) {
-			this.scrollTop = this.defaultScrollTop || 0;
-			core.logger.log(sprintf("page #%s has raised pageInit event, scrollTop=%s", this.pageNum, this.scrollTop));
-		})
-		art.appendHTML = function(html) { return core.Pages.appendHTML(this.pageNum, html); }
-		$(art).scroll(function(event){ this.scrollTop = this.defaultScrollTop || 0; });
+		art.defaultScrollTop = defaultScrollTop;
+		art.appendHTML = function(html, offsetTop) { return core.Pages.appendHTML(this.pageNum, html, offsetTop || this.defaultScrollTop); }
+		$(art).scroll(function(event){ this.scrollTop = 0; });
 		pageArticle.appendChild(sec);
 		core.UI.resize();
 		//this.scrollTo(this.getPages());
@@ -51,22 +48,36 @@ core.Pages = new function Pages() {
 		if(p < _$$(".page-view").length && p > 0)
 			_$$(".page-viewpoint")[1].scrollTop = _$$(".page-view")[p - 1].offsetTop - 5;
 	}
-	this.appendHTML = function appendHTML(page, html) {
-		return this.addContent(this.getPage(page), html);
+	this.appendHTML = function appendHTML(page, html, offsetTop) {
+		var lastPage = this.addContent(this.getPage(page), html, offsetTop);
+		var prevWidgets = lastPage.getElementsByClassName("cda-widget");
+		var prevLastWidget = prevWidgets[prevWidgets.length - 1];
+		var prevPageScrollTop = prevLastWidget.offsetTop - lastPage.offsetTop;
+		if(prevLastWidget.scrollHeight + prevPageScrollTop > lastPage.offsetHeight) {
+			core.logger.log("Object is too large, page breaking.");
+			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
+			return this.addPage(nextScrollTop).appendHTML(html);
+		}
+		return lastPage;
 	}
-	this.addContent = function addContent(page, html) {
-		var pack = this.packSection(html);
+	this.addContent = function addContent(page, html, offsetTop) {
+		var pack = this.packSection(html, offsetTop);
 		if(pack != null)
 			page.appendChild(pack);
 		return page;
 	}
-	this.packSection = function packSection(obj) {
+	this.packSection = function packSection(obj, offsetTop) {
 		function makeSection(html) {
 			var sec = document.createElement("section");
 			var art = document.createElement("article");
 			art.innerHTML = html;
 			sec.appendChild(art);
 			sec.className = "cda-widget";
+			sec.style.position = "relative";
+			if(typeof(offsetTop) == "number") {
+				sec.classList.add("cda-widget-shadow");
+				sec.style.top = offsetTop + "px";
+			}
 			return sec;
 		}
 		var pack = null;
