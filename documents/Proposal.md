@@ -65,7 +65,7 @@
 
 ### 壹 研究流程 ###
 
-![image](./graffle/systemProcess.png)
+![研究流程圖](./graffle/systemProcess.png)
 
 圖1 研究流程圖
 
