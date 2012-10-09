@@ -1,4 +1,5 @@
-**以雲端運算平台建置電子病歷檢視器系統之整合設計與實作**===============================================### *Design and implementation of using a cloud computing platform to build the electronic medical record viewer integration system*--------------------------------------------------------
+**以雲端運算平台建置電子病歷檢視器系統之整合設計與實作**===============================================### *Design and implementation of using a cloud computing platform to build the electronic medical record viewer integration system*
+----
 # 論文摘要
 
 
