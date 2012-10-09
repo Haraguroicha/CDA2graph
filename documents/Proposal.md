@@ -90,8 +90,8 @@
 本研究準備使用的開發環境、開發工具、開發程式語言如下：
 
 - 開發環境：Macintosh OS X Mountain Lion 10.8.2、Microsoft Window 7
-- 開發工具：Sublime Text 2、SourceTree、Google Chrome
-- 開發語言：HTML 5、JavaScript、jQuery、jQuery UI、CSS、SASS、php、mySQL、Mou
+- 開發工具：Sublime Text 2、SourceTree、Google Chrome、Mou
+- 開發語言：HTML 5、JavaScript、jQuery、jQuery UI、CSS、SASS、php、mySQL、Markdown
 
 # 第四章 預期成果
 
