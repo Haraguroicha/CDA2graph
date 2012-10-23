@@ -82,12 +82,12 @@ section.page-viewpoint {
 	margin-top: 15px;
 	margin-bottom: 15px;
 	margin-left: 3mm;
-	padding: 12mm;
+	padding: 13.5mm;
 	border-radius: 5px;
 	border: solid 1px black;
 	background-color: rgba(255, 255, 255, 0.9);
-	width: 186mm;
-	height: 273mm;
+	width: 184mm;
+	height: 270mm;
 	box-shadow: 4px 4px 12px -2px rgba(90%,90%,95%,0.6);
 }
 .page-view > article {

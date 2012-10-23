@@ -1,4 +1,5 @@
 core.Pages = new function Pages() {
+	var lineHeight = -1;
 	var pageTester = document.createElement("div");
 	pageTester.id = "pageTester";
 	var pageArticle = _$x("//section[@class='page-viewpoint']/article")[0];
@@ -50,6 +51,22 @@ core.Pages = new function Pages() {
 	this.scrollTo = function scrollTo(p) {
 		if(p < _$$(".page-view").length && p > 0)
 			_$$(".page-viewpoint")[1].scrollTop = _$$(".page-view")[p - 1].offsetTop - 5;
+	}
+	this.getLineHeight = function getLineHeight() {
+		if(lineHeight == -1) {
+			this.addPage();
+			this.appendHTML("test");
+			this.appendHTML("test<br/>test");
+			var l = this.getPage(this.getPages()).getElementsByTagName("section");
+			var l1 = l[0].offsetHeight;
+			var l2 = l[1].offsetHeight;
+			lineHeight = l1 - (l2 - 2* l1);
+			this.removePage(this.getPages());
+		}
+		return lineHeight;
+	}
+	this.getPageLines = function getPageLines() {
+		return Math.floor(this.getPage(this.getPages()).offsetHeight / this.getLineHeight());
 	}
 	this.appendHTML = function appendHTML(page, html, offsetTop) {
 		//If call this method directly by calling core.Pages.appendHTML(html[, offset]);
