@@ -6,7 +6,7 @@ var pl = new function pluginLoader(mods) {
 		if(typeof(core) != "undefined")
 			if(typeof(core.Date) != "undefined") date = new core.Date();
 		console.log("** pl[" + date + "]: Loading Module: " + modName);
-		this.addScript("script/" + modName + ".js");
+		this.addScript("js/" + modName + ".js");
 		actived++;
 	}
 	this.addScript = function addScript(src) {
