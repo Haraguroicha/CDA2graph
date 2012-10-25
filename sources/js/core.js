@@ -34,7 +34,7 @@ var core = new function _core() {
 	}
 	this.setActive = function setActive(obj, parent) {
 		var cssClass = "selectedItem";
-		this.enumerateCall(_$$("." + cssClass), function(il) { getParent(il, parent).classList.remove(cssClass); });
+		this.enumerateCall(_$$("." + cssClass), function(il) { core.getParent(il, parent).classList.remove(cssClass); });
 		core.getParent(obj, parent).classList.add(cssClass);
 	}
 	this.setDropArea = function setDropArea(dpb, dpa) {
