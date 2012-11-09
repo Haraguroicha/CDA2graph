@@ -1,5 +1,8 @@
-**以雲端運算平台建置電子病歷檢視器系統之整合設計與實作**===============================================### *Design and implementation of using a cloud computing platform to build the electronic medical record viewer integration system*
-----
+**以雲端運算平台建置電子病歷檢視器系統之整合設計與實作**
+===============================================
+
+### *Design and implementation of using a cloud computing platform to build the electronic medical record viewer integration system*
+----
 # 論文摘要
 
 	暫時沒內容
@@ -38,13 +41,13 @@
 
 ## 第一節 電子病歷
 
-電子病歷(Electronic Medical Record, EMR)是一種由電子化方式擷取、傳送、接受、儲存、取回、連結與處理的多媒體資料，電子病歷主要的用途為協助醫療或其相關服務。包括病患的個人資料，problems - SOAP(主、客觀陳訴、病況評估、處置計畫，含醫囑(醫令))紀錄，病程紀錄，護理計畫、紀錄，生命徵象紀錄，藥物使用記錄，相關的醫療實驗室檢驗資料與報告，相關的檢查資料與報告(含影像診斷學報告)，過去病史，家族史，預防接種等等，凡是相關病情必要的資訊，如旅遊史相對於疫情，則亦可成為病歷的一環而成為電子病歷內容。[1]
+電子病歷(Electronic Medical Record, EMR)是一種由電子化方式擷取、傳送、接受、儲存、取回、連結與處理的多媒體資料，電子病歷主要的用途為協助醫療或其相關服務。包括病患的個人資料，problems - SOAP(主、客觀陳訴、病況評估、處置計畫，含醫囑(醫令))紀錄，病程紀錄，護理計畫、紀錄，生命徵象紀錄，藥物使用記錄，相關的醫療實驗室檢驗資料與報告，相關的檢查資料與報告(含影像診斷學報告)，過去病史，家族史，預防接種等等，凡是相關病情必要的資訊，如旅遊史相對於疫情，則亦可成為病歷的一環而成為電子病歷內容[[1]]。
 
-在美國的非營利的組織如：ASTM、HL7與HIMSS也在訂立電子病歷的標準。歐洲的電子病歷標準，是由CEN的TC/251所制定。國際標準化組織(ISO)的TC215也參考其他標準組織所建立的標準，來建立其電子病歷標準。開放性原始碼組織也建立與發表了電子病歷的規格與開放性原始碼的電子病歷導入，在澳洲與部分歐洲國家所採用。加拿大的Canada Health Infoway正在加速其建置與應用電子醫療資訊系統。國內衛生署，則以先定法規給予電子病歷可取代紙本病歷的法律地位，來促使電子病歷上路，並已有醫院據此開始實施電子病歷。[1]
+在美國的非營利的組織如：ASTM、HL7與HIMSS也在訂立電子病歷的標準。歐洲的電子病歷標準，是由CEN的TC/251所制定。國際標準化組織(ISO)的TC215也參考其他標準組織所建立的標準，來建立其電子病歷標準。開放性原始碼組織也建立與發表了電子病歷的規格與開放性原始碼的電子病歷導入，在澳洲與部分歐洲國家所採用。加拿大的Canada Health Infoway正在加速其建置與應用電子醫療資訊系統。國內衛生署，則以先定法規給予電子病歷可取代紙本病歷的法律地位，來促使電子病歷上路，並已有醫院據此開始實施電子病歷[[1]]。
 
 ### 壹 國內電子病歷規範
 
-在民國94年12月衛生署完成了「醫療院所病歷電子化現況調查」，在結果中顯示了國內醫院的病歷電子化發展已經相當普及，其中共計約有半數醫院的病歷資料已進行電腦化，大約三成醫院病歷電子化已進展至院內整合階段並逐漸邁向院際之分享與交換應用，顯示出在過去推動病歷電子化之發展已具有初步成效，應順勢大力推展。[2]
+在民國94年12月衛生署完成了「醫療院所病歷電子化現況調查」，在結果中顯示了國內醫院的病歷電子化發展已經相當普及，其中共計約有半數醫院的病歷資料已進行電腦化，大約三成醫院病歷電子化已進展至院內整合階段並逐漸邁向院際之分享與交換應用，顯示出在過去推動病歷電子化之發展已具有初步成效，應順勢大力推展[[2]]。
 
 病歷電子化之願景希望讓病人可在任何一家醫院，透過健保IC卡及醫師之醫事憑證IC卡，且在病人同意及醫師授權之情形下，完整的取得病人過去病史資料，提供無縫隙的照護。如此可以提供兩點目標達成：
 
@@ -89,26 +92,75 @@
 		<td colspan="3">病人等候影像報告產出時間由平均7天縮短至1-2天</td>
 	</tr>
 </table>
-表1 衛生署電子病歷系統計畫推動的工作及各年度工作目標[2]
+表1 衛生署電子病歷系統計畫推動的工作及各年度工作目標[[2]]
 
-除以上目標以外，在民國99年也已經推廣了國內兩千家以上的診所（包含西醫、中醫及牙醫診所），符合「醫療機構電子病歷製作及管理辦法」各項條款規定。更在民國100年辦理了100年度「醫院實施電子病歷及互通補助計畫」，並且建置電子病歷交換中心，計有142家醫院完成介接(檢測服務)。[2]
+除以上目標以外，在民國99年也已經推廣了國內兩千家以上的診所（包含西醫、中醫及牙醫診所），符合「醫療機構電子病歷製作及管理辦法」各項條款規定。更在民國100年辦理了100年度「醫院實施電子病歷及互通補助計畫」，並且建置電子病歷交換中心，計有142家醫院完成介接(檢測服務)[[2]]。
 
 ## 第二節 臨床文件架構
 
-HL7臨床文件架構(Clinical Document Architecture, CDA)是一個應用於臨床文件上的可延伸標記式語言(eXtensible Markup Language, XML)，並且是根據HL7第三版的參考資訊模型(Reference Information Model, RIM)、資料型別及詞彙等標準所組成的檔案格式。CDA標準也被國際標準組織(International Organization for Standardization, ISO)及美國國家標準協會(American National Standards Institute, ANSI)認可。在早期，CDA稱為病人記錄架構(Patient Record Architecture, PRA)，而CDA R1在1991年時被HL7會員所認同且在2000年被ANSI認可，它是根據初期HL7 RIM草案、資料型別及詞彙而來。CDA R2在2005年1月被HL7所認可，隔年成為ANSI的標準[3]。
+HL7臨床文件架構(Clinical Document Architecture, CDA)是一個應用於臨床文件上的可延伸標記式語言(eXtensible Markup Language, XML)，並且是根據HL7第三版的參考資訊模型(Reference Information Model, RIM)、資料型別及詞彙等標準所組成的檔案格式。CDA標準也被國際標準組織(International Organization for Standardization, ISO)及美國國家標準協會(American National Standards Institute, ANSI)認可。在早期，CDA稱為病人記錄架構(Patient Record Architecture, PRA)，而CDA R1在1991年時被HL7會員所認同且在2000年被ANSI認可，它是根據初期HL7 RIM草案、資料型別及詞彙而來。CDA R2在2005年1月被HL7所認可，隔年成為ANSI的標準[[3]]。
 
-CDA定義了完整的信息項目，可以包括文字，圖像，聲音和其他多媒體內容。一份CDA文件應具有下列六個特點[4]：
+CDA定義了完整的信息項目，可以包括文字，圖像，聲音和其他多媒體內容。一份CDA文件應具有下列六個特點[[4]]：
 
-1.	保存性(Persistence)：一份臨床文件必須在不被修改的情況下，依照規定時間保存 (採用XML技術規範結構，可用電子檔案的方式永久儲存)。2.	管理性(Stewardship)：文件必須交由可信賴的機構管理。3.	認證機制(Potential for authentication)：一份由各種資訊所組成的臨床文件應包含有法律效力的認證。4.	內容性(Context)：一份臨床文件有一定的基本格式。5.	完整性(Wholeness)：整份文件須經過認證簽署而非只有部份文件。6.	易讀性(Human readability)：一份臨床文件必須要是人們可以閱讀的。而CDA的發展，希望能達到以下幾點目標[4]：1.	優先考量對病患的照護。2.	在符合成本效益的條件下，盡可能的將系統進行最廣泛的推廣。讓不同技術層面的使用者之間能進行human-readable的文件交換。3.	讓使用這個訊息架構下所產生之訊息能長久的使用。4.	文件進行交換後，處理與應用能更加廣泛。5.	能夠與大多數的文件產生軟體相容。6.	進行交換並不依賴底層的傳輸或是儲存。7.	設計的準備相當快速。8.	讓設計者能夠管控自己對訊息的要求不需要再對此增加描述。
-一份CDA文件是由Header與Body兩部份所組成，整份文件是由`<ClinicalDocument>`的標籤所包含起來。Header的內容是要用來識別文件，其中包含身份驗證、病人、提供者與其他參與醫療服務人員的資訊，並可以分為以下三類[4]：1.	Header Attributes：定義文件識別之資訊、版本、時間等。2.	Header Participant：對文件的參與者定義了不同的角色，產生文件者(`Author`)、管理者(`Custodian`)、描述對象(病患)(`RecordTarget`)、文件確認者(`Authenticator`)、文件最後確認者(`LegalAuthenticator`)、文件接收者(`InformationRecipient`)、輸入資料者(`DataEnterer`)、可提供描述對象相關資訊者(`Informant`)、文件其他參與者(`Participant`)。3.	Header Relationships：定義病患在醫療過程中的其他資料，共五個部分：`relatedDocument`相關文件(Parent Document)、`inFullmentOf`產生此文件之醫令(Order)、`documentationOf`所要執行之項目(Server Event)、`componentOf`臨床資料(Encompassing Encounter)及`Authorization`相關之同意書(Consent)。
-而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。
-1.	NonXMLBody：非結構化的資料，會將資料直接存放至`<text>`標籤中。裡面可以是任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若資料可用XML表示，則不會放在NonXMLBody之中[5]。
-2.	StructureBody：結構化標記的資料，由一個或多個組件(Section Component)所組成，且可接受巢狀之組合。透過Section的方式來描述臨床內容，如檢驗結果、診斷內容等等，且Section間不會互相影響，而在Section中常用來描述文件內容的有下列幾個欄位：
-    * `Code`：每一個Section中，必須要有一個識別代碼，用來說明該Section所代表的內容，在HL7協會中以LOINC代碼做為範例。     * `Title`：用來表示此項Section的標題，可以呈現臨床文件內容中部分的意義。    * `Text`：用來存放所需要呈現內容的地方，也是用來存放臨床文件敘述或報告的地方。因為Section是一種敘述型態的區塊，它是屬於human-readable的部份，相對於電腦在Section就無法處理與解析，CDA Entry就代表著在CDA文件之中可由電腦處理的部份，Entry規範Section內容應包含哪些欄位及編碼的細項資訊。CDA定義了數種Entry Act，分別為：* `Observation`：代表一種觀察的聲明或是具體事實的描述。* `RegionOfInterest`：描述某個參考圖像的特定區域。* `ObservationMedia`：描述該CDA文件所包含的多媒體參考，此多媒體在意義上屬於該文件的一部份，但文件本身並不內嵌多媒體。* `SubstanceAdministration`：用來描述與藥物有關的事件。* `Supply`：用來描述其它Entry act所不足的內容。* `Procedure`：描述手術的相關內容。* `Encounter`：描述與病患相關事項。* `Organizer`：描述事件的共同關係或組織。* `Act`：不符合上述類別之事件均可用此類別描述。
+1.	保存性(Persistence)：一份臨床文件必須在不被修改的情況下，依照規定時間保存 (採用XML技術規範結構，可用電子檔案的方式永久儲存)。
+2.	管理性(Stewardship)：文件必須交由可信賴的機構管理。
+3.	認證機制(Potential for authentication)：一份由各種資訊所組成的臨床文件應包含有法律效力的認證。
+4.	內容性(Context)：一份臨床文件有一定的基本格式。
+5.	完整性(Wholeness)：整份文件須經過認證簽署而非只有部份文件。
+6.	易讀性(Human readability)：一份臨床文件必須要是人們可以閱讀的。
+
+而CDA的發展，希望能達到以下幾點目標[[4]]：
+
+1.	優先考量對病患的照護。
+2.	在符合成本效益的條件下，盡可能的將系統進行最廣泛的推廣。讓不同技術層面的使用者之間能進行human-readable的文件交換。
+3.	讓使用這個訊息架構下所產生之訊息能長久的使用。
+4.	文件進行交換後，處理與應用能更加廣泛。
+5.	能夠與大多數的文件產生軟體相容。
+6.	進行交換並不依賴底層的傳輸或是儲存。
+7.	設計的準備相當快速。
+8.	讓設計者能夠管控自己對訊息的要求不需要再對此增加描述。
+
+一份CDA文件是由Header與Body兩部份所組成，整份文件是由`<ClinicalDocument>`的標籤所包含起來。Header的內容是要用來識別文件，其中包含身份驗證、病人、提供者與其他參與醫療服務人員的資訊，並可以分為以下三類[[4]]：
+
+1.	Header Attributes：定義文件識別之資訊、版本、時間等。
+2.	Header Participant：對文件的參與者定義了不同的角色，產生文件者(`Author`)、管理者(`Custodian`)、描述對象(病患)(`RecordTarget`)、文件確認者(`Authenticator`)、文件最後確認者(`LegalAuthenticator`)、文件接收者(`InformationRecipient`)、輸入資料者(`DataEnterer`)、可提供描述對象相關資訊者(`Informant`)、文件其他參與者(`Participant`)。
+3.	Header Relationships：定義病患在醫療過程中的其他資料，共五個部分：`relatedDocument`相關文件(Parent Document)、`inFullmentOf`產生此文件之醫令(Order)、`documentationOf`所要執行之項目(Server Event)、`componentOf`臨床資料(Encompassing Encounter)及`Authorization`相關之同意書(Consent)。
+而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。
+	1.	`NonXMLBody`：非結構化的資料，會將資料直接存放至`<text>`標籤中。裡面可以是任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若資料可用XML表示，則不會放在NonXMLBody之中[[5]]。
+	2.	`StructureBody`：結構化標記的資料，由一個或多個組件(Section Component)所組成，且可接受巢狀之組合。透過Section的方式來描述臨床內容，如檢驗結果、診斷內容等等，且Section間不會互相影響，而在Section中常用來描述文件內容的有下列幾個欄位：
+		* `Code`：每一個Section中，必須要有一個識別代碼，用來說明該Section所代表的內容，在HL7協會中以LOINC代碼做為範例。
+		* `Title`：用來表示此項Section的標題，可以呈現臨床文件內容中部分的意義。
+		* `Text`：用來存放所需要呈現內容的地方，也是用來存放臨床文件敘述或報告的地方。
+
+因為Section是一種敘述型態的區塊，它是屬於human-readable的部份，相對於電腦在Section就無法處理與解析，CDA Entry就代表著在CDA文件之中可由電腦處理的部份，Entry規範Section內容應包含哪些欄位及編碼的細項資訊。CDA定義了數種Entry Act，分別為：
+
+* `Observation`：代表一種觀察的聲明或是具體事實的描述。
+* `RegionOfInterest`：描述某個參考圖像的特定區域。
+* `ObservationMedia`：描述該CDA文件所包含的多媒體參考，此多媒體在意義上屬於該文件的一部份，但文件本身並不內嵌多媒體。
+* `SubstanceAdministration`：用來描述與藥物有關的事件。
+* `Supply`：用來描述其它Entry act所不足的內容。
+* `Procedure`：描述手術的相關內容。
+* `Encounter`：描述與病患相關事項。
+* `Organizer`：描述事件的共同關係或組織。
+* `Act`：不符合上述類別之事件均可用此類別描述。
 
 ## 第三節 XML
 
-	暫時沒內容
+可擴展標記語言(eXtensible Markup Language, XML)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從標準通用標記式語言(Standard Generalized Markup Language, SGML)中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言(eXtensible Stylesheet Language, XSL)、可擴展商業報告語言(eXtensible Business Reporting Language, XBRL)和XML路徑語言(XML Path Language, XPath)等。
+
+XML設計用來傳輸及儲存資料資訊，不用來顯示或展示資料，相對的HTML則是用來顯示資料，所以XML用途的重點是如下[[6]]：
+
+* 豐富文件(Rich Documents) - 自定檔案描述並使其更豐富
+	* 屬於檔案為主的XML技術應用
+	* 標記是用來定義一份資料應該如何呈現
+* 中繼資料(Metadata) - 描述其它檔案或網路資訊
+	* 屬於資料為主的XML技術應用
+	* 標記是用來說明一份資料的意義
+* 配置檔(Configuration Files) - 描述軟體設定的參數
+
+在根據Tim et al.的XML規範定義中指出，XML的設計目標是[[7]][[8]]：
+1. XML應該要直接可用於網際網路上2. XML應該可支援使用於各種應用上3. XML應能與SGML相容4. 處理XML文件應該易於寫入程序5. 在XML文件中可選擇的功能應減至最少，最好為無6. XML文件應該要是人可閱讀的且明確理解的7. XML設計應可迅速編寫8. XML文件設計應該要正式且簡潔的9. XML文件應該要易於建立10. 簡潔的XML標記是基本的
+
 
 ## 第四節 HTML5
 
@@ -251,6 +303,9 @@ CDA定義了完整的信息項目，可以包括文字，圖像，聲音和其�
 3. [K. W. Boone, "The CDA Book": Springer-Verlag London, 2011.][3]
 4. [Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005.][4]
 5. [T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010.][5]
+6. [XML - Wikipedia][6]
+7. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998][7]
+8. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008][8]
 
 [1]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
 [2]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區"
@@ -261,7 +316,10 @@ CDA定義了完整的信息項目，可以包括文字，圖像，聲音和其�
 [5]: http://link.springer.com/content/pdf/10.1007%2F978-1-84882-803-2_9 "T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010."
 <!--以上HL7 CDA參考-->
 
-
+[6]: http://zh.wikipedia.org/wiki/XML "XML - Wikipedia"
+[7]: http://www.w3.org/TR/1998/REC-xml-19980210 "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998"
+[8]: http://www.w3.org/TR/2008/REC-xml-20081126/ "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008"
+<!--以上XML參考-->
 
 ----
 # 檔案結尾
