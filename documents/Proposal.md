@@ -146,7 +146,7 @@ CDA定義了完整的信息項目，可以包括文字，圖像，聲音和其�
 
 ## 第三節 XML
 
-可擴展標記語言(eXtensible Markup Language, XML)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從標準通用標記式語言(Standard Generalized Markup Language, SGML)中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言(eXtensible Stylesheet Language, XSL)、可擴展商業報告語言(eXtensible Business Reporting Language, XBRL)和XML路徑語言(XML Path Language, XPath)等。
+可擴展標記語言(eXtensible Markup Language, XML)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從標準通用標記式語言(Standard Generalized Markup Language, SGML)中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言(eXtensible Stylesheet Language, XSL)、可擴展商業報告語言(eXtensible Business Reporting Language, XBRL)和XML路徑語言(XML Path Language, XPath)等[[6]]。
 
 XML設計用來傳輸及儲存資料資訊，不用來顯示或展示資料，相對的HTML則是用來顯示資料，所以XML用途的重點是如下[[6]]：
 
@@ -161,10 +161,45 @@ XML設計用來傳輸及儲存資料資訊，不用來顯示或展示資料，�
 在根據Tim et al.的XML規範定義中指出，XML的設計目標是[[7]][[8]]：
 1. XML應該要直接可用於網際網路上2. XML應該可支援使用於各種應用上3. XML應能與SGML相容4. 處理XML文件應該易於寫入程序5. 在XML文件中可選擇的功能應減至最少，最好為無6. XML文件應該要是人可閱讀的且明確理解的7. XML設計應可迅速編寫8. XML文件設計應該要正式且簡潔的9. XML文件應該要易於建立10. 簡潔的XML標記是基本的
 
-
 ## 第四節 HTML5
 
-	暫時沒內容
+HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，再於2007年獲W3C接納，並成立了新的HTML工作團隊。它是HTML下一個主要的版本，現在仍處於發展階段。目標是要取代1999年所制定的HTML 4.01和XHTML 1.0標準，以期望能在網際網路應用迅速發展的時候，使網路標準符合現代的網路需求。廣義的說HTML5，實際指的就是包括HTML、CSS和JavaScript在內的一套技術集合。它希望能夠減少瀏覽器需要外掛程式的豐富性網路應用服務(plug-in-based rich internet application, RIA)，如Adobe Flash、Microsoft Silverlight，與Oracle JavaFX的需求，並且能夠提供更多有效增強網路應用的標準[[9]]。
+
+![HTML5 Logo](./ref/HTML5_Logo_128.png)
+
+圖4 HTML5 Logo(W3C)[[19]]
+
+在2010年的4月時Steve Jobs發表了一篇名為「對Flash的思想」的文章[[10]]，內容中指出隨著HTML5的發展，觀看視訊或其它內容時，Adobe Flash將不再是必須的。這引發了開發人員間的爭論，包括HTML5雖然提供了增強的功能，但開發人員必須考慮到不同瀏覽器對標準不同部分的支援程度的不同，以及HTML5和Flash間的功能差異。
+
+在HTML5中，比起HTML 4.01多出了更多的RIA支援，也增加了以往要使用Flash等外掛程式才能使用的API資源，這些API現在都透過瀏覽器原生就可以存取使用[[9]][[11]]，其規範和相關的技術詳細如圖3所示：
+
+* 即時二維繪圖
+	* Canvas API：有關動態產出與渲染圖形、圖表、圖像和動畫的API
+* 定時媒體播放
+	* HTML5 音訊與視頻：HTML5裡新增的元素，它們為開發者提供了一套通用的、整合的、腳本式的處理音訊與視頻的API，而無需安裝任何外掛程式
+* 離線儲存資料庫(離線網路應用程式)[[12]]
+* 編輯
+* 拖放
+* 跨文件通訊[[13]]
+* 通訊/網路
+	* Communication APIs：構建實時和跨域（cross-origin）通訊的兩大基礎：跨文件通訊(Cross Document Messaging)與XMLHttpRequest Level 2
+* 瀏覽歷史管理
+* MIME和協議處理程式時表頭登記
+* 微資料
+
+以上技術儘管是WHATWG HTML說明文件的內容，但並沒有全部包括在W3C HTML5的說明文件里。[[14]]一些相關的技術，像下面所列的，並沒有包括在這兩份文件中的任何一份中。W3C給這些技術單獨出版了說明文件。
+
+* Geolocation API：使用者可共享地理位置，並在Web應用的協助下享用位置感知服務(location-aware services)
+* 索引資料庫API(Indexed Database API, 以前為WebSimpleDB)[[15]]
+* 檔案API：處理檔案上傳和操縱檔案[[16]]
+* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下儲存要求[[17]]
+* 檔案寫入：從網路應用程式向檔案里寫內容[[18]]
+
+![HTML5規範和相關的技術](./ref/HTML5-APIs-and-related-technologies-by-Sergey-Mavrody.png)
+
+圖3 HTML5規範和相關的技術(Sergey Mavrody, 2011, CC Attribution-ShareAlike 3.0)[[20]]
+
+目前對於HTML5普遍的誤解是HTML5能夠在網頁中提供動畫效果。實際上HTML5的動畫效果是由JavaScript和CSS互相使用而達成的。
 
 ## 第五節 雲端運算
 
@@ -306,6 +341,18 @@ XML設計用來傳輸及儲存資料資訊，不用來顯示或展示資料，�
 6. [XML - Wikipedia][6]
 7. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998][7]
 8. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008][8]
+9. [HTML5 - Wikipedia][9]
+10. [Steve Jobs, Thoughts on Flash, Apple Inc., 2010][10]
+11. [Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012][11]
+12. [Ian Hickson, Web Storage, W3C Candidate Recommendation][12]
+13. [Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation][13]
+14. [Ian Hickson, HTML Living Standard, WHATWG][14]
+15. [Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft][15]
+16. [Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft][16]
+17. [Eric Uhrhane, File API: Directories and System, W3C Working Draft][17]
+18. [Eric Uhrhane, File API: Writer, W3C Working Draft][18]
+19. [W3C HTML5 Logo][19]
+20. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][20]
 
 [1]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
 [2]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區"
@@ -320,6 +367,23 @@ XML設計用來傳輸及儲存資料資訊，不用來顯示或展示資料，�
 [7]: http://www.w3.org/TR/1998/REC-xml-19980210 "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998"
 [8]: http://www.w3.org/TR/2008/REC-xml-20081126/ "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008"
 <!--以上XML參考-->
+
+[9]: http://zh.wikipedia.org/wiki/HTML5 "HTML5 - Wikipedia"
+[10]: http://www.apple.com/hotnews/thoughts-on-flash/ "Steve Jobs, Thoughts on Flash, Apple Inc., 2010"
+[11]: http://www.w3.org/TR/2012/WD-html5-diff-20121025/ "Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012"
+[12]: http://www.w3.org/TR/2011/CR-webstorage-20111208/ "Ian Hickson, Web Storage, W3C Candidate Recommendation"
+[13]: http://www.w3.org/TR/2012/CR-webmessaging-20120501/ "Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation"
+[14]: http://www.whatwg.org/specs/web-apps/current-work/multipage/ "Ian Hickson, HTML Living Standard, WHATWG"
+[15]: http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft"
+[16]: http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft"
+[17]: http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "Eric Uhrhane, File API: Directories and System, W3C Working Draft"
+[18]: http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "Eric Uhrhane, File API: Writer, W3C Working Draft"
+[19]: http://www.w3.org/html/logo/ "W3C HTML5 Logo"
+[20]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
+<!--以上HTML5參考-->
+
+
+<!--以上雲端運算參考-->
 
 ----
 # 檔案結尾
