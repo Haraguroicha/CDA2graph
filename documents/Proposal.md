@@ -195,7 +195,23 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 
 ## 第五節 雲端運算
 
-	暫時沒內容
+雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變。雲端運算通常可以認為包括以下三個層次的服務：基礎設施即服務(Infrastructure as a service, IaaS)、平台即服務(Platform as a service, PaaS)和軟體即服務(Software as a service, SaaS)。雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
+
+根據美國國家標準和技術研究院的定義[[21]]，雲端運算服務應該具備以下幾條特徵：
+
+* 需要時即可使用的自助服務：不需要人的操作即可以自動化的將需要的資源啓用
+* 寬頻網路存取：使用任何的網路或裝置存取
+* 資源池：可以將資源集合在一起，並且可以提供多人共享使用
+* 可快速重新佈署：當有需求的時候可以自動化的重製來擴展服務寬度
+* 可被監控與量測的服務：讓系統可以很清楚的知道使用的狀況，並且可以控制和優化使用的資源
+
+除此之外通常還有以下認知特徵[[22]]：
+
+* 基於虛擬化技術快速部署資源或獲得服務
+* 減少使用者端的處理負擔
+* 降低使用者對於IT專業知識的依賴
+
+
 
 ----
 # 第三章 研究方法
@@ -345,6 +361,8 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 18. [Eric Uhrhane, File API: Writer, W3C Working Draft][18]
 19. [W3C HTML5 Logo][19]
 20. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][20]
+21. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][21]
+22. [雲端運算 - Wikipedia][22]
 
 [1]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
 [2]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區"
@@ -374,7 +392,8 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 [20]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
 <!--以上HTML5參考-->
 
-
+[21]: http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011"
+[22]: http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "雲端運算 - Wikipedia"
 <!--以上雲端運算參考-->
 
 ----
