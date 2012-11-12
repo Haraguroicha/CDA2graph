@@ -195,7 +195,7 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 
 ## 第五節 雲端運算
 
-雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變。雲端運算通常可以認為包括以下三個層次的服務：基礎設施即服務(Infrastructure as a service, IaaS)、平台即服務(Platform as a service, PaaS)和軟體即服務(Software as a service, SaaS)。雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
+雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變。雲端運算通常可以認為包括以下三個層次的服務：基礎設施即服務(Infrastructure as a service, IaaS)，即是使用「基礎運算資源」，如處理能力、儲存空間、網路元件或中介軟體，使用者能掌握作業系統、儲存空間及已部署的應用程式和網路元件(如防火牆、負載平衡器等)，但並不掌握雲端基礎架構。例如: Amazon AWS；平台即服務(Platform as a service, PaaS)，即是使用主機操作應用程式，使用者有掌控運作應用程式的環境(也擁有主機部分掌控權)，但並不掌控作業系統、硬體或運作的網路基礎架構。使用的平台通常是應用程式基礎架構。例如: Google App Engine；軟體即服務(Software as a service, SaaS)，即是使用應用程式，但並不擁有作業系統、硬體或運作的網路基礎架構，是一種服務的觀念基礎，軟體服務的供應商以租賃的方式提供客戶服務，而非購買，比較常見的模式是提供帳號密碼來操作使用。例如: Microsoft CRM。這些雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
 
 根據美國國家標準和技術研究院的定義[[21]]，雲端運算服務應該具備以下幾條特徵：
 
@@ -211,7 +211,30 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 * 減少使用者端的處理負擔
 * 降低使用者對於IT專業知識的依賴
 
+在具有上述特徵的狀況下，三層次的服務還可以衍變為下列七種服務模式[[23]]：
 
+1. 儲存即服務(Storage as a service, STaaS)
+2. 安全即服務(Security as a service, SECaaS)
+3. 資料即服務(Data as a service, DaaS)
+4. 測試環境即服務(Test environment as a service, TEaaS)
+5. 桌面虛擬化(Desktop virtualization)
+6. 應用程式界面即服務(API as a service, APIaaS)
+7. (行動)終端即服務((Mobile) Backend as a service, (M)BaaS)
+
+在雲端運算的部署方式主要分為四種[[22]]：
+
+1. 公用雲(Public Cloud)：可透過網路及第三方服務供應者開放給客戶使用，但並不一定代表「免費」，可能代表免費或相當廉價，公用雲並不表示使用者資料可供任何人檢視，供應者通常會對使用者設定使用存取控制機制，公用雲作為解決方案是既有彈性又具備成本效益
+2. 私有雲(Private Cloud)：具備許多公用雲環境的優點，例如彈性、適合提供服務，兩者差在於私有雲的資料與程式皆在組織內管理，且與公用雲不同，不會受到網路頻寬、安全疑慮或法規限制影響；此外，私有雲服務讓供應者及使用者更能掌控雲端基礎架構、改善安全與彈性，因為使用者與網路都受到特殊限制
+3. 社群雲(Community Cloud)：由眾多利益相仿的組織掌控及使用，例如特定安全需求、共同宗旨等。社群成員共同使用雲端資料及應用程式
+4. 混合雲(Hybrid Cloud)：結合公用雲及私有雲，在這種模式中，使用者通常將非企業關鍵資訊外包，並在公用雲上處理，但同時掌控企業關鍵服務及資料
+
+集合了上述的各種特徵與部署方式，稱之為雲端運算的核心特性至少有下述幾點[[22]]：
+
+1. 應用程式介面(API)的可達性是指允許軟體與雲端以類似「人機互動這種使用者介面的互動相互一致的方式」來互動
+2. 裝置允許使用者透過網頁瀏覽器來獲取資源，而不論使用者是透過何種裝置，或在何地使用(如：電腦、筆記型電腦或手機、行動裝置等)，使用者可以從任何地方來以網際網路的方式取得資源
+3. 如果使用多個多個站點，則改進可靠性，這讓設計的雲端運算符合商業一致性以及災難備援
+4. 效能受到監控，同時使用web services作為系統的管理介面
+5. 維護雲端運算應用程式應該是很簡單的，因為使用者已經不再需要在本機上進行安裝。一旦更新到了使用者端，它們將更容易的得到支援以及改進
 
 ----
 # 第三章 研究方法
@@ -363,6 +386,7 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 20. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][20]
 21. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][21]
 22. [雲端運算 - Wikipedia][22]
+23. [Cloud Computing - Wikipedia][23]
 
 [1]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
 [2]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區"
@@ -394,6 +418,7 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 
 [21]: http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011"
 [22]: http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "雲端運算 - Wikipedia"
+[23]: http://en.wikipedia.org/wiki/Cloud_computing "Cloud Computing - Wikipedia"
 <!--以上雲端運算參考-->
 
 ----
