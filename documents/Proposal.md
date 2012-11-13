@@ -122,7 +122,7 @@ CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲�
 一份CDA文件是由Header與Body兩部份所組成，整份文件是由`<ClinicalDocument>`的標籤所包含起來。Header的內容是要用來識別文件，其中包含身份驗證、病人、提供者與其他參與醫療服務人員的資訊，並可以分為以下三類[[4]]：
 
 1.	`Attributes`：定義文件識別之資訊、版本、時間等。
-### 2.	`Participant`：對文件的參與者定義了不同的角色，產生文件者(`Author`)、管理者(`Custodian`)、記錄對象(病患)(`RecordTarget`)、文件認證者(`Authenticator`)、文件最後認證者(`LegalAuthenticator`)、資訊接收者(`InformationRecipient`)、輸入資料者(`DataEnterer`)、可提供描述對象相關資訊(`Informant`)、文件的其他參與者(`Participant`)。
+2.	`Participant`：對文件的參與者定義了不同的角色，產生文件者(`Author`)、管理者(`Custodian`)、記錄對象(病患)(`RecordTarget`)、文件認證者(`Authenticator`)、文件最後認證者(`LegalAuthenticator`)、資訊接收者(`InformationRecipient`)、輸入資料者(`DataEnterer`)、可提供描述對象相關資訊(`Informant`)、文件的其他參與者(`Participant`)。
 3.	`Relationships`：定義病患在醫療過程中的其他資料，共五個部分：`relatedDocument`相關文件(Parent Document)、`inFullmentOf`產生此文件之醫令(Order)、`documentationOf`所要執行之項目(Server Event)、`componentOf`臨床資料(Encompassing Encounter)及`Authorization`相關之同意書(Consent)。
 而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。
 	1.	`NonXMLBody`：非結構化的資料，會將資料直接存放至`<text>`標籤中。裡面可以是任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若資料可用XML表示，則不會放在NonXMLBody之中[[5]]。
