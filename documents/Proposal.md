@@ -3,7 +3,7 @@
 ### *Design and implementation of using a cloud computing platform to build the electronic medical record viewer integration system*
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 論文摘要
-鑒於國內電子病歷已施行多年，但這些資料仍存放在各家醫療單位所屬的資訊系統，導致民眾在每次的就醫過程中更是無法使用散落在各醫療院所的病歷資料。直至目前為止，衛生署實施的『醫院實施電子病歷及互通補助計畫』中，公告了「醫療影像報告」、「出院病歷摘要」、「血液檢驗報告」與「門診用藥」等四張病歷單張，同時，在『99年度加速診所實施電子病歷推廣案』中追加了「西醫門診」、「中醫門診」和「牙醫門診」等三張門診病歷單張作為交換使用。但資料在交換之後若要到其他醫療院所使用，倘若沒有建置該病歷單張的匯入中介程式，則失去了資料交換的意義容，若有一平台能夠統一的讓醫護人員可以直接瀏覽這些無法匯入至系統的交換資料則能夠大幅的增加資料交換的可用性！故本研究將以行政院衛生署公告的電子病歷交換標準文件為例，並且將目前實際運作的四個正式單張與診間使用的三張門診單張來製作通用的樣板檔，並且提供給各醫療院所有個製作樣板的編輯器，藉此方便開發未來還尚未正式使用108張。本研究之系統提供給醫療院所及病患使用兩種途徑，並在系統中區分出檢視器及編輯器兩大部分。提供全國醫療院所可以將建立的電子病歷表單單張範本上傳，並且可供不同醫療院所檢視病歷時可快速套用自行設計的樣板。令使用本系統的使用者可節省電子病歷導入轉換的時間與成本及人力。可以使引進本系統功能的醫療資訊系統可以利用本系統的API產生電子報表。為了使電子病歷最終可以顯示成為圖表化的病歷資料，如同實際在紙本作業程序中的感受一致，故依照系統使用的相關人員而區分為醫事單位、醫事人員、一般民眾等三大類。本研究預期完成設計出一套電子病歷檢視器的雲端應用平台，供使用者在任何有網路的環境皆能使用此一平台瀏覽手邊的電子病歷資料，並且可以讓醫療院所自行插入該單位設計的樣板檔，讓使用者可以直接瀏覽使用也不影響檔案在各單位之間的資料交換，除資料交換以外也可讓醫療資訊系統呼叫引用本系統的檢視功能，以達到符合SaaS概念的雲端服務，並能夠對臺灣的電子病歷交換能夠有所幫助！
+鑒於國內電子病歷已施行多年，但這些資料仍存放於各醫療單位的資訊系統內，民眾就醫過程中並無法使用這些散落的資料。至目前為止，衛生署實施的『醫院實施電子病歷及互通補助計畫』與『99年度加速診所實施電子病歷推廣案』中，公告與實作七個單張作為交換使用。但在交換之後若沒有該病歷單張的匯入中介程式，則失去交換的意義。本研究將以公告的標準文件來設計一套電子病歷檢視器的雲端平台，供使用者在任何環境皆能使用此一平台瀏覽手邊的病歷資料，並讓醫療院所能自行設計檢視畫面，且不影響資料交換，最後能達到SaaS概念的雲端服務，並能對臺灣的電子病歷交換夠有所幫助！
 
 **關鍵字：_電子病歷、XML、CDA、雲端、檢視器、HTML5_**
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -82,12 +82,14 @@ CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲�
 1.	`Attributes`：定義文件識別之資訊、版本、時間等。
 2.	`Participant`：對文件的參與者定義了不同的角色，產生文件者(`Author`)、管理者(`Custodian`)、記錄對象(病患)(`RecordTarget`)、文件認證者(`Authenticator`)、文件最後認證者(`LegalAuthenticator`)、資訊接收者(`InformationRecipient`)、輸入資料者(`DataEnterer`)、可提供描述對象相關資訊(`Informant`)、文件的其他參與者(`Participant`)。
 3.	`Relationships`：定義病患在醫療過程中的其他資料，共五個部分：`relatedDocument`相關文件(Parent Document)、`inFullmentOf`產生此文件之醫令(Order)、`documentationOf`所要執行之項目(Server Event)、`componentOf`臨床資料(Encompassing Encounter)及`Authorization`相關之同意書(Consent)。
+
 而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。
-	1.	`NonXMLBody`：非結構化的資料，會將資料直接存放至`<text>`標籤中。裡面可以是任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若資料可用XML表示，則不會放在NonXMLBody之中[[6]]。
-	2.	`StructureBody`：結構化標記的資料，由一個或多個組件(Section Component)所組成，且可接受巢狀之組合。透過Section的方式來描述臨床內容，如檢驗結果、診斷內容等等，且Section間不會互相影響，而在Section中常用來描述文件內容的有下列幾個欄位：
-		* `Code`：每一個Section中，必須要有一個識別代碼，用來說明該Section所代表的內容，在HL7協會中以LOINC代碼做為範例。
-		* `Title`：用來表示此項Section的標題，可以呈現臨床文件內容中部分的意義。
-		* `Text`：用來存放所需要呈現內容的地方，也是用來存放臨床文件敘述或報告的地方。
+
+1.	`NonXMLBody`：非結構化的資料，會將資料直接存放至`<text>`標籤中。裡面可以是任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若資料可用XML表示，則不會放在NonXMLBody之中[[6]]。
+2.	`StructureBody`：結構化標記的資料，由一個或多個組件(Section Component)所組成，且可接受巢狀之組合。透過Section的方式來描述臨床內容，如檢驗結果、診斷內容等等，且Section間不會互相影響，而在Section中常用來描述文件內容的有下列幾個欄位：
+	* `Code`：每一個Section中，必須要有一個識別代碼，用來說明該Section所代表的內容，在HL7協會中以LOINC代碼做為範例。
+	* `Title`：用來表示此項Section的標題，可以呈現臨床文件內容中部分的意義。
+	* `Text`：用來存放所需要呈現內容的地方，也是用來存放臨床文件敘述或報告的地方。
 
 因為Section是一種敘述型態的區塊，它是屬於Human-Readable的部份，相對於電腦在Section就無法處理與解析，CDA Entry就代表著在CDA文件之中可由電腦處理的部份，Entry規範Section內容應包含哪些欄位及編碼的細項資訊。CDA定義了數種Entry Act，分別為：
 
@@ -119,26 +121,26 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 ## 第四節 HTML5
 HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，再於2007年獲W3C接納，並成立了新的HTML工作團隊。它是HTML下一個主要的版本，現在仍處於發展階段。目標是要取代1999年所制定的HTML 4.01和XHTML 1.0標準，以期望能在網際網路應用迅速發展的時候，使網路標準符合現代的網路需求。廣義的說HTML5，實際指的就是包括HTML、CSS和JavaScript在內的一套技術集合。它希望能夠減少瀏覽器需要外掛程式的豐富性網路應用服務(plug-in-based Rich Internet Application, `RIA`)，如Adobe Flash、Microsoft Silverlight，與Oracle JavaFX的需求，並且能夠提供更多有效增強網路應用的標準[[10]]。  
 在2010年的4月時Steve Jobs發表了一篇名為「對Flash的思想」的文章[[11]]，內容中指出隨著HTML5的發展，觀看視訊或其它內容時，Adobe Flash將不再是必須的。這引發了開發人員間的爭論，包括HTML5雖然提供了增強的功能，但開發人員必須考慮到不同瀏覽器對標準不同部分的支援程度的不同，以及HTML5和Flash間的功能差異。  
-在HTML5中，比起HTML 4.01多出了更多的RIA支援，也增加了以往要使用Flash等外掛程式才能使用的API資源，這些API現在都透過瀏覽器原生就可以存取使用[[10], [12]]，其規範和相關的技術詳細請參考[[10], [20]]。
+在HTML5中，比起HTML 4.01多出了更多的RIA支援，也增加了以往要使用Flash等外掛程式才能使用的API資源，這些API現在都透過瀏覽器原生就可以存取使用[[10], [12]]，其規範和相關的技術詳細請參考[[10], [13]]。
 
-* 即時二維繪圖 - Canvas API：有關動態產出與渲染圖形、圖表、圖像和動畫的API
-* 定時媒體播放 - HTML5 音訊與視頻：HTML5裡新增的元素，它們為開發者提供了一套通用的、整合的、腳本式的處理音訊與視頻的API，而無需安裝任何外掛程式
-* 離線儲存資料庫(離線網路應用程式)[[13]]：可以讓網頁不需要網路的狀態下儲存資料或存取資料，等有網路的時候再依照設計的模型決定是否要與伺服器同步資料
+* 即時二維繪圖(Canvas API)：有關動態產出與渲染圖形、圖表、圖像和動畫的API
+* 定時媒體播放(HTML5音訊與視頻)：HTML5裡新增的元素，它們為開發者提供了一套通用的、整合的、腳本式的處理音訊與視頻的API，而無需安裝任何外掛程式
+* 離線儲存資料庫(離線網路應用程式)[[14]]：可以讓網頁不需要網路的狀態下儲存資料或存取資料，等有網路的時候再依照設計的模型決定是否要與伺服器同步資料
 * 編輯：讓網頁直接編輯，不再需要透過編輯器或所見即得編輯器
 * 拖放：使檔案的選擇不需要經由系統的對話視窗選擇即可使用拖放的方式將檔案放置在網頁中讓應用程式讀取資料
-* 跨文件通訊[[14]]：可以跨不同的頁面或者網站的文件通訊，前提是有設定好一致的通訊tag
-* 通訊/網路 - Communication APIs：構建實時和跨域(Cross-Origin)通訊的兩大基礎：跨文件通訊(Cross Document Messaging)與XMLHttpRequest Level 2
+* 跨文件通訊[[15]]：可以跨不同的頁面或者網站的文件通訊，前提是有設定好一致的通訊tag
+* 通訊/網路(Communication APIs)：構建實時和跨域(Cross-Origin)通訊的兩大基礎：跨文件通訊(Cross Document Messaging)與XMLHttpRequest Level 2
 * 瀏覽歷史管理
 * MIME和協議處理程式時表頭登記
 * 微資料
 
-以上技術是WHATWG HTML說明文件所列述的內容，但並沒有全部包括在W3C HTML5的文件里。[[15]]一些相關的技術，像下面所列的，並沒有包括在這兩份文件中的任何一份中。W3C給這些技術單獨公開了說明文件。
+以上技術是WHATWG HTML說明文件所列述的內容，但並沒有全部包括在W3C HTML5的文件里。[[16]]一些相關的技術，像下面所列的，並沒有包括在這兩份文件中的任何一份中。W3C給這些技術單獨公開了說明文件。
 
 * Geolocation API：使用者可共享地理位置，並在Web應用程式的協助下使用位置感知服務(Location-Aware Services)
-* 索引資料庫API(Indexed Database API, 以前為WebSimpleDB)[[16]]
-* 檔案API：處理檔案上傳和操縱檔案[[17]]
-* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下的檔案儲存要求[[18]]
-* 檔案寫入：從網路應用程式向檔案裡寫資料內容[[19]]
+* 索引資料庫API(Indexed Database API, 以前為WebSimpleDB)[[17]]
+* 檔案API：處理檔案上傳和操縱檔案[[18]]
+* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下的檔案儲存要求[[19]]
+* 檔案寫入：從網路應用程式向檔案裡寫資料內容[[20]]
 
 目前對於HTML5普遍的誤解是HTML5能夠在網頁中提供動畫效果。實際上HTML5的動畫效果是由JavaScript和CSS互相使用而達成的。
 
@@ -296,14 +298,14 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 10. [HTML5 - Wikipedia][10]
 11. [Steve Jobs, Thoughts on Flash, Apple Inc., 2010][11]
 12. [Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012][12]
-13. [Ian Hickson, Web Storage, W3C Candidate Recommendation][13]
-14. [Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation][14]
-15. [Ian Hickson, HTML Living Standard, WHATWG][15]
-16. [Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft][16]
-17. [Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft][17]
-18. [Eric Uhrhane, File API: Directories and System, W3C Working Draft][18]
-19. [Eric Uhrhane, File API: Writer, W3C Working Draft][19]
-20. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][20]
+13. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][13]
+14. [Ian Hickson, Web Storage, W3C Candidate Recommendation][14]
+15. [Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation][15]
+16. [Ian Hickson, HTML Living Standard, WHATWG][16]
+17. [Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft][17]
+18. [Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft][18]
+19. [Eric Uhrhane, File API: Directories and System, W3C Working Draft][19]
+20. [Eric Uhrhane, File API: Writer, W3C Working Draft][20]
 21. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][21]
 22. [雲端運算 - Wikipedia][22]
 23. [Cloud Computing - Wikipedia][23]
@@ -326,14 +328,14 @@ HTML5草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，
 [10]: http://zh.wikipedia.org/wiki/HTML5 "HTML5 - Wikipedia"
 [11]: http://www.apple.com/hotnews/thoughts-on-flash/ "Steve Jobs, Thoughts on Flash, Apple Inc., 2010"
 [12]: http://www.w3.org/TR/2012/WD-html5-diff-20121025/ "Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012"
-[13]: http://www.w3.org/TR/2011/CR-webstorage-20111208/ "Ian Hickson, Web Storage, W3C Candidate Recommendation"
-[14]: http://www.w3.org/TR/2012/CR-webmessaging-20120501/ "Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation"
-[15]: http://www.whatwg.org/specs/web-apps/current-work/multipage/ "Ian Hickson, HTML Living Standard, WHATWG"
-[16]: http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft"
-[17]: http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft"
-[18]: http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "Eric Uhrhane, File API: Directories and System, W3C Working Draft"
-[19]: http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "Eric Uhrhane, File API: Writer, W3C Working Draft"
-[20]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
+[13]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
+[14]: http://www.w3.org/TR/2011/CR-webstorage-20111208/ "Ian Hickson, Web Storage, W3C Candidate Recommendation"
+[15]: http://www.w3.org/TR/2012/CR-webmessaging-20120501/ "Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation"
+[16]: http://www.whatwg.org/specs/web-apps/current-work/multipage/ "Ian Hickson, HTML Living Standard, WHATWG"
+[17]: http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft"
+[18]: http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft"
+[19]: http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "Eric Uhrhane, File API: Directories and System, W3C Working Draft"
+[20]: http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "Eric Uhrhane, File API: Writer, W3C Working Draft"
 <!--以上HTML5參考-->
 
 [21]: http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011"
