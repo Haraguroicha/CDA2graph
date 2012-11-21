@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<scenario xmlns="http://www.omnigroup.com/namespace/OmniPlan/v2" id="bxLJ2dRpQEq">
+  <start-date>2012-06-30T16:00:00.000Z</start-date>
+  <granularity>days</granularity>
+  <prototype-task>
+    <task id="t-2">
+      <title>Task 1</title>
+      <effort>28800</effort>
+    </task>
+  </prototype-task>
+  <prototype-task>
+    <task id="t-3">
+      <title>Milestone 1</title>
+      <type>milestone</type>
+    </task>
+  </prototype-task>
+  <prototype-task>
+    <task id="t-4">
+      <title>Group 1</title>
+      <type>group</type>
+    </task>
+  </prototype-task>
+  <prototype-resource>
+    <resource id="r-2">
+      <name>Resource 1</name>
+      <type>Staff</type>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r-3">
+      <name>Equipment 1</name>
+      <type>Equipment</type>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r-4">
+      <name>Material 1</name>
+      <type>Material</type>
+      <units-available>0</units-available>
+      <efficiency>0</efficiency>
+    </resource>
+  </prototype-resource>
+  <prototype-resource>
+    <resource id="r-5">
+      <name>Group 1</name>
+      <type>Group</type>
+    </resource>
+  </prototype-resource>
+  <top-resource idref="r-1"/>
+  <resource id="r-1">
+    <type>Group</type>
+    <schedule>
+      <schedule-day day-of-week="sunday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <schedule-day day-of-week="monday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <schedule-day day-of-week="tuesday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <schedule-day day-of-week="wednesday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <schedule-day day-of-week="thursday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <schedule-day day-of-week="friday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <schedule-day day-of-week="saturday">
+        <time-span start-time="0" end-time="86400"/>
+      </schedule-day>
+      <calendar name="Time Off" editable="yes" overtime="no"/>
+      <calendar name="Overtime" editable="yes" overtime="yes"/>
+    </schedule>
+    <child-resource idref="r1"/>
+  </resource>
+  <resource id="r1">
+    <name>Resource 1</name>
+    <type>Staff</type>
+  </resource>
+  <top-task idref="t-1"/>
+  <task id="t-1">
+    <type>group</type>
+    <child-task idref="t1"/>
+    <child-task idref="t2"/>
+    <child-task idref="t3"/>
+    <child-task idref="t10"/>
+    <child-task idref="t4"/>
+    <child-task idref="t12"/>
+    <child-task idref="t9"/>
+    <child-task idref="t17"/>
+    <child-task idref="t22"/>
+  </task>
+  <task id="t1">
+    <title>搜索文獻</title>
+    <effort>2592000</effort>
+    <effort-done>2592000</effort-done>
+    <locked-start-date>2012-06-30T16:00:00.000Z</locked-start-date>
+    <locked-end-date>2012-07-30T16:00:00.000Z</locked-end-date>
+    <recalculate>effort</recalculate>
+  </task>
+  <task id="t2">
+    <title>編寫提案論文</title>
+    <schedule-type>alap</schedule-type>
+    <effort>7344000</effort>
+    <effort-done>7257600</effort-done>
+    <locked-start-date>2012-08-28T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t3">
+    <title>撰寫初步系統程式</title>
+    <effort>7862400</effort>
+    <effort-done>7862400</effort-done>
+    <locked-start-date>2012-07-30T16:00:00.000Z</locked-start-date>
+    <locked-end-date>2012-10-29T16:00:00.000Z</locked-end-date>
+    <recalculate>effort</recalculate>
+  </task>
+  <task id="t4">
+    <title>發表提案</title>
+    <effort>82800</effort>
+    <locked-start-date>2012-11-26T16:00:00.000Z</locked-start-date>
+    <locked-end-date>2012-11-27T15:00:00.000Z</locked-end-date>
+    <recalculate>effort</recalculate>
+  </task>
+  <task id="t5">
+    <title>醫事單位開發界面</title>
+    <effort>12700800</effort>
+    <locked-start-date>2012-11-27T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t6">
+    <title>樣板檔資料庫</title>
+    <effort>10886400</effort>
+    <locked-start-date>2012-11-27T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t7">
+    <title>組合形成檢視</title>
+    <effort>12700800</effort>
+    <locked-start-date>2012-11-27T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t8">
+    <title>API介面</title>
+    <effort>7257600</effort>
+    <locked-start-date>2013-01-31T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t9">
+    <title>系統開發</title>
+    <type>group</type>
+    <child-task idref="t5"/>
+    <child-task idref="t6"/>
+    <child-task idref="t7"/>
+    <child-task idref="t8"/>
+  </task>
+  <task id="t10">
+    <title>系統分析與設計</title>
+    <effort>7862400</effort>
+    <effort-done>7862400</effort-done>
+    <locked-start-date>2012-07-27T16:00:00.000Z</locked-start-date>
+    <locked-end-date>2012-10-26T16:00:00.000Z</locked-end-date>
+    <recalculate>effort</recalculate>
+  </task>
+  <task id="t12">
+    <title>系統建制</title>
+    <type>group</type>
+    <start-constraint-date>2012-07-30T16:00:00.000Z</start-constraint-date>
+    <child-task idref="t13"/>
+    <child-task idref="t14"/>
+    <child-task idref="t15"/>
+    <child-task idref="t18"/>
+    <child-task idref="t19"/>
+    <child-task idref="t20"/>
+    <child-task idref="t21"/>
+  </task>
+  <task id="t13">
+    <title>研究CDA架構</title>
+    <effort>10886400</effort>
+    <effort-done>2419200</effort-done>
+    <locked-start-date>2012-10-19T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t14">
+    <title>分析電子病歷文件單張</title>
+    <effort>8467200</effort>
+    <locked-start-date>2012-11-27T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t15">
+    <title>研究XPath特性</title>
+    <effort>604800</effort>
+    <locked-start-date>2012-11-29T16:00:00.000Z</locked-start-date>
+    <locked-end-date>2012-12-06T16:00:00.000Z</locked-end-date>
+    <recalculate>effort</recalculate>
+  </task>
+  <task id="t17">
+    <title>系統測試</title>
+    <effort>26611200</effort>
+    <effort-done>7862400</effort-done>
+    <locked-start-date>2012-07-30T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t18">
+    <title>系統框架</title>
+    <effort>15120000</effort>
+    <effort-done>7862400</effort-done>
+    <locked-start-date>2012-07-30T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t19">
+    <title>檔案解析介面</title>
+    <effort>2419200</effort>
+    <locked-start-date>2012-11-30T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t20">
+    <title>模板編輯框架</title>
+    <effort>4838400</effort>
+    <locked-start-date>2012-12-19T16:00:00.000Z</locked-start-date>
+  </task>
+  <task id="t21">
+    <title>樣板管理</title>
+    <effort>3628800</effort>
+    <start-constraint-date>2013-01-19T16:00:00.000Z</start-constraint-date>
+  </task>
+  <task id="t22">
+    <title>預計發表論文</title>
+    <schedule-type>alap</schedule-type>
+    <effort>2419200</effort>
+    <start-constraint-date>2013-05-19T16:00:00.000Z</start-constraint-date>
+  </task>
+  <critical-path root="-1" enabled="false" resources="false">
+    <color r="1" g="0.5" b="0.5"/>
+  </critical-path>
+</scenario>
