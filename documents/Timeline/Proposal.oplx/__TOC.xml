@@ -12,7 +12,7 @@
         <column name="Title" width="266"/>
         <column name="Effort" width="58"/>
         <expanded-items idrefs="t12 t9"/>
-        <selected-items-at-filter-time idrefs="t9 t13 t21 t18 t2 t22 t14 t3 t19 t10 t4 t15 t5 t11 t6 t16 t7 t20 t12 t8 t17"/>
+        <selected-items-at-filter-time idrefs="t9 t13 t21 t18 t2 t22 t14 t3 t19 t10 t4 t23 t15 t5 t6 t7 t20 t12 t8 t17"/>
       </outline>
       <gantt-view x="-29" y="0" w="730" h="659">
         <view-mode>actual</view-mode>
@@ -59,14 +59,14 @@
     </task-view>
     <resource-view>
       <split-view-divider-position>306</split-view-divider-position>
-      <outline x="0" y="0" w="291" h="593">
+      <outline x="0" y="0" w="306" h="674">
         <column name="IM" width="20"/>
         <column name="Notes" width="20"/>
         <column name="Type" width="49"/>
         <column name="Resource" width="121"/>
         <column name="#" width="75"/>
       </outline>
-      <timeline x="-107" y="0" w="630" h="593">
+      <timeline x="-83" y="0" w="738" h="674">
         <task-bar-label task-type="group" position="left">
           <key>Title</key>
         </task-bar-label>
@@ -108,7 +108,7 @@
     </resource-view>
     <calendar>
       <split-view-divider-position>290</split-view-divider-position>
-      <outline x="0" y="0" w="275" h="572">
+      <outline x="0" y="0" w="290" h="657">
         <column name="IM" width="20"/>
         <column name="Notes" width="20"/>
         <column name="Type" width="49"/>
@@ -120,7 +120,7 @@
   </window>
   <project>
     <title>CDA2graph</title>
-    <next-task-id>23</next-task-id>
+    <next-task-id>24</next-task-id>
     <next-resource-id>2</next-resource-id>
     <scenario id="bxLJ2dRpQEq" name="Actual" filename="Actual.xml"/>
     <date-display dates="true" times="false" seconds="false"/>

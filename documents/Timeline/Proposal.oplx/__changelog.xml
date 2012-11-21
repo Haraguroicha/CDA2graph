@@ -167,6 +167,14 @@
     <change idref="t2" attribute="scheduleType" type="real" from="0" to="1" resolved="yes"/>
     <change idref="t22" attribute="scheduleType" type="real" from="0" to="1" resolved="yes"/>
   </task-change-set>
+  <task-change-set user="腹黒い茶" date="2012-11-21T18:23:51.106Z" timestamp="2012-11-21T18:23:51.106Z">
+    <change idref="t23" to="t-1" to-position="7" resolved="yes">
+      <change idref="t23" attribute="effort" type="real" from="28800" to="2419200"/>
+      <change idref="t23" attribute="startConstraintDate" type="date" to="2013-02-21T16:00:00.000Z"/>
+      <change idref="t23" attribute="startLockedDate" type="date" to="2013-02-21T16:00:00.000Z"/>
+      <change idref="t23" attribute="title" type="string" to="雲端部署"/>
+    </change>
+  </task-change-set>
   <resource-change-set user="腹黒い茶" date="2012-11-21T15:45:50.434Z" timestamp="2012-11-21T15:45:50.434Z">
     <change idref="r-1" attribute="standardHoursString" type="string" from="-;-;-;-;-;-;-" to="0,86400;0,86400;0,86400;0,86400;0,86400;0,86400;0,86400" resolved="yes"/>
   </resource-change-set>

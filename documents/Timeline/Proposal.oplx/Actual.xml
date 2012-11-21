@@ -90,6 +90,7 @@
     <child-task idref="t4"/>
     <child-task idref="t12"/>
     <child-task idref="t9"/>
+    <child-task idref="t23"/>
     <child-task idref="t17"/>
     <child-task idref="t22"/>
   </task>
@@ -221,6 +222,12 @@
     <schedule-type>alap</schedule-type>
     <effort>2419200</effort>
     <start-constraint-date>2013-05-19T16:00:00.000Z</start-constraint-date>
+  </task>
+  <task id="t23">
+    <title>雲端部署</title>
+    <effort>2419200</effort>
+    <locked-start-date>2013-02-21T16:00:00.000Z</locked-start-date>
+    <start-constraint-date>2013-02-21T16:00:00.000Z</start-constraint-date>
   </task>
   <critical-path root="-1" enabled="false" resources="false">
     <color r="1" g="0.5" b="0.5"/>
