@@ -64,7 +64,7 @@ CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲�
 5.	完整性(Wholeness)：整份文件須經過認證簽署而非只有部份文件且不可分塊
 6.	易讀性(Human readability)：一份臨床文件必須要是人們可以閱讀的
 
-一份CDA文件是由Header與Body兩部份所組成，整份文件是由`<ClinicalDocument>`的標籤所包含起來。Header的內容是要用來識別文件，其中包含認證、病人、提供者與其他參與醫療服務人員的資訊，並可以分為`Attributes`及`Participant`與`Relationships`等三大類。而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。  
+一份CDA文件是由Header與Body兩部份所組成，整份文件是由`<ClinicalDocument>`的標籤所包含起來。Header的內容是要用來識別文件，其中包含簽章者、病人、提供者與其他參與醫療服務人員的資訊，並可以分為`Attributes`及`Participant`與`Relationships`等三大類。而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。  
 在`NonXMLBody`中，是表示一序列非結構化的資料，因此會將資料直接存放至`<text>`元素中。在裡面可以描述任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若描述的資料可用XML表示，則不會放在`NonXMLBody`之中[[6]]。  
 `StructureBody`是一個結構化的標記資料，由一個或多個區段組件(Section Component)所組成，且是一個可以接受巢狀元素的組合。透過Section的方式來描述臨床內容，如檢驗結果、診斷內容等等，且Section與Section之間不會互相影響，而在Section中常用來描述文件內容的有`Code`與`Title`及`Text`等三個元素來描述一個臨床上的敘述或者報告的內容。  
 因為Section是屬於一種敘述型態的區塊，它是Human-Readable的內容，相對於電腦在此就無法準確的處理與解析，而Entry就代表著在CDA文件之中可由電腦處理的部份，Entry規範了Section內容應包含哪些欄位及編碼的細項資訊。在CDA之中有定義了數種Entry，分別為：
