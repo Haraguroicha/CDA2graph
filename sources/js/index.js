@@ -1,4 +1,5 @@
 function initialization() {
+	var LOAD_ERROR = "Loading Error!!";
 	window.namespaces = "cda2g.hhmr.biz";
 	$(function() {
 		$( "#plLoader" ).dialog({
@@ -7,7 +8,15 @@ function initialization() {
 			modal: true,
 			show: { effect: "drop", direction: "left" },
 			hide: { effect: "drop", direction: "right" },
-			open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+			open: function(event, ui) {
+				$(".ui-dialog-titlebar-close").hide();
+				if($.browser.msie) {
+					$( "#plLoader" ).attr("title", LOAD_ERROR);
+					$(".ui-dialog-title").html(LOAD_ERROR)
+					$( "#plLoader > article" ).html("Does not support Internet Explorer yet!!<br /><br />Please using Google Chrome to access this site.");
+					$( "#plProgress" ).progressbar({value: 100});
+				}
+			},
 			close: function(event,ui) { setTimeout("core.init(); core.Pages.addPage(); sample();", 100); },
 			closeOnEscape: false,
 			draggable: false,
@@ -15,19 +24,21 @@ function initialization() {
 		});
 	});
 	$( "#plProgress" ).progressbar({value: 0});
-	pl.addModule("jquery.scroll.Extensions");
-	pl.addModule("etc.first");
-	pl.addModule("stackTrace");
-	pl.addModule("core");
-	pl.addModule("core.UI");
-	pl.addModule("core.Date");
-	pl.addModule("core.Tabs");
-	pl.addModule("core.Files");
-	pl.addModule("core.Pages");
-	pl.addModule("core.logger");
-	pl.addModule("Extensions");
-	pl.addModule("etc.last");
-	pl.init();
+	if(!$.browser.msie) {
+		pl.addModule("jquery.scroll.Extensions");
+		pl.addModule("etc.first");
+		pl.addModule("stackTrace");
+		pl.addModule("core");
+		pl.addModule("core.UI");
+		pl.addModule("core.Date");
+		pl.addModule("core.Tabs");
+		pl.addModule("core.Files");
+		pl.addModule("core.Pages");
+		pl.addModule("core.logger");
+		pl.addModule("Extensions");
+		pl.addModule("etc.last");
+		pl.init();
+	}
 }
 initialization();
 function main() {

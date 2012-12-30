@@ -19,6 +19,7 @@ var core = new function _core() {
 			else
 				_$("pageNum").innerHTML=this.core.Pages.getPageNumber();
 		}, true);
+		$("<div id='textPaddingWrapper'></div>").text("textPaddingWrapper_1234567890_~!@#$%^&*()_+?").appendTo($(document));
 		
 		this.setDropArea(_$$(".page-wrapper")[0], _$("fileImporter"));
 		this.UI.resize();

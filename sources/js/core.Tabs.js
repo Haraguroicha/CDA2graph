@@ -1,6 +1,6 @@
 core.Tabs = new function Tabs() {
 	var prefix = "menuItem_";
-	var menuList = _$("menubox").getElementsByTagName("ul")[0];
+	var menuList = $("#menubox > ul")[0];
 	var buttons = [];
 	var _constructor = function _constructor(px) {
 		var prefix = px;

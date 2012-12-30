@@ -1,5 +1,6 @@
 * {
-	font-family: Helvetica,Arial,sans-serif;
+	/*font-family: Helvetica,Arial,sans-serif;*/
+	font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif;
 }
 body {
 	background-color: #333;
@@ -8,6 +9,13 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+}
+#textPaddingWrapper, .page-view > article > section.cda-widget > article {
+	font-size: 14px;
+	line-height: 20px;
+	color: #333;
+	padding: 0px;
+	margin: 0px;
 }
 .page-wrapper {
 	overflow: auto;
