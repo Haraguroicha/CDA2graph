@@ -11,6 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
+		<link rel="language" type="application/l10n" href="locale/locale.properties"/>
+		<script type="text/javascript" src="js/l10n.js"></script>
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -19,8 +21,9 @@
 		<base href="#" target="_self" />
 	</head>
 	<body>
-		<div id="plLoader" title="Application Initialzation">
-			<article>Application still loading...</article>
+		<object type="text/html" rel="X-UI-Components" data="components/page.html"></object>
+		<div id="plLoader" title="">
+			<article data-l10n-id="appLoading"></article>
 			<div id="progressbarWrapper" style="height:22px; " class="ui-widget-default">
 				<div id="plProgress" style="height:100%;"></div>
 			</div>
@@ -30,11 +33,11 @@
 			<header><nav><div id="menubox"><ul></ul></div></nav></header>
 			<article class="page-viewpoint">
 				<section class="page-viewpoint">
-					<header><div id="pageNum" style="visibility: hidden;"></div></header>
+					<header><pageNum style="visibility: hidden;"></pageNum></header>
 					<article></article>
 				</section>
 			</article>
 		</section>
-		<div id="fileImporter" class="text"><span>Drag 'n Drop a file into this container</span></div>
+		<div id="fileImporter" class="text"><span data-l10n-id="dragNdrop"></span></div>
 	</body>
 </html>

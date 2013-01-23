@@ -1,6 +1,13 @@
 * {
 	/*font-family: Helvetica,Arial,sans-serif;*/
-	font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif;
+	font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif !important;
+}
+object[rel="X-UI-Components"] {
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
+	padding: 0px;
+	margin: 0px;
 }
 body {
 	background-color: #333;
@@ -60,24 +67,6 @@ section.page-viewpoint {
 	overflow-x: hidden;
 	overflow-y: scroll;
 }
-#pageNum:before {
-	content: '第 ';
-}
-#pageNum:after {
-	content: ' 頁';
-}
-#pageNum {
-	position: fixed;
-	bottom: 10px;
-	right: 10px;
-	color: white;
-	text-shadow: 3px 3px 10px gray;
-	border: solid 1px lightgray;
-	border-radius: 5px;
-	padding: 5px 7px 5px 7px;
-	background-color: rgba(80, 80, 80, 0.75);
-	z-index: 99;
-}
 #baseView {
 	width: 210mm;
 	height: 297mm;
@@ -87,6 +76,7 @@ section.page-viewpoint {
 	left: -65535px;
 }
 .page-view {
+	display: block;
 	margin-top: 15px;
 	margin-bottom: 15px;
 	margin-left: 3mm;
@@ -185,7 +175,7 @@ section.page-viewpoint {
 }
 #fileImporter * {
 	font-size: 30pt;
-	font-family: 'Comic Sans MS';
+	font-family: 'Comic Sans MS' !important;
 	text-shadow: 0px 0px 0px transparent, 0px -1px 1px rgba(169, 169, 169, 0.75);
 	color: white;
 }

@@ -8,16 +8,18 @@ var core = new function _core() {
 			this.core.UI.setUI();
 		}, false);
 		document.addEventListener("mousewheel", function (e) {
-			if(_$("pageNum").innerText)
-				_$("pageNum").innerText=this.core.Pages.getPageNumber();
-			else
-				_$("pageNum").innerHTML=this.core.Pages.getPageNumber();
+			var page = this.core.Pages.getPageNumber();
+			$("pageNum").html(sprintf("<first class='l10n'>%s</first><middle class='l10n'>%s</middle><last class='l10n'>%s</last><now>%s</now><total>%s</total>",
+				_("core_pageNum_firstContent"), _("core_pageNum_middleContent"), _("core_pageNum_lastContent"),
+				page[0], page[1])
+			);
 		}, false);
 		document.addEventListener("scroll", function (e) {
-			if(_$("pageNum").innerText)
-				_$("pageNum").innerText=this.core.Pages.getPageNumber();
-			else
-				_$("pageNum").innerHTML=this.core.Pages.getPageNumber();
+			var page = this.core.Pages.getPageNumber();
+			$("pageNum").html(sprintf("<first class='l10n'>%s</first><middle class='l10n'>%s</middle><last class='l10n'>%s</last><now>%s</now><total>%s</total>",
+				_("core_pageNum_firstContent"), _("core_pageNum_middleContent"), _("core_pageNum_lastContent"),
+				page[0], page[1])
+			);
 		}, true);
 		$("<div id='textPaddingWrapper'></div>").text("textPaddingWrapper_1234567890_~!@#$%^&*()_+?").appendTo($(document));
 		

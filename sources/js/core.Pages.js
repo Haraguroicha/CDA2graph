@@ -4,15 +4,15 @@ core.Pages = new function Pages() {
 	pageTester.id = "pageTester";
 	var pageArticle = _$x("//section[@class='page-viewpoint']/article")[0];
 	this.getPageNumber = function getPageNumber() {
-		return Math.floor(1 + _$$(".page-viewpoint")[1].scrollTop / (_$("baseView").offsetHeight + 17)) + " of " + _$$(".page-view").length;
+		return [Math.floor(1 + $(".page-viewpoint")[1].scrollTop / (_$("baseView").offsetHeight + 17)), $(".page-view").length];
 	}
 	this.getPage = function getPage(page) {
 		if(typeof(page) == "number")
-			return _$$(".page-view")[page - 1].getElementsByTagName("article")[0];
+			return $(".page-view")[page - 1].getElementsByTagName("article")[0];
 		return undefined;
 	}
 	this.getPages = function getPages() {
-		return _$$(".page-view").length;
+		return $(".page-view").length;
 	}
 	this.getLastPage = function getLastPage() {
 		return this.getPage(this.getPages());
@@ -37,20 +37,19 @@ core.Pages = new function Pages() {
 		$(art).scroll(function(event){ this.scrollTop = 0; });
 		pageArticle.appendChild(sec);
 		core.UI.resize();
-		//this.scrollTo(this.getPages());
 		return this.getPage(pageNum);
 	}
 	this.removePage = function removePage(p) {
-		if(_$$(".page-view").length >= p) {
-			var pv = _$$(".page-view")[p - 1];
+		if($(".page-view").length >= p) {
+			var pv = $(".page-view")[p - 1];
 			pv.parentNode.removeChild(pv);
 			core.UI.resize();
 			this.scrollTo(p - 1);
 		}
 	}
 	this.scrollTo = function scrollTo(p) {
-		if(p < _$$(".page-view").length && p > 0)
-			_$$(".page-viewpoint")[1].scrollTop = _$$(".page-view")[p - 1].offsetTop - 5;
+		if(p < $(".page-view").length && p > 0)
+			$(".page-viewpoint")[1].scrollTop = $(".page-view")[p - 1].offsetTop - 5;
 	}
 	this.getLineHeight = function getLineHeight() {
 		if(lineHeight == -1) {
@@ -81,6 +80,7 @@ core.Pages = new function Pages() {
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return this.addPage(nextScrollTop).appendHTML(html);
 		}
+		this.updateX_UI();
 		return lastPage;
 	}
 	this.addContent = function addContent(page, html, offsetTop) {
@@ -113,5 +113,18 @@ core.Pages = new function Pages() {
 	}
 	this.contentFrom = function contentFrom(src) {
 		_$("baseView").innerHTML = src.innerHTML;
+	}
+	this.updateX_UI = function updateX_UI() {
+		var xui = "X-UI-Components";
+		$("object[rel~='" + xui + "']").each(function (objIndex, objElement) {
+			$(objElement.contentDocument.documentElement).find("element>template").each(function (tempIndex, tempElement) {
+				var targetElement = $(tempElement).parent().attr("extends");
+				core.logger.log(sprintf("Updating X-UI-Components: `%s`", targetElement));
+				targetElement += ":not([rel~='" + xui + "'])";
+				$(targetElement).each(function (shadowIndex, shadowElement) {
+					$(shadowElement).attr("rel", xui)[0].webkitCreateShadowRoot().appendChild(tempElement.content);
+				});
+			});
+		});
 	}
 }

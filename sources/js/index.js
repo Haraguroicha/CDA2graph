@@ -1,6 +1,7 @@
 function initialization() {
 	var LOAD_ERROR = "Loading Error!!";
 	window.namespaces = "cda2g.hhmr.biz";
+	document.title += " - Loading...";
 	$(function() {
 		$( "#plLoader" ).dialog({
 			width: 600,
@@ -10,11 +11,13 @@ function initialization() {
 			hide: { effect: "drop", direction: "right" },
 			open: function(event, ui) {
 				$(".ui-dialog-titlebar-close").hide();
+				$("#plLoader").attr("data-l10n-id", "appInitializing");
+				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "appInitializing");
 				if($.browser.msie) {
-					$( "#plLoader" ).attr("title", LOAD_ERROR);
-					$(".ui-dialog-title").html(LOAD_ERROR)
-					$( "#plLoader > article" ).html("Does not support Internet Explorer yet!!<br /><br />Please using Google Chrome to access this site.");
-					$( "#plProgress" ).progressbar({value: 100});
+					$("#plLoader").attr("title", LOAD_ERROR);
+					$("#ui-dialog-title-plLoader").html(LOAD_ERROR);
+					$("#plLoader > article").html(_("notSupportBrowser"));
+					$("#plProgress").progressbar({value: 100});
 				}
 			},
 			close: function(event,ui) { setTimeout("core.init(); core.Pages.addPage(); sample();", 100); },
@@ -42,8 +45,8 @@ function initialization() {
 }
 initialization();
 function main() {
-	$( '#plLoader article:first' ).html("Application Initialzation Completed !!");
-	setTimeout("$( '#plLoader' ).dialog('close');", 1000);
+	$('#plLoader article:first').html(_('appLoaded'));
+	setTimeout("$('#plLoader').dialog('close');", 1000);
 }
 function sample() {
 	setTimeout('core.Pages.appendHTML("test測試123 ".repeat(50));', 500);

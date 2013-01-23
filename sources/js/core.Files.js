@@ -20,14 +20,50 @@ core.Files = new function Files() {
 					reader.onload = (
 						function (obj, fs) {
 							return function (e) {
-								obj[fs.name] = {};
 								var f = obj[fs.name];
+								if(f == undefined) f = {};
 								f.name = fs.name;
 								f.data = e.target.result;
 								f.date = fs.lastModifiedDate;
 								f.size = e.total;
-								obj["./size"] += f.size;
-								core.logger.log(sprintf("loaded file: `%s`(%s bytes)", f.name, f.size));
+								f.isDoc = ((f.data.match(/<\?xml.+\?>\s+<ClinicalDocument.+>[\w\W\s]+<\/ClinicalDocument>\s?/)) ? true : false);
+								f.xml = null;
+								try {
+									f.xml = new DOMParser().parseFromString(f.data, "application/xml").documentElement;
+								} catch(e) {
+									f.isDoc = false;
+								}
+								if(f.isDoc) {
+									obj["./size"] += f.size;
+									core.logger.log(sprintf("ClinicalDocument loaded: `%s`(%s bytes)", f.name, f.size));
+									obj[f.name] = f;
+								} else {
+									core.logger.log(sprintf("loaded file: `%s`(%s bytes), but that is not valid ClinicalDocument.", f.name, f.size));
+									$("<div title='" + _("mistypeCDA") + "'/>")
+										.html(_("canNotReadCDA"))
+										.dialog({
+											width: 600,
+											height: 250,
+											modal: true,
+											show: { effect: "drop", direction: "up" },
+											hide: { effect: "drop", direction: "up" },
+											open: function(event, ui) {},
+											close: function(event,ui) {},
+											buttons: [
+												{
+													text: _("retryCDA"),
+													class: "btn btn-danger",
+													click: function() {
+														$(this).dialog('close');
+													}
+												}
+											],
+											closeOnEscape: true,
+											draggable: false,
+											resizable: false
+										})
+									;
+								}
 							};
 						}(files, fs)
 					);
