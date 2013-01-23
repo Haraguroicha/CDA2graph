@@ -1,0 +1,53 @@
+/*@import url(//fonts.googleapis.com/css?family=Ubuntu|Baumans);*/
+@font-face {
+	font-family: 'cdaFont';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Ubuntu'), url(fonts/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+	unicode-range: U+21-29, U+2e-2f, U+3a, U+3c-3e, U+40, U+41-5a, U+5b-60, U+61-7a, U+7b-7e;
+}
+@font-face {
+	font-family: 'cdaFont';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Baumans'), local('Baumans-Regular'), url(fonts/2ubZIIQ7fL9WqPm8AQpgnwLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+	unicode-range: U+2a-2d, U+30-39, U+3b, U+3f;
+}
+/*
+@font-face {
+	font-family: 'cdaFont';
+	src: local("LiHei Pro"), local("儷黑 Pro");
+	unicode-range: U+270C;
+}
+@font-face {
+	font-family: 'cdaFont';
+	src: local("微軟正黑體"), local("Microsoft JhengHei");
+	unicode-range: U+270C;
+}
+@font-face {
+	font-family: 'cdaFont';
+	src: local("新細明體"), local("PMingLiu");
+	unicode-range: U+270C;
+}
+CJK Unified Ideographs				U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF,
+CJK Unified Ideographs Extension A	U+3400-4DBF,
+CJK Unified Ideographs Extension B	U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF,
+CJK Unified Ideographs Extension C	U+2A700-2B73F,
+CJK Unified Ideographs Extension D	U+2B740-2B81F,
+CJK Compatibility Ideographs		U+F900-FAFF
+*/
+@font-face {
+	font-family: 'cdaFont-zh';
+	src: local('HanWangHeiLight'), url(wt011.ttf) format('TypeTure');
+	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
+}
+@font-face {
+	font-family: 'cdaFont-ja';
+	src: local('KozGoPr6N-Regular'), url(KozGoPr6N-Regular.otf) format('OpenType');
+	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
+}
+@font-face {
+	font-family: 'cdaFont-ko';
+	src: local('Baekmuk-Gulim'), url(baekmukgulim.ttf) format('TypeTure');
+	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
+}

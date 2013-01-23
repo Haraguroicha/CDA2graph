@@ -1,6 +1,8 @@
+@import url(fonts.css);
 * {
 	/*font-family: Helvetica,Arial,sans-serif;*/
-	font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif !important;
+	/*font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif !important;*/
+	/*font-family: cdaFont;*/
 }
 object[rel="X-UI-Components"] {
 	visibility: hidden;

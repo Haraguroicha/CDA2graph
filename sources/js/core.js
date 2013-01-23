@@ -8,18 +8,10 @@ var core = new function _core() {
 			this.core.UI.setUI();
 		}, false);
 		document.addEventListener("mousewheel", function (e) {
-			var page = this.core.Pages.getPageNumber();
-			$("pageNum").html(sprintf("<first class='l10n'>%s</first><middle class='l10n'>%s</middle><last class='l10n'>%s</last><now>%s</now><total>%s</total>",
-				_("core_pageNum_firstContent"), _("core_pageNum_middleContent"), _("core_pageNum_lastContent"),
-				page[0], page[1])
-			);
+			return core.UI.refreshPageNumber();
 		}, false);
 		document.addEventListener("scroll", function (e) {
-			var page = this.core.Pages.getPageNumber();
-			$("pageNum").html(sprintf("<first class='l10n'>%s</first><middle class='l10n'>%s</middle><last class='l10n'>%s</last><now>%s</now><total>%s</total>",
-				_("core_pageNum_firstContent"), _("core_pageNum_middleContent"), _("core_pageNum_lastContent"),
-				page[0], page[1])
-			);
+			return core.UI.refreshPageNumber();
 		}, true);
 		$("<div id='textPaddingWrapper'></div>").text("textPaddingWrapper_1234567890_~!@#$%^&*()_+?").appendTo($(document));
 		

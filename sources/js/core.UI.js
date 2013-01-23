@@ -18,6 +18,18 @@ core.UI = new function _UI() {
 		
 		delete evt;
 	}
+	this.refreshPageNumber = function refreshPageNumber() {
+		var page = core.Pages.getPageNumber();
+		var pageData = sprintf("<first class='l10n'>%s</first><middle class='l10n'>%s</middle><last class='l10n'>%s</last><now>%s</now><total>%s</total>",
+			_("core_pageNum_firstContent"), _("core_pageNum_middleContent"), _("core_pageNum_lastContent"),
+			page[0], page[1]
+		).replace(/'/g, '"');
+		if($("pageNum").html() != pageData) {
+			$("pageNum").html(pageData);
+			core.logger.log(sprintf("Scrolled to Page %s of %s", page[0], page[1]));
+		}
+		return pageData;
+	}
 	this.changeLanguage = function changeLanguage(lang) {
 		if(lang == undefined || lang == "") lang = navigator.language;
 		if(document.webL10n) {
@@ -31,6 +43,10 @@ core.UI = new function _UI() {
 					core.logger.log(sprintf("Language changed to %s", document.webL10n.getLanguage()));
 				}, 100);
 			}, 100);
+			var cjk = lang.split("-")[0];
+			var fontFamily = "'cdaFont'" + ((cjk == "zh" || cjk == "ko" || cjk == "ja") ? ", 'cdaFont-" + cjk + "'" : "");
+			$("*").css("font-family", fontFamily);
+			core.logger.log(sprintf("Change font to `%s` by language: %s", fontFamily, lang));
 		}
 	}
 }
