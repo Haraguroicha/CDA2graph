@@ -80,7 +80,7 @@ core.Pages = new function Pages() {
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return this.addPage(nextScrollTop).appendHTML(html);
 		}
-		this.updateX_UI();
+		core.UI.updateX_UI();
 		return lastPage;
 	}
 	this.addContent = function addContent(page, html, offsetTop) {
@@ -113,18 +113,5 @@ core.Pages = new function Pages() {
 	}
 	this.contentFrom = function contentFrom(src) {
 		_$("baseView").innerHTML = src.innerHTML;
-	}
-	this.updateX_UI = function updateX_UI() {
-		var xui = "X-UI-Components";
-		$("object[rel~='" + xui + "']").each(function (objIndex, objElement) {
-			$(objElement.contentDocument.documentElement).find("element>template").each(function (tempIndex, tempElement) {
-				var targetElement = $(tempElement).parent().attr("extends");
-				core.logger.log(sprintf("Updating X-UI-Components: `%s`", targetElement));
-				targetElement += ":not([rel~='" + xui + "'])";
-				$(targetElement).each(function (shadowIndex, shadowElement) {
-					$(shadowElement).attr("rel", xui)[0].webkitCreateShadowRoot().appendChild(tempElement.content);
-				});
-			});
-		});
 	}
 }

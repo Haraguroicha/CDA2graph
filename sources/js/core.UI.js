@@ -30,6 +30,19 @@ core.UI = new function _UI() {
 		}
 		return pageData;
 	}
+	this.updateX_UI = function updateX_UI() {
+		var xui = "X-UI-Components";
+		$("object[rel~='" + xui + "']").each(function (objIndex, objElement) {
+			$(objElement.contentDocument.documentElement).find("element>template").each(function (tempIndex, tempElement) {
+				var targetElement = $(tempElement).parent().attr("extends");
+				core.logger.log(sprintf("Updating X-UI-Components: `%s`", targetElement));
+				targetElement += ":not([rel~='" + xui + "'])";
+				$(targetElement).each(function (shadowIndex, shadowElement) {
+					$(shadowElement).attr("rel", xui)[0].webkitCreateShadowRoot().appendChild(tempElement.content);
+				});
+			});
+		});
+	}
 	this.changeLanguage = function changeLanguage(lang) {
 		if(lang == undefined || lang == "") lang = navigator.language;
 		if(document.webL10n) {

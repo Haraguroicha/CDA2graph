@@ -38,16 +38,16 @@ CJK Compatibility Ideographs		U+F900-FAFF
 */
 @font-face {
 	font-family: 'cdaFont-zh';
-	src: local('HanWangHeiLight'), url(wt011.ttf) format('TypeTure');
+	src: local('HanWangHeiLight'), url(fonts/wt011.ttf) format('TypeTure');
 	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
 }
 @font-face {
 	font-family: 'cdaFont-ja';
-	src: local('KozGoPr6N-Regular'), url(KozGoPr6N-Regular.otf) format('OpenType');
+	src: local('KozGoPr6N-Regular'), url(fonts/KozGoPr6N-Regular.otf) format('OpenType');
 	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
 }
 @font-face {
 	font-family: 'cdaFont-ko';
-	src: local('Baekmuk-Gulim'), url(baekmukgulim.ttf) format('TypeTure');
+	src: local('Baekmuk-Gulim'), url(fonts/baekmukgulim.ttf) format('TypeTure');
 	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
 }
