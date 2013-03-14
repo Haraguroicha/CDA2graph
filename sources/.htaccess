@@ -1,11 +1,19 @@
-#RewriteEngine on
-#RewriteCond %{HTTPS} =on
-#RewriteRule ^ - [E=isssl:https]
-#RewriteCond %{HTTPS} !=on
-#RewriteRule ^ - [E=isssl:http]
+<filesMatch "ssl.json$">
+FileETag None
+	<ifModule mod_headers.c>
+		RewriteEngine on
+		SetEnvIf Host (.*) http_host=$1
+		Header unset ETag
+		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+		Header set Pragma "no-cache"
+		Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+		Header set Access-Control-Allow-Origin "http://%{http_host}e"
+		Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
+		Header set Access-Control-Max-Age "1728000"
+		Header set Access-Control-Allow-Headers "*"
+	</ifModule>
+</filesMatch>
 
-#RewriteCond %{HTTP_USER_AGENT} Macintosh	[NC]
-#RewriteRule ^$	%{ENV:isssl}://cda2g.hhmr.biz/index.html?Mac	[R,L]
-
-AddType font/woff               .woff
 AddType text/plain              .properties
+AddType text/json               .json
+AddType font/woff               .woff

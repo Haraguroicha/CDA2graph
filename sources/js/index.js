@@ -1,6 +1,5 @@
 function initialization() {
 	var LOAD_ERROR = "Loading Error!!";
-	window.namespaces = "cda2g.hhmr.biz";
 	document.title += " - Loading...";
 	$(function() {
 		$( "#plLoader" ).dialog({
@@ -26,6 +25,31 @@ function initialization() {
 			resizable: false
 		});
 	});
+	var sslURL = location.href.replace(/^https?:\/\//,"https://") + "/../ssl.json";
+	if(location.protocol.match(/http(s?):/i)[1] == "")
+		$.ajax({
+			type: "GET",
+			url: sslURL,
+			dataType: "json",
+			success: function(data) {
+				if(data.ssl == true)
+					window.location.href = sslURL.replace(/\/\.\.\/ssl\.json$/, "");
+				else
+					pluginLoad();
+			},
+			error: function(xhr, statusText) {
+				if(location.href.indexOf("localhost") == -1)
+					if(statusText == "error")
+						$("#sslError").modal('show');
+			}
+		});
+	else
+		pluginLoad();
+}
+$(document).ready(function() {
+	initialization();
+});
+function pluginLoad() {
 	$( "#plProgress" ).progressbar({value: 0});
 	if(!$.browser.msie) {
 		pl.addModule("jquery.scroll.Extensions");
@@ -43,7 +67,6 @@ function initialization() {
 		pl.init();
 	}
 }
-initialization();
 function main() {
 	core.UI.changeLanguage();
 	$('#plLoader article:first').html(_('appLoaded'));

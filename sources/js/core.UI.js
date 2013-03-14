@@ -58,7 +58,7 @@ core.UI = new function _UI() {
 			}, 100);
 			var cjk = lang.split("-")[0];
 			var fontFamily = "'cdaFont'" + ((cjk == "zh" || cjk == "ko" || cjk == "ja") ? ", 'cdaFont-" + cjk + "'" : "");
-			$("*").css("font-family", fontFamily);
+			$("body > *").css("font-family", fontFamily);
 			core.logger.log(sprintf("Change font to `%s` by language: %s", fontFamily, lang));
 		}
 	}
