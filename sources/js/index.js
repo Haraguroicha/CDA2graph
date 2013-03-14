@@ -71,6 +71,16 @@ function main() {
 	core.UI.changeLanguage();
 	$('#plLoader article:first').html(_('appLoaded'));
 	setTimeout("$('#plLoader').dialog('close');", 1000);
+	$(window).on('popstate', function(e){
+		var state = e.originalEvent.state;
+		core.onCoreEvent = true;
+		switch(state.type) {
+			case "page":
+				core.Pages.scrollTo(state.data[0]);
+				break;
+		}
+		setTimeout("core.onCoreEvent = false;", 100);
+	});
 }
 function sample() {
 	setTimeout('core.Pages.appendHTML("<span id=\'testFont\'></span>");', 50);

@@ -1,4 +1,5 @@
 var core = new function _core() {
+	this.onCoreEvent = false;
 	this.init = function init() {
 		this.UI.setUI();
 		window.addEventListener("scroll", function (e) {

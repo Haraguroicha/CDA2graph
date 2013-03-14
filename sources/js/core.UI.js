@@ -26,6 +26,8 @@ core.UI = new function _UI() {
 		).replace(/'/g, '"');
 		if($("pageNum").html() != pageData) {
 			$("pageNum").html(pageData);
+			if(!core.onCoreEvent)
+				history.pushState({type: "page", data: page}, document.title, "./?page=" + page[0]);
 			core.logger.log(sprintf("Scrolled to Page %s of %s", page[0], page[1]));
 		}
 		return pageData;
