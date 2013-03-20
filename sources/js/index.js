@@ -17,6 +17,7 @@ function initialization() {
 					$("#ui-dialog-title-plLoader").html(LOAD_ERROR);
 					$("#plLoader > article").html(_("notSupportBrowser"));
 					$("#plProgress").progressbar({value: 100});
+					$('#unknownError').modal('show');
 				}
 			},
 			close: function(event,ui) { setTimeout("core.init(); core.Pages.addPage(); sample();", 100); },
