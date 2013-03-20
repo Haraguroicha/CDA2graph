@@ -21,6 +21,7 @@
 		<link rel="stylesheet" type="text/css" href="css/DarkCommon.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
 		<link rel="language" type="application/l10n" href="locale/locale.properties" />
+		<link rel="components" href="components/page.html">
 		<title>電子病歷檢視器</title>
 		<script type="text/javascript" src="js/l10n.js"></script>
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
@@ -31,7 +32,7 @@
 		<base href="#" target="_self" />
 	</head>
 	<body>
-		<object type="text/html" rel="X-UI-Components" data="components/page.html"></object>
+		<!--<object type="text/html" rel="X-UI-Components" data="components/page.html"></object>-->
 		<div id="plLoader">
 			<article data-l10n-id="appLoading"></article>
 			<div id="progressbarWrapper" style="height:22px; " class="ui-widget-default">
@@ -43,7 +44,7 @@
 			<header><nav><div id="menubox"><ul></ul></div></nav></header>
 			<article class="page-viewpoint">
 				<section class="page-viewpoint">
-					<header><pageNum style="visibility: hidden;"></pageNum></header>
+					<header><pageNum style="visibility: hidden;" is="pageNum"></pageNum></header>
 					<article></article>
 				</section>
 			</article>
@@ -71,5 +72,6 @@
 			<footer class="modal-footer"></footer>
 		</section>
 		<!--Modal Windows Area End-->
+		<script type="text/javascript" src="js/components-polyfill.js"></script>
 	</body>
 </html>

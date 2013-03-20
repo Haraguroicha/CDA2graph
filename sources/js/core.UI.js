@@ -33,13 +33,15 @@ core.UI = new function _UI() {
 		return pageData;
 	}
 	this.updateX_UI = function updateX_UI() {
+		return false;
 		var xui = "X-UI-Components";
 		$("object[rel~='" + xui + "']").each(function (objIndex, objElement) {
-			$(objElement.contentDocument.documentElement).find("element>template").each(function (tempIndex, tempElement) {
-				var targetElement = $(tempElement).parent().attr("extends");
+			$(objElement.contentDocument.documentElement).find("element template").each(function (tempIndex, tempElement) {
+				var targetElement = $(tempElement).parent().parent().attr("extends");
 				core.logger.log(sprintf("Updating X-UI-Components: `%s`", targetElement));
 				targetElement += ":not([rel~='" + xui + "'])";
 				$(targetElement).each(function (shadowIndex, shadowElement) {
+					console.log(tempElement.content)
 					$(shadowElement).attr("rel", xui)[0].webkitCreateShadowRoot().appendChild(tempElement.content);
 				});
 			});

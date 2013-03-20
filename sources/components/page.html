@@ -1,5 +1,5 @@
-<WebComponent>
-  <element extends="pageNum">
+<element extends="pageNum" name="pageNum" constructor="pageNum">
+  <decorator>
     <template>
       <style scoped="scoped">
         div {
@@ -15,9 +15,39 @@
           z-index: 99;
         }
       </style>
-      <div>
-        <content select="first.l10n"></content> <content select="now"></content> <content select="middle.l10n"></content> <content select="total"></content> <content select="last.l10n"></content>
+      <div id="pageNumber">
+        <content select="first.l10n"></content>
+        <span> </span>
+        <content select="now"></content>
+        <span> </span>
+        <content select="middle.l10n"></content>
+        <span> </span>
+        <content select="total"></content>
+        <span> </span>
+        <content select="last.l10n"></content>
       </div>
     </template>
-  </element>
-</WebComponent>
+    <script>
+      if (this !== window) {
+        var root = null;
+        var container = null;
+
+        pageNum.prototype = {
+          onClick: function(e) {
+            $(e.currentTarget).find("span").each(function(index, element) {
+              $(element).html("test");
+            });
+          }
+        };
+
+        this.lifecycle({
+          created: function(shadowRoot) {
+            root = shadowRoot;
+            container = root.querySelector('#pageNumber');
+            $(container).on('click', this.onClick);
+          }
+        });
+      }
+    </script>
+  </decorator>
+</element>
