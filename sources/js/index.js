@@ -38,7 +38,9 @@ function initialization() {
 					pluginLoad();
 			},
 			error: function(xhr, statusText) {
-				if(location.href.indexOf("localhost") == -1)
+				if(location.href.indexOf("localhost") != -1)
+					pluginLoad();
+				else
 					if(statusText == "error")
 						$("#sslError").modal('show');
 			}
