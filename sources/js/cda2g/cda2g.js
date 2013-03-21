@@ -1,4 +1,4 @@
-var core = new function _core() {
+var cda2g = new function _cda2g() {
 	this.onCoreEvent = false;
 	this.init = function init() {
 		this.UI.setUI();
@@ -6,13 +6,13 @@ var core = new function _core() {
 			window.scrollTo(0, 0);
 		}, false);
 		window.addEventListener("resize", function (e) {
-			this.core.UI.setUI();
+			this.cda2g.UI.setUI();
 		}, false);
 		document.addEventListener("mousewheel", function (e) {
-			return core.UI.refreshPageNumber();
+			return cda2g.UI.refreshPageNumber();
 		}, false);
 		document.addEventListener("scroll", function (e) {
-			return core.UI.refreshPageNumber();
+			return cda2g.UI.refreshPageNumber();
 		}, true);
 		$("<div id='textPaddingWrapper'></div>").text("textPaddingWrapper_1234567890_~!@#$%^&*()_+?").appendTo($(document));
 		
@@ -20,18 +20,18 @@ var core = new function _core() {
 		this.UI.resize();
 	}
 	this.setTitle = function setTitle(n, parent) {
-		this.enumerateCall(n, function(il) { core.getParent(il, parent).title = il.innerText; });
+		this.enumerateCall(n, function(il) { cda2g.getParent(il, parent).title = il.innerText; });
 	}
 	this.addEventListener = function addEventListener(n, evn, fn, parent) {
-		this.enumerateCall(n, function(il) { core.getParent(il, parent).addEventListener(evn, fn); });
+		this.enumerateCall(n, function(il) { cda2g.getParent(il, parent).addEventListener(evn, fn); });
 	}
 	this.removeEventListener = function removeEventListener(n, evn, fn, parent) {
-		this.enumerateCall(n, function(il) { core.getParent(il, parent).removeEventListener(evn, fn); });
+		this.enumerateCall(n, function(il) { cda2g.getParent(il, parent).removeEventListener(evn, fn); });
 	}
 	this.setActive = function setActive(obj, parent) {
 		var cssClass = "selectedItem";
-		this.enumerateCall(_$$("." + cssClass), function(il) { core.getParent(il, parent).classList.remove(cssClass); });
-		core.getParent(obj, parent).classList.add(cssClass);
+		this.enumerateCall(_$$("." + cssClass), function(il) { cda2g.getParent(il, parent).classList.remove(cssClass); });
+		cda2g.getParent(obj, parent).classList.add(cssClass);
 	}
 	this.setDropArea = function setDropArea(dpb, dpa) {
 		window.addEventListener("resize", function (e) {
@@ -45,7 +45,7 @@ var core = new function _core() {
 		}
 		var dpbf = function dpbDragHover(e) {
 			e.dataTransfer.dropEffect = "none";
-			if(e.type == "dragover" && core.Files.isFiles(e) && !(e.pageY < dpb.offsetHeight)) {
+			if(e.type == "dragover" && cda2g.Files.isFiles(e) && !(e.pageY < dpb.offsetHeight)) {
 				dpa.classList.add("DragDropArea");
 				this.classList.add("NonDragDropArea");
 			} else {
@@ -55,7 +55,7 @@ var core = new function _core() {
 		}
 		var dpaf = function dpaDragHover(e) {
 			e.dataTransfer.dropEffect = "link";
-			if(e.type == "dragover" && core.Files.isFiles(e)) {
+			if(e.type == "dragover" && cda2g.Files.isFiles(e)) {
 				this.classList.add("DragDropArea");
 				dpb.classList.add("NonDragDropArea");
 			} else {
@@ -67,7 +67,7 @@ var core = new function _core() {
 			e.preventDefault();
 			e.stopPropagation();
 			if(!this.classList.contains("NonDragDropArea")) {
-				core.Files.importFiles(e);
+				cda2g.Files.importFiles(e);
 			}
 			dpa.classList.remove("DragDropArea");
 			dpb.classList.remove("NonDragDropArea");

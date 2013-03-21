@@ -1,4 +1,4 @@
-core.Date = function _Date() {
+cda2g.Date = function _Date() {
 	var d = new Date();
 	var year = d.getFullYear();
 	var month = d.getMonth() + 1;

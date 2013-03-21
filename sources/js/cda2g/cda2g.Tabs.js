@@ -1,4 +1,4 @@
-core.Tabs = new function Tabs() {
+cda2g.Tabs = new function Tabs() {
 	var prefix = "menuItem_";
 	var menuList = $("#menubox > ul")[0];
 	var buttons = [];
@@ -50,20 +50,20 @@ core.Tabs = new function Tabs() {
 		}
 	}
 	this.tabClicked = function tabClicked() {
-		core.setActive(this);
-		var obj = buttons[core.Tabs.contains(this.title, true)];
+		cda2g.setActive(this);
+		var obj = buttons[cda2g.Tabs.contains(this.title, true)];
 		if(obj) {
-			core.logger.log(sprintf("Tab '%s' clicked and calling constructor > %s", this.title, obj.function));
+			cda2g.logger.log(sprintf("Tab '%s' clicked and calling constructor > %s", this.title, obj.function));
 			if(typeof(obj.function) == "function") obj.function(this);
 		}
 	}
 	this.refresh = function refresh() {
-		core.setTitle(_$x("//span[@class='iconLabel']"), 1);
-		core.removeEventListener(_$x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
-		core.addEventListener(_$x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
+		cda2g.setTitle(_$x("//span[@class='iconLabel']"), 1);
+		cda2g.removeEventListener(_$x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
+		cda2g.addEventListener(_$x("//span[@class='iconLabel']"), "click", this.tabClicked, 1);
 		var mb = _$("menubox");
 		mb.className = (mb.offsetHeight > 0) ? "show" : "";
-		setTimeout(function() {core.UI.resize();}, 500);
+		setTimeout(function() {cda2g.UI.resize();}, 500);
 	}
 	this.contains = function contains(name, needId) {
 		for(var k in buttons) {

@@ -1,4 +1,4 @@
-core.Files = new function Files() {
+cda2g.Files = new function Files() {
 	var files = {};
 	this.__defineGetter__("files", function() {return files;});
 	this.isFiles = function isFiles(e) {
@@ -35,10 +35,10 @@ core.Files = new function Files() {
 								}
 								if(f.isDoc) {
 									obj["./size"] += f.size;
-									core.logger.log(sprintf("ClinicalDocument loaded: `%s`(%s bytes)", f.name, f.size));
+									cda2g.logger.log(sprintf("ClinicalDocument loaded: `%s`(%s bytes)", f.name, f.size));
 									obj[f.name] = f;
 								} else {
-									core.logger.log(sprintf("loaded file: `%s`(%s bytes), but that is not valid ClinicalDocument.", f.name, f.size));
+									cda2g.logger.log(sprintf("loaded file: `%s`(%s bytes), but that is not valid ClinicalDocument.", f.name, f.size));
 									$("<div title='" + _("mistypeCDA") + "'/>")
 										.html(_("canNotReadCDA"))
 										.dialog({

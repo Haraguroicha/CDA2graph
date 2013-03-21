@@ -1,4 +1,4 @@
-core.Pages = new function Pages() {
+cda2g.Pages = new function Pages() {
 	var lineHeight = -1;
 	var pageTester = document.createElement("div");
 	pageTester.id = "pageTester";
@@ -33,17 +33,17 @@ core.Pages = new function Pages() {
 		sec.appendChild(art);
 		art.pageNum = pageNum;
 		art.defaultScrollTop = defaultScrollTop;
-		art.appendHTML = function(html, offsetTop) { return core.Pages.appendHTML(this.pageNum, html, offsetTop || this.defaultScrollTop); }
+		art.appendHTML = function(html, offsetTop) { return cda2g.Pages.appendHTML(this.pageNum, html, offsetTop || this.defaultScrollTop); }
 		$(art).scroll(function(event){ this.scrollTop = 0; });
 		pageArticle.appendChild(sec);
-		core.UI.resize();
+		cda2g.UI.resize();
 		return this.getPage(pageNum);
 	}
 	this.removePage = function removePage(p) {
 		if($(".page-view").length >= p) {
 			var pv = $(".page-view")[p - 1];
 			pv.parentNode.removeChild(pv);
-			core.UI.resize();
+			cda2g.UI.resize();
 			this.scrollTo(p - 1);
 		}
 	}
@@ -68,7 +68,7 @@ core.Pages = new function Pages() {
 		return Math.floor(this.getPage(this.getPages()).offsetHeight / this.getLineHeight());
 	}
 	this.appendHTML = function appendHTML(page, html, offsetTop) {
-		//If call this method directly by calling core.Pages.appendHTML(html[, offset]);
+		//If call this method directly by calling cda2g.Pages.appendHTML(html[, offset]);
 		if(typeof(page) == "string" && (typeof(html) == "number" || typeof(html) == "undefined"))
 			return this.getLastPage().appendHTML(page, html);
 		var lastPage = this.addContent(this.getPage(page), html, offsetTop);
@@ -76,11 +76,11 @@ core.Pages = new function Pages() {
 		var prevLastWidget = prevWidgets[prevWidgets.length - 1];
 		var prevPageScrollTop = prevLastWidget.offsetTop - lastPage.offsetTop;
 		if(prevLastWidget.scrollHeight + prevPageScrollTop > lastPage.offsetHeight) {
-			core.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1));
+			cda2g.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1));
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return this.addPage(nextScrollTop).appendHTML(html);
 		}
-		core.UI.updateX_UI();
+		cda2g.UI.updateX_UI();
 		return lastPage;
 	}
 	this.addContent = function addContent(page, html, offsetTop) {

@@ -1,6 +1,6 @@
-core.logger = new function logger() {
+cda2g.logger = new function logger() {
 	this.getMsg = function getMsg(msg, printStackTrace) {
-		var date = new core.Date();
+		var date = new cda2g.Date();
 		var st = stackTrace();
 		return [sprintf("** logger[%s]:\t%s", date, msg), sprintf("\t\t\t\t\t\t\t%s%s", st.splice(3).join("\n\t\t\t\t\t\t\t\t"), (printStackTrace) ? "\n\t" + st.join("\n\t") : "")];
 	}
