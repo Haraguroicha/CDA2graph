@@ -48,6 +48,11 @@ body *::-webkit-scrollbar-thumb:window-inactive {
 .page-wrapper:first-child {
 	height: 30px;
 }
+section.page-wrapper > article.page-viewpoint > section.page-viewpoint > header > pageNum {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+}
 article.page-viewpoint {
 	background-color: #222;
 	position: absolute;
