@@ -2,9 +2,9 @@ cda2g.Pages = new function Pages() {
 	var lineHeight = -1;
 	var pageTester = document.createElement("div");
 	pageTester.id = "pageTester";
-	var pageArticle = _$x("//section[@class='page-viewpoint']/article")[0];
+	var pageArticle = $("section[class='page-viewpoint'] > article")[0];
 	this.getPageNumber = function getPageNumber() {
-		return [Math.floor(1 + $(".page-viewpoint")[1].scrollTop / (_$("baseView").offsetHeight + 17)), $(".page-view").length];
+		return [Math.floor(1 + $(".page-viewpoint")[1].scrollTop / ($("#baseView")[0].offsetHeight + 17)), $(".page-view").length];
 	}
 	this.getPage = function getPage(page) {
 		if(typeof(page) == "number")

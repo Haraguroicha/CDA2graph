@@ -1,21 +1,20 @@
 cda2g.UI = new function _UI() {
 	this.setUI = function setUI() {
 		document.title = _("title");
-		_$$(".page-viewpoint")[0].style.height = window.innerHeight - _$("menubox").offsetHeight + "px";
-		_$$(".page-viewpoint")[0].style.top = _$("menubox").offsetHeight + "px";
+		$(".page-viewpoint")[0].style.height = window.innerHeight - $("#menubox")[0].offsetHeight + "px";
+		$(".page-viewpoint")[0].style.top = $("#menubox")[0].offsetHeight + "px";
 		$("pageNum").css("visibility", "");
 	}
 	this.resize = function resize() {
 		cda2g.logger.log("Calling UIEvents for window.resize and document.scroll");
-		
+		//Resize
 		evt = document.createEvent('UIEvents');
 		evt.initUIEvent('resize', true, false, window, 0);
 		window.dispatchEvent(evt);
-
+		//Scroll
 		evt = document.createEvent('UIEvents');
 		evt.initUIEvent('scroll', true, false, document, 0);
 		document.dispatchEvent(evt);
-		
 		delete evt;
 	}
 	this.refreshPageNumber = function refreshPageNumber() {
@@ -65,5 +64,11 @@ cda2g.UI = new function _UI() {
 			$("body > *").css("font-family", fontFamily);
 			cda2g.logger.log(sprintf("Change font to `%s` by language: %s", fontFamily, lang));
 		}
+	}
+	this.showEditor = function showEditor() {
+		return CKEDITOR.replace($('editor#editor')[0]);
+	}
+	this.closeEditor = function closeEditor() {
+		return CKEDITOR.instances.editor.destroy();
 	}
 }

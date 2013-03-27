@@ -33,6 +33,7 @@ cda2g.Files = new function Files() {
 								} catch(e) {
 									f.isDoc = false;
 								}
+								f.xss = (f.xml.nextSibling != null) ? ((f.xml.nextSibling.nodeType == document.COMMENT_NODE) ? f.xml.nextSibling.textContent : null) : null;
 								if(f.isDoc) {
 									obj["./size"] += f.size;
 									cda2g.logger.log(sprintf("ClinicalDocument loaded: `%s`(%s bytes)", f.name, f.size));

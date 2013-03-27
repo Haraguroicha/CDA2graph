@@ -16,7 +16,7 @@ var cda2g = new function _cda2g() {
 		}, true);
 		$("<div id='textPaddingWrapper'></div>").text("textPaddingWrapper_1234567890_~!@#$%^&*()_+?").appendTo($(document));
 		
-		this.setDropArea(_$$(".page-wrapper")[0], _$("fileImporter"));
+		this.setDropArea($(".page-wrapper")[0], $("#fileImporter")[0]);
 		this.UI.resize();
 	}
 	this.setTitle = function setTitle(n, parent) {

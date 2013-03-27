@@ -24,11 +24,10 @@
         <content select="last.l10n"></content>
       </div>
     </template>
-    <script>
+    <script type="text/javascript">
       if (this !== window) {
         var root = null;
         var container = null;
-
         pageNum.prototype = {
           onClick: function(e) {
             $(e.currentTarget).find("span").each(function(index, element) {
@@ -36,7 +35,6 @@
             });
           }
         };
-
         this.lifecycle({
           created: function(shadowRoot) {
             root = shadowRoot;
