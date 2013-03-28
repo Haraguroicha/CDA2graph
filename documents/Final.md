@@ -212,7 +212,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 		管理已經設計好的模板，並且可以編輯或者引用其他設計者所設計好的介面，另外提供版本歷程的記錄，以避免版本變更後的不預期問題發生。
 	
 6. 雲端部署  
-	本研究為雲端運算平台，為提供軟體服務，且沒有隱私資料的保存，故選擇使用Cloud Foundry平台，並使用公用雲部署模式，由於其基礎架構與平台架構的最低應體需求極高，因此皆改採用其他廠商提供的Cloud Foundry架構的PaaS平台來部署本系統，所以本階段只需要利用廠商提供的部署工具將系統部署至平台上即可使用(如下圖所示)，因此下一節中將不再探討雲端運算之內容。  
+	本研究為雲端運算平台，為提供軟體服務，且沒有隱私資料的保存，故選擇使用Cloud Foundry平台，並使用公用雲部署模式，由於其基礎架構與平台架構的最低應體需求極高[[26]]，因此皆改採用其他廠商提供的Cloud Foundry架構的PaaS平台來部署本系統，所以本階段只需要利用廠商提供的部署工具將系統部署至平台上即可使用(如下圖所示)，因此下一節中將不再探討雲端運算之內容。  
 ![雲端部署架構示意圖](./graffle/cloudArchitecture.png)  
 圖2 雲端部署架構示意圖
 	
@@ -276,7 +276,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 第五章 時程進度
 本研究時程進度規劃為一年期，從一〇一年七月起至一〇二年七月訖。詳細時程規劃進度如圖11所示：  
-![時程進度規劃圖](./Timeline/Proposal.png)  
+![時程進度規劃圖](./Timeline/Final.png)  
 圖11 時程進度規劃圖
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 第六章 可能遭遇的困難
@@ -309,6 +309,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 23. [Cloud Computing - Wikipedia][23]
 24. [全民健康雲啟動 整合個人健康履歷][24]
 25. [簡余晏, 短評／落後的電影政令宣導, 2012][25]
+26. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][26]
 
 [1]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
 [2]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區 - 簡介"
@@ -345,6 +346,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 
 [24]: http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "全民健康雲啟動 整合個人健康履歷"
 [25]: http://www.yuyen.tw/2012/08/blog-post_3024.html "簡余晏, 短評／落後的電影政令宣導, 2012"
+[26]: http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement"
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 檔案結尾
 	此行以下已經沒有任何內容
