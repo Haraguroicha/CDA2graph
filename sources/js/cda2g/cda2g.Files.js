@@ -28,6 +28,7 @@ cda2g.Files = new function Files() {
 								f.size = e.total;
 								f.isDoc = ((f.data.match(/<\?xml.+\?>\s+<ClinicalDocument.+>[\w\W\s]+<\/ClinicalDocument>\s?/)) ? true : false);
 								f.xml = null;
+								f.parser = cda2g.Files.CDAParser;
 								try {
 									f.xml = new DOMParser().parseFromString(f.data, "application/xml").documentElement;
 								} catch(e) {
@@ -38,6 +39,7 @@ cda2g.Files = new function Files() {
 									obj["./size"] += f.size;
 									cda2g.logger.log(sprintf("ClinicalDocument loaded: `%s`(%s bytes)", f.name, f.size));
 									obj[f.name] = f;
+									obj[f.name].parser();
 								} else {
 									cda2g.logger.log(sprintf("loaded file: `%s`(%s bytes), but that is not valid ClinicalDocument.", f.name, f.size));
 									$("<div title='" + _("mistypeCDA") + "'/>")
@@ -75,5 +77,19 @@ cda2g.Files = new function Files() {
 				return this["./size"];
 			});
 		}
+	}
+	this.CDAParser = function CDAParser(data) {
+		try {
+			if(data == undefined) data = this.xml;
+			if(typeof(data) == "string") data = new DOMParser().parseFromString(data, "application/xml").documentElement;
+		} catch(e) {
+			cda2g.logger.log(sprintf("Can not load or can not read data to parse CDA data."));
+			return null;
+		}
+		var doc = $(data);
+		var CDAcode = $(doc.find("ClinicalDocument>code")[0]);
+		var hospitalOID = $(doc.find("ClinicalDocument>recordTarget>patientRole>id")[0]);
+		var components = doc.find("structuredBody>component");
+		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s", CDAcode.attr("code"), hospitalOID.attr("root"), components.length));
 	}
 }
