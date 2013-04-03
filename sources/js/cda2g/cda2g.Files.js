@@ -87,9 +87,11 @@ cda2g.Files = new function Files() {
 			return null;
 		}
 		var doc = $(data);
-		var CDAcode = $(doc.find("ClinicalDocument>code")[0]);
-		var hospitalOID = $(doc.find("ClinicalDocument>recordTarget>patientRole>id")[0]);
-		var components = doc.find("structuredBody>component");
+		var cda_header = $(doc.find("ClinicalDocument>*:not(ClinicalDocument>component)"));
+		var cda_body = $(doc.find("ClinicalDocument>component"));
+		var CDAcode = $(cda_header.filter("code")[0]);
+		var hospitalOID = $(cda_header.find("recordTarget>patientRole>id")[0]);
+		var components = cda_body.find("structuredBody>component");
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s", CDAcode.attr("code"), hospitalOID.attr("root"), components.length));
 	}
 }
