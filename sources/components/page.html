@@ -36,8 +36,7 @@
           }
         };
         this.lifecycle({
-          created: function(shadowRoot) {
-            root = shadowRoot;
+          created: function(root) {
             container = root.querySelector('#pageNumber');
             $(container).on('click', this.onClick);
           }

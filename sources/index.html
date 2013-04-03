@@ -22,6 +22,7 @@
 		<link rel="stylesheet" type="text/css" href="css/DarkCommon.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
 		<link rel="components" type="text/html" href="components/page.html" />
+		<link rel="components" type="text/html" href="components/cdaDemo.html" />
 		<title>電子病歷檢視器</title>
 		<script type="text/javascript" src="js/l10n.js"></script>
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
@@ -46,7 +47,40 @@
 			<article class="page-viewpoint">
 				<section class="page-viewpoint">
 					<header><pageNum style="visibility: hidden;" is="pageNum"></pageNum></header>
-					<article></article>
+					<article>
+						<X-ClinicalDocument is="recordTarget" typeCode="RCT" contextControlCode="OP">
+    <patientRole classCode="PAT">
+      <!--4. 病歷號碼
+            @extension : 在該院之病歷號
+            @root : 該院之OID
+      -->
+      <id extension="123456" root="2.16.886.111.100000.100000.2" />
+      <!-- 病患基本資料 -->
+      <patient classCode="PSN" determinerCode="INSTANCE">
+        <!--3. 身份證號
+               @extension : 此病患之身分證字號
+               @root : 2.16.886.101.20003.20001（內政部），若規定身分證字號編碼由2.16.886.101.20003.20001.9控制時。
+         -->
+        <id extension="A123456789" root="2.16.886.101.20003.20001.9" />
+        <!--5. 姓名-->
+        <name>趙錢孫</name>
+        <!--6. 性別
+               @code : 性別代碼
+               @codeSystem : 2.16.840.1.113883.5.1 (HL7 Vocabulary OID)
+         -->
+        <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" />
+        <!--7. 出生日期-->
+        <birthTime value="20000101" />
+      </patient>
+       <providerOrganization classCode="ORG" determinerCode="INSTANCE">
+        <!--1.醫療機構代碼-->
+        <id extension="0401180014" root="2.16.886.101.20003.20014.20006" />
+        <!--2. 醫療機構名稱-->
+        <name>國立臺灣大學醫學院附設醫院</name>
+      </providerOrganization>
+     </patientRole>
+							</X-ClinicalDocument>
+					</article>
 				</section>
 			</article>
 		</section>
