@@ -1,4 +1,4 @@
-<element extends="X-ClinicalDocument" name="recordTarget" constructor="X_ClinicalDocument">
+<element extends="cda2g" name="recordTarget" constructor="cda2g.extends">
   <decorator>
     <template>
       <style scoped="scoped">
@@ -23,7 +23,7 @@
       if (this !== window) {
         var root = null;
         var container = null;
-        X_ClinicalDocument.prototype = {
+        cda2g.extends.prototype = {
           onClick: function(e) {
             $(e.currentTarget).find("span").each(function(index, element) {
               $(element).html("test");
