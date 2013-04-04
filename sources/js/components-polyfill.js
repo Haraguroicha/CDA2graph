@@ -201,6 +201,7 @@ scope.Loader.prototype = {
 scope.run = function() {
   var loader = new scope.Loader();
   document.addEventListener('DOMContentLoaded', loader.start);
+  document.addEventListener('DOMNodeInserted', loader.start);
   var parser = new scope.Parser();
   loader.onload = parser.parse;
   loader.onerror = function(status, resp) {
