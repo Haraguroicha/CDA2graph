@@ -11,7 +11,7 @@
 
 ## 第一節 研究背景
 國內電子病歷已施行多年，但這些資料仍存放在各家醫療單位所屬的資訊系統，導致醫療資源無法有效的整合與利用，民眾在每次的就醫過程中更是無法使用散落在各醫療院所的病歷資料。在民國九十八年依據醫療院所在實際使用的經驗上優先選取了常用的108份表單，並且制定了電子病歷表單的欄位與資料格式標準，直至目前為止，在民國九十九年衛生署實施的『醫院實施電子病歷及互通補助計畫』中，公告了「111\_醫療影像報告」、「113\_血液檢驗報告」、「114\_門診用藥」與「115\_出院病歷摘要」等四張病歷單張交換的欄位與格式之標準，做為目前醫院與醫院或診所間電子病歷交換互通的單張規範。同時，『加速診所實施電子病歷推廣案』中，制定了「118\_西醫門診單」、「119\_中醫門診單」和「120\_牙醫門診單」等三張門診病歷單張給診所交換使用。  
-而目前一〇一年衛生署即將推行「全民健康雲」計畫，該先導計畫率先使用微軟的公有雲平台，整合就醫紀錄，並將個人健康履歷管理權交給國民[[24], [27]]。現階段產生符合標準CDA文件對於醫療單位已是必備條件，為了日後的政策及趨勢，資料交換已經不是主要重點，而是資料交換後要如何有效地被利用與如何有效的讓這些資料的擁有者更有效的使用，這些重點就是在於如何呈現這些資料的結果，電子病歷的呈現方式在目前仍有極大的發展空間！
+而目前一〇一年衛生署即將推行「全民健康雲」計畫，該先導計畫率先使用微軟的公有雲平台，整合就醫紀錄，並將個人健康履歷管理權交給國民[[1], [2]]。現階段產生符合標準CDA文件對於醫療單位已是必備條件，為了日後的政策及趨勢，資料交換已經不是主要重點，而是資料交換後要如何有效地被利用與如何有效的讓這些資料的擁有者更有效的使用，這些重點就是在於如何呈現這些資料的結果，電子病歷的呈現方式在目前仍有極大的發展空間！
 
 ## 第二節 研究動機
 目前政府積極發展電子病歷，各醫療院所也皆致力於開發各種電子病歷交換編解碼程式，但資料若在交換之後要到其他醫療院所使用，則必須在該院所有建置各種病歷單張的匯入解碼程式。倘若沒有建置此一部分程式，則就失去了資料交換的意義，也因此無法簡單快速的瀏覽該病歷資料。若能有一平台可以統一的讓醫護人員直接瀏覽這些還無法匯入或轉換至各院所的醫療資訊系統內的資料，則能夠大幅提升資料交換的可用性。同時也提供了未來民眾若是可以自行攜帶電子病歷出院，則民眾也可以透過此一平台瀏覽自己的病歷資料，而此一平台只需要醫療院所有提供專用的顯示樣板檔即可讓民眾隨時檢視資料。  
@@ -29,10 +29,10 @@
 本章節依照研究目的，首先探討電子病歷，再進一步的探討目的中所使用醫療資訊標準中的臨床文件架構及國內電子病歷規範，最後探討可延伸標記式語言在電子病歷中的重要性，以及超文本標記語言第五版與雲端運算在本研究中的重要度。
 
 ## 第一節 電子病歷
-電子病歷(Electronic Medical Record, `EMR`)是一種由電子化方式擷取、傳送、儲存、取回、連結與處理的多媒體資料，電子病歷主要的用途為協助醫療或其相關服務。其資料內容包括病患的個人資料、問題、SOAP(Subjective, 主觀陳訴, Objective, 客觀陳訴, Assessment, 評估, Plan, 計畫)、病程紀錄、護理計畫、護理記錄、生命徵象記錄、藥物使用記錄、過去病史、家族病史、預防接種記錄，與其相關的醫療實驗室的檢驗資料與報告，和相關的檢查資料與報告，凡是相關病情必要之資訊，如相對於疫情的旅遊史，則亦可成為電子病歷的一環而成為電子病歷的資料內容[[1]]。
+電子病歷(Electronic Medical Record, `EMR`)是一種由電子化方式擷取、傳送、儲存、取回、連結與處理的多媒體資料，電子病歷主要的用途為協助醫療或其相關服務。其資料內容包括病患的個人資料、問題、SOAP(Subjective, 主觀陳訴, Objective, 客觀陳訴, Assessment, 評估, Plan, 計畫)、病程紀錄、護理計畫、護理記錄、生命徵象記錄、藥物使用記錄、過去病史、家族病史、預防接種記錄，與其相關的醫療實驗室的檢驗資料與報告，和相關的檢查資料與報告，凡是相關病情必要之資訊，如相對於疫情的旅遊史，則亦可成為電子病歷的一環而成為電子病歷的資料內容[[3]]。
 
 ### 壹 國內電子病歷規範
-在民國94年12月衛生署完成了「醫療院所病歷電子化現況調查」，在結果中顯示了國內醫院的病歷電子化發展已經相當普及，其中共計約有半數醫院的病歷資料已進行電腦化，大約三成醫院病歷電子化已進展至院內整合階段並逐漸邁向院際之分享與交換應用，顯示出在過去推動病歷電子化之發展已具有初步成效[[2]]。  
+在民國94年12月衛生署完成了「醫療院所病歷電子化現況調查」，在結果中顯示了國內醫院的病歷電子化發展已經相當普及，其中共計約有半數醫院的病歷資料已進行電腦化，大約三成醫院病歷電子化已進展至院內整合階段並逐漸邁向院際之分享與交換應用，顯示出在過去推動病歷電子化之發展已具有初步成效[[4]]。  
 病歷電子化之願景希望讓病人可在任何一家醫院，透過健保IC卡及醫師之醫事憑證IC卡，且在病人同意及醫師授權之情形下，完整的取得病人過去病史資料，提供無縫隙的照護。如此可以提供兩點目標達成：
 
 1. 加速推動醫療院所醫療作業資訊化及病歷電子化，提升醫療照護品質及病人安全。
@@ -40,7 +40,7 @@
 
 其中，在衛生署的計畫中指出，至目前為止，推動的工作年度目標中，實際通過申請補助的醫院家次應該有如表1所示：
 
-表1 電子病歷推動計劃補助款項及申請醫院家次統計(參考於衛生署網站[[3]])
+表1 電子病歷推動計劃補助款項及申請醫院家次統計(參考於衛生署網站[[5]])
 
 |     項目/年度     |  99年度  | 100年度 | 101年度 |
 |------------------|---------|--------|---------|
@@ -51,11 +51,11 @@
 |  已申請之補助金額  | 3.27億元 | 2.2億元 | 5.8千萬元|
 |    補助款餘額     |6.17千萬元|   0元   |   0元   |
 
-除以上達成的目標以外，在民國99年也已經推廣了國內兩千家以上的診所，符合「醫療機構電子病歷製作及管理辦法」各項條款規定。在「醫院實施電子病歷及互通補助計畫」中，建置了電子病歷交換中心，並計有142家醫院完成交換[[2]]。
+除以上達成的目標以外，在民國99年也已經推廣了國內兩千家以上的診所，符合「醫療機構電子病歷製作及管理辦法」各項條款規定。在「醫院實施電子病歷及互通補助計畫」中，建置了電子病歷交換中心，並計有142家醫院完成交換[[4]]。
 
 ## 第二節 臨床文件架構
-HL7臨床文件架構(Clinical Document Architecture, `CDA`)是一個應用於臨床文件上的可延伸標記式語言(eXtensible Markup Language, `XML`)，並且是根據HL7第三版的參考資訊模型(Reference Information Model, `RIM`)、資料型別及詞彙等標準所組成的檔案格式。CDA標準也被國際標準組織及美國國家標準協會(American National Standards Institute, `ANSI`)認可。在早期，CDA稱為病人記錄架構(Patient Record Architecture, `PRA`)，而CDA R1在1991年時被HL7會員所認同且在2000年被ANSI認可，它是根據初期HL7 RIM草案、資料型別及詞彙而來。CDA R2在2005年1月被HL7所認可，隔年成為ANSI的標準[[4]]。  
-CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲音和其他多媒體內容。一份CDA文件應具有下列六個特點[[5]]：
+HL7臨床文件架構(Clinical Document Architecture, `CDA`)是一個應用於臨床文件上的可延伸標記式語言(eXtensible Markup Language, `XML`)，並且是根據HL7第三版的參考資訊模型(Reference Information Model, `RIM`)、資料型別及詞彙等標準所組成的檔案格式。CDA標準也被國際標準組織及美國國家標準協會(American National Standards Institute, `ANSI`)認可。在早期，CDA稱為病人記錄架構(Patient Record Architecture, `PRA`)，而CDA R1在1991年時被HL7會員所認同且在2000年被ANSI認可，它是根據初期HL7 RIM草案、資料型別及詞彙而來。CDA R2在2005年1月被HL7所認可，隔年成為ANSI的標準[[6]]。  
+CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲音和其他多媒體內容。一份CDA文件應具有下列六個特點[[7]]：
 
 1.	不變性(Persistence)：一份臨床文件必須在不被修改的情況下，依照規定的時間保存且不可再被修改(採用XML格式可用電子檔案的方式永久儲存)
 2.	管理性(Stewardship)：儲存後的文件必須交由可信賴的機構管理
@@ -65,7 +65,7 @@ CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲�
 6.	易讀性(Human readability)：一份臨床文件必須要是人們可以閱讀的
 
 一份CDA文件是由Header與Body兩部份所組成，整份文件是由`<ClinicalDocument>`的標籤所包含起來。Header的內容是要用來識別文件，其中包含簽章者、病人、提供者與其他參與醫療服務人員的資訊，並可以分為`Attributes`及`Participant`與`Relationships`等三大類。而Body的內容則包含所有臨床上的資訊，如醫囑、醫令、檢驗報告等等，並將每個內容分成區塊再加以描述，在內包含有兩種資料型態，一種是非結構化區塊`<NonXMLBody>`，另一種是結構化區塊`<StructuredBody>`。  
-在`NonXMLBody`中，是表示一序列非結構化的資料，因此會將資料直接存放至`<text>`元素中。在裡面可以描述任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若描述的資料可用XML表示，則不會放在`NonXMLBody`之中[[6]]。  
+在`NonXMLBody`中，是表示一序列非結構化的資料，因此會將資料直接存放至`<text>`元素中。在裡面可以描述任何包含人類可讀數據的資料類型，如：文字檔(txt、rtf、html或pdf)或影像檔(gif、jpg、jpeg、png、tiff)，若描述的資料可用XML表示，則不會放在`NonXMLBody`之中[[8]]。  
 `StructureBody`是一個結構化的標記資料，由一個或多個區段組件(Section Component)所組成，且是一個可以接受巢狀元素的組合。透過Section的方式來描述臨床內容，如檢驗結果、診斷內容等等，且Section與Section之間不會互相影響，而在Section中常用來描述文件內容的有`Code`與`Title`及`Text`等三個元素來描述一個臨床上的敘述或者報告的內容。  
 因為Section是屬於一種敘述型態的區塊，它是Human-Readable的內容，相對於電腦在此就無法準確的處理與解析，而Entry就代表著在CDA文件之中可由電腦處理的部份，Entry規範了Section內容應包含哪些欄位及編碼的細項資訊。在CDA之中有定義了數種Entry，分別為：
 
@@ -80,8 +80,8 @@ CDA定義了完整的訊息項目，內容中可以包含文字、影像、聲�
 * `Act`：不能用上述類別描述之事件皆用此描述
 
 ## 第三節 XML
-可延伸標記式語言(eXtensible Markup Language, `XML`)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從標準通用標記式語言(Standard Generalized Markup Language, `SGML`)中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言(eXtensible Stylesheet Language, `XSL`)、可擴展商業報告語言(eXtensible Business Reporting Language, `XBRL`)和XML路徑語言(XML Path Language, `XPath`)等[[7]]。  
-XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資料，相對的HTML則是用來呈現資料，所以XML的主要用途如下：
+可延伸標記式語言(eXtensible Markup Language, `XML`)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從標準通用標記式語言(Standard Generalized Markup Language, `SGML`)中簡化修改出來的。它主要用到的有可延伸標記式語言、可延伸樣式語言(eXtensible Stylesheet Language, `XSL`)、可擴展商業報告語言(eXtensible Business Reporting Language, `XBRL`)和XML路徑語言(XML Path Language, `XPath`)等[[9]]。  
+XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資料，相對的HTML則是用來呈現資料，所以XML的主要用途如下[[9]]：
 
 1. 豐富文件(Rich Documents)自定義檔案的描述並使其具有更豐富的內容
 	* 屬於以檔案為主的應用
@@ -93,7 +93,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 	* 屬於以屬性為主的應用
 	* 標記是用來配置資料或應用程式的設定
 
-依照W3C組織的Tim等人[[8], [9]]所提出的XML規範定義中指出，XML的設計目標是：
+依照W3C組織的Tim等人[[10], [11]]所提出的XML規範定義中指出，XML的設計目標是：
 
 1. XML應該要直接可用於網際網路上
 2. XML應該可支援使用於各種應用上
@@ -107,34 +107,34 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 10. 簡潔的XML標記是基本的
 
 ## 第四節 HTML5
-超文本標記語言第五版(Hyper-Text Markup Language 5, HTML5)草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，再於2007年獲W3C接納，並成立了新的HTML工作團隊。它是HTML下一個主要的版本，現在仍處於發展階段。目標是要取代1999年所制定的HTML 4.01和XHTML 1.0標準，以期望能在網際網路應用迅速發展的時候，使網路標準符合現代的網路需求。廣義的說HTML5，實際指的就是包括HTML、CSS和JavaScript在內的一套技術集合。它希望能夠減少瀏覽器需要外掛程式的豐富性網路應用服務(plug-in-based Rich Internet Application, `RIA`)，如Adobe Flash、Microsoft Silverlight，與Oracle JavaFX的需求，並且能夠提供更多有效增強網路應用的標準[[10]]。  
-在2010年的4月時Steve Jobs發表了一篇名為「對Flash的思想」的文章[[11]]，內容中指出隨著HTML5的發展，觀看視訊或其它內容時，Adobe Flash將不再是必須的。這引發了開發人員間的爭論，包括HTML5雖然提供了增強的功能，但開發人員必須考慮到不同瀏覽器對標準不同部分的支援程度的不同，以及HTML5和Flash間的功能差異。  
-在HTML5中，比起HTML 4.01多出了更多的RIA支援，也增加了以往要使用Flash等外掛程式才能使用的API資源，這些API現在都透過瀏覽器原生就可以存取使用[[10], [12]]，其規範和相關的技術詳細請參考[[10], [13]]。
+超文本標記語言第五版(Hyper-Text Markup Language 5, HTML5)草案的前身名為Web Applications 1.0，是在2004年由WHATWG提出，再於2007年獲W3C接納，並成立了新的HTML工作團隊。它是HTML下一個主要的版本，現在仍處於發展階段。目標是要取代1999年所制定的HTML 4.01和XHTML 1.0標準，以期望能在網際網路應用迅速發展的時候，使網路標準符合現代的網路需求。廣義的說HTML5，實際指的就是包括HTML、CSS和JavaScript在內的一套技術集合。它希望能夠減少瀏覽器需要外掛程式的豐富性網路應用服務(plug-in-based Rich Internet Application, `RIA`)，如Adobe Flash、Microsoft Silverlight，與Oracle JavaFX的需求，並且能夠提供更多有效增強網路應用的標準[[12]]。  
+在2010年的4月時Steve Jobs發表了一篇名為「對Flash的思想」的文章[[13]]，內容中指出隨著HTML5的發展，觀看視訊或其它內容時，Adobe Flash將不再是必須的。這引發了開發人員間的爭論，包括HTML5雖然提供了增強的功能，但開發人員必須考慮到不同瀏覽器對標準不同部分的支援程度的不同，以及HTML5和Flash間的功能差異。  
+在HTML5中，比起HTML 4.01多出了更多的RIA支援，也增加了以往要使用Flash等外掛程式才能使用的API資源，這些API現在都透過瀏覽器原生就可以存取使用[[12], [14]]，其規範和相關的技術詳細請參考[[12], [15]]。
 
 * 即時二維繪圖(Canvas API)：有關動態產出與渲染圖形、圖表、圖像和動畫的API
 * 定時媒體播放(HTML5音訊與視頻)：HTML5裡新增的元素，它們為開發者提供了一套通用的、整合的、腳本式的處理音訊與視頻的API，而無需安裝任何外掛程式
-* 離線儲存資料庫(離線網路應用程式)[[14]]：可以讓網頁不需要網路的狀態下儲存資料或存取資料，等有網路的時候再依照設計的模型決定是否要與伺服器同步資料
+* 離線儲存資料庫(離線網路應用程式)[[16]]：可以讓網頁不需要網路的狀態下儲存資料或存取資料，等有網路的時候再依照設計的模型決定是否要與伺服器同步資料
 * 編輯：讓網頁直接編輯，不再需要透過編輯器或所見即得編輯器
 * 拖放：使檔案的選擇不需要經由系統的對話視窗選擇即可使用拖放的方式將檔案放置在網頁中讓應用程式讀取資料
-* 跨文件通訊[[15]]：可以跨不同的頁面或者網站的文件通訊，前提是有設定好一致的通訊tag
+* 跨文件通訊[[17]]：可以跨不同的頁面或者網站的文件通訊，前提是有設定好一致的通訊tag
 * 通訊/網路(Communication APIs)：構建實時和跨域(Cross-Origin)通訊的兩大基礎：跨文件通訊(Cross Document Messaging)與XMLHttpRequest Level 2
 * 瀏覽歷史管理
 * MIME和協議處理程式時表頭登記
 * 微資料
 
-以上技術是WHATWG HTML說明文件所列述的內容，但並沒有全部包括在W3C HTML5的文件裡。[[16]]一些相關的技術，像下面所列的，並沒有包括在這兩份文件中的任何一份中。W3C給這些技術單獨公開了說明文件。
+以上技術是WHATWG HTML說明文件所列述的內容，但並沒有全部包括在W3C HTML5的文件裡。[[18]]一些相關的技術，像下面所列的，並沒有包括在這兩份文件中的任何一份中。W3C給這些技術單獨公開了說明文件。
 
 * Geolocation API：使用者可共享地理位置，並在Web應用程式的協助下使用位置感知服務(Location-Aware Services)
-* 索引資料庫API(Indexed Database API, 以前為WebSimpleDB)[[17]]
-* 檔案API：處理檔案上傳和操縱檔案[[18]]
-* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下的檔案儲存要求[[19]]
-* 檔案寫入：從網路應用程式向檔案裡寫資料內容[[20]]
+* 索引資料庫API(Indexed Database API, 以前為WebSimpleDB)[[19]]
+* 檔案API：處理檔案上傳和操縱檔案[[20]]
+* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下的檔案儲存要求[[21]]
+* 檔案寫入：從網路應用程式向檔案裡寫資料內容[[22]]
 
 目前對於HTML5普遍的誤解是HTML5能夠在網頁中提供動畫效果。實際上HTML5的動畫效果是由JavaScript和CSS互相使用而達成的。
 
 ## 第五節 雲端運算
 雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變。雲端運算通常可以認為包括以下三個層次的服務：基礎設施即服務(Infrastructure as a service, `IaaS`)，即是使用「基礎運算資源」，如處理能力、儲存空間、網路元件或中介軟體，使用者能掌握作業系統、儲存空間及已部署的應用程式和網路元件(如防火牆、負載平衡器等)，但並不掌握雲端基礎架構。例如: Amazon AWS；平台即服務(Platform as a service, `PaaS`)，即是使用主機操作應用程式，使用者有掌控運作應用程式的環境(也擁有主機部分掌控權)，但並不掌控作業系統、硬體或運作的網路基礎架構。使用的平台通常是應用程式基礎架構。例如: Google App Engine；軟體即服務(Software as a service, `SaaS`)，即是使用應用程式，但並不擁有作業系統、硬體或運作的網路基礎架構，是一種服務的觀念基礎，軟體服務的供應商以租賃的方式提供客戶服務，而非購買，比較常見的模式是提供帳號密碼來操作使用。例如: Microsoft CRM。這些雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。  
-根據美國國家標準和技術研究院的定義[[21]]，雲端運算服務應該具備以下幾條特徵：
+根據美國國家標準和技術研究院的定義[[23]]，雲端運算服務應該具備以下幾條特徵：
 
 * 需要時即可使用的自助服務：不需要人的操作即可以自動化的將需要的資源啟用
 * 寬頻網路存取：使用任何的網路或裝置存取
@@ -142,13 +142,13 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 * 可快速重新佈署：當有需求的時候可以自動化的重製來擴展服務寬度
 * 可被監控與量測的服務：讓系統可以很清楚的知道使用的狀況，並且可以控制和優化使用的資源
 
-除此之外通常還有以下認知特徵[[22]]：
+除此之外通常還有以下認知特徵[[24]]：
 
 * 基於虛擬化技術快速部署資源或獲得服務
 * 減少使用者端的處理負擔
 * 降低使用者對於IT專業知識的依賴
 
-在具有上述特徵的狀況下，三層次的服務還可以衍變為下列七種服務模式[[23]]：
+在具有上述特徵的狀況下，三層次的服務還可以衍變為下列七種服務模式[[25]]：
 
 1. 儲存即服務(Storage as a service, `STaaS`)
 2. 安全即服務(Security as a service, `SECaaS`)
@@ -158,18 +158,18 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 6. 應用程式界面即服務(API as a service, `APIaaS`)
 7. (行動)終端即服務((Mobile) Backend as a service, `(M)BaaS`)
 
-在雲端運算的部署方式在美國國家標準和技術研究院的定義下主要分為四種[[21]]：
+在雲端運算的部署方式在美國國家標準和技術研究院的定義下主要分為四種[[23]]：
 
 1. 公用雲(`Public Cloud`)：可透過網路及第三方服務供應者開放給客戶使用，但並不一定代表「免費」，可能代表免費或相當廉價，公用雲並不表示使用者資料可供任何人檢視，供應者通常會對使用者設定使用存取控制機制，公用雲作為解決方案是既有彈性又具備成本效益
 2. 私有雲(`Private Cloud`)：具備許多公用雲環境的優點，例如彈性、適合提供服務，兩者差在於私有雲的資料與程式皆在組織內管理，且與公用雲不同，不會受到網路頻寬、安全疑慮或法規限制影響；此外，私有雲服務讓供應者及使用者更能掌控雲端基礎架構、改善安全與彈性，因為使用者與網路都受到特殊限制
 3. 社群雲(`Community Cloud`)：由眾多利益相仿的組織掌控及使用，例如特定安全需求、共同宗旨等。社群成員共同使用雲端資料及應用程式
 4. 混合雲(`Hybrid Cloud`)：結合公用雲及私有雲，在這種模式中，使用者通常將非企業關鍵資訊外包，並在公用雲上處理，但同時掌控企業關鍵服務及資料
 
-集合了上述的各種特徵與部署方式，雲端運算的核心特性至少要有下述幾點[[22], [23]]：
+集合了上述的各種特徵與部署方式，雲端運算的核心特性至少要有下述幾點[[24], [25]]：
 
 1. 應用程式介面(API)的可達性是指允許軟體與雲端以類似「人機互動這種使用者介面的互動相互一致的方式」來互動
 2. 裝置允許使用者透過網頁瀏覽器來獲取資源，而不論使用者是透過何種裝置，或在何地使用(如：電腦、筆記型電腦或手機、行動裝置等)，使用者可以從任何地方來以網際網路的方式取得資源
-3. 如果使用多個多個站點，則改進可靠性，這讓設計的雲端運算符合商業一致性以及災難備援
+3. 如果使用多個站點，則改進可靠性，這讓設計的雲端運算符合商業一致性以及災難備援
 4. 效能受到監控，同時使用Web Services作為系統的管理介面
 5. 維護雲端運算應用程式應該是很簡單的，因為使用者已經不再需要在本機上進行安裝。一旦更新到了使用者端，它們將更容易的得到支援以及改進
 
@@ -281,7 +281,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 # 第四章 研究結果
 本研究預期完成一套電子病歷檢視器的雲端應用平台，目前初步成果已經提供了將資料視覺化至自動分頁的畫面中的功能(如圖9畫面所示)，以及資料僅需要透過拖拉的方式即可匯入資料到瀏覽器中讀取(不需要上傳至伺服器)(如圖10畫面所示)。為了在檢視電子病歷資料的同時，要如同是觀看真實文件一般的直覺化操作，界面上呈現的樣式和列印出來的格式及樣貌皆完全一致。而一般使用者不論是否在有網路環境時，皆能使用此一平台瀏覽電子病歷資料。醫療院所可以自行設計對應到每個單張的樣板檔及該單位專用的樣式至本系統或者插入到電子病歷檔中，讓使用者可以直接瀏覽使用而不影響檔案在各單位之間的資料交換，除資料交換以外也能讓醫療資訊系統呼叫引用本系統的檢視功能，待完成編輯器及資料庫的功能之後便能夠開始設計樣板檔並提供服務，在提供服務之後便能讓電子病歷檢視之應用更具多元化。  
 ![系統自動分頁畫面](./image/255e571_systemScreenshot.png)  
-圖9 系統自動分頁畫面(測試分頁功能之文章源自[[25]])  
+圖9 系統自動分頁畫面(測試分頁功能之文章源自[[27]])  
 ![系統匯入資料到瀏覽器中的畫面](./image/6a3d808_systemScreenshot.png)  
 圖10 系統匯入資料到瀏覽器中的畫面
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -301,71 +301,73 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 * 電子病歷交換標準單張：由於目前上線使用的交換單張有「111\_醫療影像報告」、「113\_血液檢驗報告」、「114\_門診用藥」與、「115\_出院病歷摘要」等四張病歷單張，以及「118\_西醫門診單」、「119\_中醫門診單」和「120\_牙醫門診單」等三張門診病歷單張。雖然系統有對應單張代碼的機制，但實際上線使用的並無更多單張，故無法實際公開實驗測試開發者會遇到的問題。
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 參考文獻
-1. [電子病歷 - Wikipedia][1]
-2. [行政院衛生署電子病歷推動專區 - 簡介][2]
-3. [行政院衛生署電子病歷推動專區 - 歷年補助案][3]
-4. [K. W. Boone, "The CDA Book": Springer-Verlag London, 2011.][4]
-5. [Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005.][5]
-6. [T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010.][6]
-7. [XML - Wikipedia][7]
-8. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998][8]
-9. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008][9]
-10. [HTML5 - Wikipedia][10]
-11. [Steve Jobs, Thoughts on Flash, Apple Inc., 2010][11]
-12. [Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012][12]
-13. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][13]
-14. [Ian Hickson, Web Storage, W3C Candidate Recommendation][14]
-15. [Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation][15]
-16. [Ian Hickson, HTML Living Standard, WHATWG][16]
-17. [Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft][17]
-18. [Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft][18]
-19. [Eric Uhrhane, File API: Directories and System, W3C Working Draft][19]
-20. [Eric Uhrhane, File API: Writer, W3C Working Draft][20]
-21. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][21]
-22. [雲端運算 - Wikipedia][22]
-23. [Cloud Computing - Wikipedia][23]
-24. [全民健康雲啟動 整合個人健康履歷][24]
-25. [簡余晏, 短評／落後的電影政令宣導, 2012][25]
-26. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][26]
-27. [DIGITIMES - 全民健康雲][27]
+1. [全民健康雲啟動 整合個人健康履歷][1]
+2. [DIGITIMES - 全民健康雲][2]
+3. [電子病歷 - Wikipedia][3]
+4. [行政院衛生署電子病歷推動專區 - 簡介][4]
+5. [行政院衛生署電子病歷推動專區 - 歷年補助案][5]
+6. [K. W. Boone, "The CDA Book": Springer-Verlag London, 2011.][6]
+7. [Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005.][7]
+8. [T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010.][8]
+9. [XML - Wikipedia][9]
+10. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998][10]
+11. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008][11]
+12. [HTML5 - Wikipedia][12]
+13. [Steve Jobs, Thoughts on Flash, Apple Inc., 2010][13]
+14. [Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012][14]
+15. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][15]
+16. [Ian Hickson, Web Storage, W3C Candidate Recommendation][16]
+17. [Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation][17]
+18. [Ian Hickson, HTML Living Standard, WHATWG][18]
+19. [Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft][19]
+20. [Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft][20]
+21. [Eric Uhrhane, File API: Directories and System, W3C Working Draft][21]
+22. [Eric Uhrhane, File API: Writer, W3C Working Draft][22]
+23. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][23]
+24. [雲端運算 - Wikipedia][24]
+25. [Cloud Computing - Wikipedia][25]
+26. [簡余晏, 短評／落後的電影政令宣導, 2012][26]
+27. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][27]
 
-[1]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
-[2]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區 - 簡介"
-[3]: http://emr.doh.gov.tw/allowance.aspx "行政院衛生署電子病歷推動專區 - 歷年補助案"
+[1]: http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "全民健康雲啟動 整合個人健康履歷"
+[2]: http://www.digitimes.com.tw/tw/dt/n/shwnws.asp?CnlID=10&Cat=35&id=303217 "DIGITIMES - 全民健康雲"
+<!--以上全民健康雲參考-->
+
+[3]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
+[4]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區 - 簡介"
+[5]: http://emr.doh.gov.tw/allowance.aspx "行政院衛生署電子病歷推動專區 - 歷年補助案"
 <!--以上電子病歷參考-->
 
-[4]: http://www.medlib.am/Fulltexts/The%20CDA%20TM%20BOOK%202011.pdf "K. W. Boone, "The CDA Book": Springer-Verlag London, 2011., ISBN: 978-0-85729-335-0, e-ISBN: 978-0-85729-336-7, DOI: 10.1007/978-0-85729-336-7"
-[5]: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1380194/pdf/30.pdf "Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005."
-[6]: http://link.springer.com/content/pdf/10.1007%2F978-1-84882-803-2_9 "T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010."
+[6]: http://www.medlib.am/Fulltexts/The%20CDA%20TM%20BOOK%202011.pdf "K. W. Boone, "The CDA Book": Springer-Verlag London, 2011., ISBN: 978-0-85729-335-0, e-ISBN: 978-0-85729-336-7, DOI: 10.1007/978-0-85729-336-7"
+[7]: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1380194/pdf/30.pdf "Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005."
+[8]: http://link.springer.com/content/pdf/10.1007%2F978-1-84882-803-2_9 "T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010."
 <!--以上HL7 CDA參考-->
 
-[7]: http://zh.wikipedia.org/wiki/XML "XML - Wikipedia"
-[8]: http://www.w3.org/TR/1998/REC-xml-19980210 "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998"
-[9]: http://www.w3.org/TR/2008/REC-xml-20081126/ "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008"
+[9]: http://zh.wikipedia.org/wiki/XML "XML - Wikipedia"
+[10]: http://www.w3.org/TR/1998/REC-xml-19980210 "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998"
+[11]: http://www.w3.org/TR/2008/REC-xml-20081126/ "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008"
 <!--以上XML參考-->
 
-[10]: http://zh.wikipedia.org/wiki/HTML5 "HTML5 - Wikipedia"
-[11]: http://www.apple.com/hotnews/thoughts-on-flash/ "Steve Jobs, Thoughts on Flash, Apple Inc., 2010"
-[12]: http://www.w3.org/TR/2012/WD-html5-diff-20121025/ "Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012"
-[13]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
-[14]: http://www.w3.org/TR/2011/CR-webstorage-20111208/ "Ian Hickson, Web Storage, W3C Candidate Recommendation"
-[15]: http://www.w3.org/TR/2012/CR-webmessaging-20120501/ "Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation"
-[16]: http://www.whatwg.org/specs/web-apps/current-work/multipage/ "Ian Hickson, HTML Living Standard, WHATWG"
-[17]: http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft"
-[18]: http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft"
-[19]: http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "Eric Uhrhane, File API: Directories and System, W3C Working Draft"
-[20]: http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "Eric Uhrhane, File API: Writer, W3C Working Draft"
+[12]: http://zh.wikipedia.org/wiki/HTML5 "HTML5 - Wikipedia"
+[13]: http://www.apple.com/hotnews/thoughts-on-flash/ "Steve Jobs, Thoughts on Flash, Apple Inc., 2010"
+[14]: http://www.w3.org/TR/2012/WD-html5-diff-20121025/ "Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012"
+[15]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
+[16]: http://www.w3.org/TR/2011/CR-webstorage-20111208/ "Ian Hickson, Web Storage, W3C Candidate Recommendation"
+[17]: http://www.w3.org/TR/2012/CR-webmessaging-20120501/ "Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation"
+[18]: http://www.whatwg.org/specs/web-apps/current-work/multipage/ "Ian Hickson, HTML Living Standard, WHATWG"
+[19]: http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft"
+[20]: http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft"
+[21]: http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "Eric Uhrhane, File API: Directories and System, W3C Working Draft"
+[22]: http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "Eric Uhrhane, File API: Writer, W3C Working Draft"
 <!--以上HTML5參考-->
 
-[21]: http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011"
-[22]: http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "雲端運算 - Wikipedia"
-[23]: http://en.wikipedia.org/wiki/Cloud_computing "Cloud Computing - Wikipedia"
+[23]: http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011"
+[24]: http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "雲端運算 - Wikipedia"
+[25]: http://en.wikipedia.org/wiki/Cloud_computing "Cloud Computing - Wikipedia"
+[26]: http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement"
 <!--以上雲端運算參考-->
 
-[24]: http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "全民健康雲啟動 整合個人健康履歷"
-[25]: http://www.yuyen.tw/2012/08/blog-post_3024.html "簡余晏, 短評／落後的電影政令宣導, 2012"
-[26]: http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement"
-[27]: http://www.digitimes.com.tw/tw/dt/n/shwnws.asp?CnlID=10&Cat=35&id=303217 "DIGITIMES - 全民健康雲"
+[27]: http://www.yuyen.tw/2012/08/blog-post_3024.html "簡余晏, 短評／落後的電影政令宣導, 2012"
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 檔案結尾
 	此行以下已經沒有任何內容
