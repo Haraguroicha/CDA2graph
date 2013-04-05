@@ -78,7 +78,7 @@ cda2g.Pages = new function Pages() {
 		if(prevLastWidget.scrollHeight + prevPageScrollTop > lastPage.offsetHeight) {
 			cda2g.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1));
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
-			return this.addPage(nextScrollTop).appendHTML(html);
+			return setTimeout(function(){cda2g.Pages.addPage(nextScrollTop).appendHTML(html);}, 10);
 		}
 		return lastPage;
 	}
