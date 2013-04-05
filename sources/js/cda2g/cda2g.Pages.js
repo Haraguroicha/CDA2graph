@@ -80,7 +80,6 @@ cda2g.Pages = new function Pages() {
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return this.addPage(nextScrollTop).appendHTML(html);
 		}
-		cda2g.UI.updateX_UI();
 		return lastPage;
 	}
 	this.addContent = function addContent(page, html, offsetTop) {

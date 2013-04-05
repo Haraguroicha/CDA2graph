@@ -175,33 +175,29 @@ scope.Loader.prototype = {
   onerror: null,
 
   start: function() {
-    [].forEach.call(document.querySelectorAll('link[rel=components]'), function(link) {
-      this.load(link.href);
+    [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
+      this.load(link.contentDocument.body.innerHTML);
     }, this);
   },
 
-  load: function(url) {
-    var request = new XMLHttpRequest();
+  load: function(objectData) {
     var loader = this;
-
-    request.open('GET', url);
-    request.addEventListener('readystatechange', function(e) {
-      if (request.readyState === 4) {
-        if (request.status >= 200 && request.status < 300 || request.status === 304) {
-          loader.onload && loader.onload(request.response);
-        } else {
-          loader.onerror && loader.onerror(request.status, request);
-        }
-      }
-    });
-    request.send();
+    loader.onload && loader.onload(objectData);
   }
 }
 
 scope.run = function() {
   var loader = new scope.Loader();
   document.addEventListener('DOMContentLoaded', loader.start);
-  document.addEventListener('DOMNodeInserted', loader.start);
+  document.addEventListener('DOMNodeInserted', function(e) {
+    if(e.relatedNode.webkitShadowRoot == null)
+      if(e.relatedNode.tagName.toString().toLowerCase() == "object" || e.relatedNode.attributes.is != undefined){
+        console.log("Dynamically load for: " + e.relatedNode.tagName.toString().toLowerCase() + 
+          ((e.relatedNode.attributes.is != undefined) ? "[is='" + e.relatedNode.attributes.is.value + "']" : "")
+        );
+        loader.start();
+      }
+  });
   var parser = new scope.Parser();
   loader.onload = parser.parse;
   loader.onerror = function(status, resp) {
