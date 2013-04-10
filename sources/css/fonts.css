@@ -1,5 +1,19 @@
 /*@import url(//fonts.googleapis.com/css?family=Ubuntu|Baumans);*/
 @font-face {
+	font-family: 'Ubuntu';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Ubuntu'), url(fonts/vRvZYZlUaogOuHbBTT1SNevvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+	unicode-range: U+21-29, U+2e-2f, U+3a, U+3c-3e, U+40, U+41-5a, U+5b-60, U+61-7a, U+7b-7e;
+}
+@font-face {
+	font-family: 'Baumans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Baumans'), local('Baumans-Regular'), url(fonts/2ubZIIQ7fL9WqPm8AQpgnwLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
+	unicode-range: U+2a-2d, U+30-39, U+3b, U+3f;
+}
+@font-face {
 	font-family: 'cdaFont';
 	font-style: normal;
 	font-weight: 400;
@@ -50,4 +64,20 @@ CJK Compatibility Ideographs		U+F900-FAFF
 	font-family: 'cdaFont-ko';
 	src: local('Baekmuk-Gulim'), url(fonts/baekmukgulim.ttf) format('TypeTure');
 	unicode-range: U+4E00-62FF, U+6300-77FF, U+7800-8CFF, U+8D00-9FFF, U+3400-4DBF, U+20000-215FF, U+21600-230FF, U+23100-245FF, U+24600-260FF, U+26100-275FF, U+27600-290FF, U+29100-2A6DF, U+2A700-2B73F, U+2B740-2B81F, U+F900-FAFF;
+}
+
+.testFont-ub {
+	font-family: 'Ubuntu', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.testFont-bm {
+	font-family: 'Baumans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.testFont-zh {
+	font-family: 'cdaFont', 'cdaFont-zh', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.testFont-ja {
+	font-family: 'cdaFont', 'cdaFont-ja', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.testFont-ko {
+	font-family: 'cdaFont', 'cdaFont-ko', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

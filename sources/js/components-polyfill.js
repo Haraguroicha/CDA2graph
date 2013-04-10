@@ -66,6 +66,18 @@ scope.Declaration.prototype = {
   },
 
   morph: function(element) {
+    //If not exist shadow root, then continue execute
+    if(element.webkitShadowRoot)
+      return;
+    var attributes = "";
+    $(element).filter('[is]').each(function() {
+      $(this.attributes).each(function() {
+        attributes += ((attributes.length > 0) ? " " : "") + this.nodeName + '="' + this.nodeValue + '"';
+      });
+    });
+    console.log("Dynamically load for: " + element.tagName.toString().toLowerCase() + 
+          (($(element).filter('[is]').length > 0) ? "[" + attributes + "]" : "")
+        );
     // FIXME: We shouldn't be updating __proto__ like this on each morph.
     this.element.generatedConstructor.prototype.__proto__ = document.createElement(this.element.extends);
     element.__proto__ = this.element.generatedConstructor.prototype;
@@ -178,15 +190,9 @@ scope.Loader.prototype = {
   onerror: null,
 
   start: function(e) {
-    if(e.relatedNode.webkitShadowRoot == null)
-      if(e.relatedNode.tagName.toString().toLowerCase() == "object" || $(e.relatedNode).find('[is]').length > 0){
-        console.log("Dynamically load for: " + e.relatedNode.tagName.toString().toLowerCase() + 
-          (($(e.relatedNode).find('[is]').length > 0) ? " [is='" + $(e.relatedNode).find('[is]').attr('is') + "']" : "")
-        );
-        [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
-          this.load(link.contentDocument.body.innerHTML);
-        }, this);
-      }
+    [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
+      this.load(link.contentDocument.body.innerHTML);
+    }, this);
   },
 
   load: function(objectData) {
