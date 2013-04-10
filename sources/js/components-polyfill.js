@@ -179,9 +179,9 @@ scope.Loader.prototype = {
 
   start: function(e) {
     if(e.relatedNode.webkitShadowRoot == null)
-      if(e.relatedNode.tagName.toString().toLowerCase() == "object" || e.relatedNode.attributes.is != undefined){
+      if(e.relatedNode.tagName.toString().toLowerCase() == "object" || $(e.relatedNode).find('[is]').length > 0){
         console.log("Dynamically load for: " + e.relatedNode.tagName.toString().toLowerCase() + 
-          ((e.relatedNode.attributes.is != undefined) ? "[is='" + e.relatedNode.attributes.is.value + "']" : "")
+          (($(e.relatedNode).find('[is]').length > 0) ? " [is='" + $(e.relatedNode).find('[is]').attr('is') + "']" : "")
         );
         [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
           this.load(link.contentDocument.body.innerHTML);

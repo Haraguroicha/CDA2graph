@@ -47,6 +47,9 @@ cda2g.Pages = new function Pages() {
 			this.scrollTo(p - 1);
 		}
 	}
+	this.clearView = function clearView() {
+		$(".page-view").remove();
+	}
 	this.scrollTo = function scrollTo(p) {
 		if(p < $(".page-view").length && p > 0)
 			$(".page-viewpoint")[1].scrollTop = $(".page-view")[p - 1].offsetTop - 5;

@@ -1,4 +1,4 @@
-<element extends="cda2g" name="recordTarget" constructor="cda2g.extends">
+<element extends="cda2g" name="cda-header" constructor="cda2g.extends">
 	<decorator>
 		<template>
 			<style scoped="scoped">
@@ -7,14 +7,16 @@
 			<style scoped="scoped">
 				
 			</style>
-			<div class="_XCD_Component">
-				typeCode=<selector attribute="typeCode"></selector>, classCode=<selector DOMString="patientRole" attribute="classCode"></selector>, 姓名=<selector DOMString="patientRole patient name"></selector>, 機構名稱=<selector DOMString="patientRole providerOrganization name"></selector>, B.O.D.=<selector DOMString="patientRole patient birthTime" attribute="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3"></selector>
+			<div class="_XCD_Component" style="display: none;">
+				typeCode=<selector DOMString="recordTarget" attribute="typeCode"></selector>,
+				classCode=<selector DOMString="recordTarget patientRole" attribute="classCode"></selector>,
+				姓名=<selector DOMString="recordTarget patientRole patient name"></selector>,
+				機構名稱=<selector DOMString="recordTarget patientRole providerOrganization name"></selector>,
+				B.O.D.=<selector DOMString="recordTarget patientRole patient birthTime" attribute="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3"></selector>
 			</div>
 		</template>
 		<script type="text/javascript">
 			if (this !== window) {
-				var root = null;
-				var container = null;
 				cda2g.extends.prototype = {
 					onClick: function(e) {
 						$(e.currentTarget).find("span").each(function(index, element) {
@@ -22,24 +24,32 @@
 						});
 					}
 				};
+				function selectorParse(root, content) {
+					var shadow = $(root.querySelectorAll('*'));
+					selectors = shadow.find('selector');
+					selectors.each(function(index, value) {
+						var obj = $(this);
+						var dom_string = obj.attr("DOMString");
+						var attr_string = obj.attr("attribute");
+						var match_string = obj.attr("match");
+						var format_string = obj.attr("format");
+						var dom = (dom_string != undefined) ? $(dom_string, content) : content;
+						var attr = (attr_string != undefined) ? dom.attr(attr_string) : null;
+						var ret = (attr != null) ? attr : $(dom).html();
+						if(ret == undefined) ret = null;
+						if(ret != null && match_string != undefined && format_string != undefined)
+							ret = ret.replace(new RegExp(match_string), format_string);
+						obj.html(ret);
+					});
+					shadow.filter('div._XCD_Component').css('display', 'inline-block');
+				}
 				this.lifecycle({
 					created: function(root) {
-						content = $(this);
-						shadow = $(root.querySelectorAll('*'));
-						selectors = shadow.find('selector');
-						selectors.each(function(index, value) {
-							var obj = $(this);
-							var dom_string = obj.attr("DOMString");
-							var attr_string = obj.attr("attribute");
-							var match_string = obj.attr("match");
-							var format_string = obj.attr("format");
-							var dom = (dom_string != undefined) ? $(dom_string, content) : content;
-							var attr = (attr_string != undefined) ? dom.attr(attr_string) : null;
-							var ret = (attr != null) ? attr : $(dom).html();
-							if(match_string != undefined && format_string != undefined)
-								ret = ret.replace(new RegExp(match_string), format_string);
-							obj.html(ret);
-						});
+						var shadow = $(root.querySelectorAll('*'));
+						$(this).on("DOMNodeInserted", function(e) {selectorParse(e.relatedNode.webkitShadowRoot, $(this));});
+						if(this.childNodes.length > 0) {
+							selectorParse(root, $(this));
+						}
 					}
 				});
 			}
