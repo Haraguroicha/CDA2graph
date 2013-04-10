@@ -53,9 +53,12 @@ scope.Declaration.prototype = {
   },
 
   evalScript: function(script) {
-    //FIXME: Add support for external js loading.
-    SCRIPT_SHIM[1] = script.textContent;
-    eval(SCRIPT_SHIM.join(''));
+    if(script.getAttribute('src') == undefined) {
+      SCRIPT_SHIM[1] = script.textContent;
+      eval(SCRIPT_SHIM.join(''));
+    } else {
+      //FIXME: Add support for external js loading.
+    }
   },
 
   addTemplate: function(template) {
@@ -174,10 +177,16 @@ scope.Loader.prototype = {
   onload: null,
   onerror: null,
 
-  start: function() {
-    [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
-      this.load(link.contentDocument.body.innerHTML);
-    }, this);
+  start: function(e) {
+    if(e.relatedNode.webkitShadowRoot == null)
+      if(e.relatedNode.tagName.toString().toLowerCase() == "object" || e.relatedNode.attributes.is != undefined){
+        console.log("Dynamically load for: " + e.relatedNode.tagName.toString().toLowerCase() + 
+          ((e.relatedNode.attributes.is != undefined) ? "[is='" + e.relatedNode.attributes.is.value + "']" : "")
+        );
+        [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
+          this.load(link.contentDocument.body.innerHTML);
+        }, this);
+      }
   },
 
   load: function(objectData) {
@@ -189,15 +198,7 @@ scope.Loader.prototype = {
 scope.run = function() {
   var loader = new scope.Loader();
   document.addEventListener('DOMContentLoaded', loader.start);
-  document.addEventListener('DOMNodeInserted', function(e) {
-    if(e.relatedNode.webkitShadowRoot == null)
-      if(e.relatedNode.tagName.toString().toLowerCase() == "object" || e.relatedNode.attributes.is != undefined){
-        console.log("Dynamically load for: " + e.relatedNode.tagName.toString().toLowerCase() + 
-          ((e.relatedNode.attributes.is != undefined) ? "[is='" + e.relatedNode.attributes.is.value + "']" : "")
-        );
-        loader.start();
-      }
-  });
+  document.addEventListener('DOMNodeInserted', loader.start);
   var parser = new scope.Parser();
   loader.onload = parser.parse;
   loader.onerror = function(status, resp) {

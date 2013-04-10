@@ -26,8 +26,8 @@ function initialization() {
 			resizable: false
 		});
 	});
-	var sslURL = location.href.replace(/^https?:\/\//,"https://") + "/../ssl.json";
-	if(location.protocol.match(/http(s?):/i)[1] == "")
+	var sslURL = location.origin.replace(/^https?:\/\//,"https://") + location.pathname + "ssl.json";
+	if(location.protocol.match(/http(s?):/i)[1] == "" && location.hostname != "localhost")
 		$.ajax({
 			type: "GET",
 			url: sslURL,
@@ -39,11 +39,8 @@ function initialization() {
 					pluginLoad();
 			},
 			error: function(xhr, statusText) {
-				if(location.href.indexOf("localhost") != -1)
-					pluginLoad();
-				else
-					if(statusText == "error")
-						$("#sslError").modal('show');
+				if(statusText == "error")
+					$("#sslError").modal('show');
 			}
 		});
 	else
