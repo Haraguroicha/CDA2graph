@@ -95,16 +95,6 @@ cda2g.Files = new function Files() {
 		var hospitalOID = $(cda_header.find("recordTarget>patientRole>id")[0]);
 		var components = cda_body.find("structuredBody>component");
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s", CDAcode.attr("code"), hospitalOID.attr("root"), components.length));
-		var xmlString = "";
-		if (window.ActiveXObject){
-			xmlString = cda_header.xml;
-		} else {
-			var oSerializer = new XMLSerializer();
-			for(var i = 0; i < cda_header.length; i++) {
-				xmlString += ((xmlString.length > 0) ? "\n" : "") + oSerializer.serializeToString(cda_header[i]);
-			}
-		}
-		//$('cda2g[is="cda-header"]').html(xmlString);
-		cda2g.Pages.appendHTML($('<cda2g is="cda-header"/>').append(xmlString).wrapAll('<div/>').parent().html());
+		cda2g.Pages.appendHTML($('<cda2g is="cda-header"/>').append(cda_header.serializeToString()).wrapAll('<div/>').parent().html());
 	}
 }

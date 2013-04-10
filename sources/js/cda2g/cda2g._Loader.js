@@ -52,6 +52,7 @@ $(document).ready(function() {
 function pluginLoad() {
 	$( "#plProgress" ).progressbar({value: 0});
 	if(!$.browser.msie) {
+		pl.addModule("cda2g/cda2g.jQuery.fn");
 		pl.addModule("cda2g/cda2g.etc.first");
 		pl.addModule("cda2g/cda2g.stackTrace");
 		pl.addModule("cda2g/cda2g");
