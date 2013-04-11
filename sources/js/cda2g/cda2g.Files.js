@@ -28,7 +28,8 @@ cda2g.Files = new function Files() {
 								f.data = e.target.result;
 								f.date = fs.lastModifiedDate;
 								f.size = e.total;
-								f.isDoc = ((f.data.match(/<\?xml.+\?>\s+<ClinicalDocument.+>[\w\W\s]+<\/ClinicalDocument>\s?/)) ? true : false);
+								f.xmlns = f.data.match(/xmlns(:([\w]*))?="urn:hl7-org:v3"/)[2];
+								f.isDoc = ((f.data.match(/<\?xml[^?>]+\?>\s*(<\?xml-stylesheet .+\?>)?\s*<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>([\s\w\W]*)/)) ? true : false);
 								f.xml = null;
 								f.parser = cda2g.Files.CDAParser;
 								try {
@@ -39,7 +40,7 @@ cda2g.Files = new function Files() {
 								f.xss = (f.xml.nextSibling != null) ? ((f.xml.nextSibling.nodeType == document.COMMENT_NODE) ? f.xml.nextSibling.textContent : null) : null;
 								if(f.isDoc) {
 									obj["./size"] += f.size;
-									cda2g.logger.log(sprintf("ClinicalDocument loaded: `%s`(%s bytes)", f.name, f.size));
+									cda2g.logger.log(sprintf("ClinicalDocument%s loaded: `%s`(%s bytes)", ((!!f.xmlns) ? sprintf("[xmlns:%s]", f.xmlns) : ""), f.name, f.size));
 									obj[f.name] = f;
 									obj[f.name].parser();
 								} else {
@@ -89,12 +90,12 @@ cda2g.Files = new function Files() {
 			return null;
 		}
 		var doc = $(data);
-		var cda_header = $(doc.find("ClinicalDocument>*:not(ClinicalDocument>component)"));
-		var cda_body = $(doc.find("ClinicalDocument>component"));
-		var CDAcode = $(cda_header.filter("code")[0]);
-		var hospitalOID = $(cda_header.find("recordTarget>patientRole>id")[0]);
-		var components = cda_body.find("structuredBody>component");
+		var cda_header = $(doc.findNS(this.xmlns, "ClinicalDocument>*:not(ClinicalDocument>component)"));
+		var cda_body = $(doc.findNS(this.xmlns, "ClinicalDocument>component"));
+		var CDAcode = $(cda_header.filterNS(this.xmlns, "code")[0]);
+		var hospitalOID = $(cda_header.findNS(this.xmlns, "recordTarget>patientRole>id")[0]);
+		var components = cda_body.findNS(this.xmlns, "structuredBody>component");
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s", CDAcode.attr("code"), hospitalOID.attr("root"), components.length));
-		cda2g.Pages.appendHTML($('<cda2g is="cda-header"/>').append(cda_header.serializeToString()).wrapAll('<div/>').parent().html());
+		cda2g.Pages.appendHTML($(sprintf('<cda2g is="cda-header" xmlnsName="%s"/>', ((!!this.xmlns) ? this.xmlns : ""))).append(cda_header.serializeToString()).wrapAll('<div/>').parent().html());
 	}
 }

@@ -8,11 +8,11 @@
 				
 			</style>
 			<div class="_XCD_Component" style="display: none;">
-				typeCode=<selector DOMString="recordTarget" attribute="typeCode"></selector>,
-				classCode=<selector DOMString="recordTarget patientRole" attribute="classCode"></selector>,
-				姓名=<selector DOMString="recordTarget patientRole patient name"></selector>,
-				機構名稱=<selector DOMString="recordTarget patientRole providerOrganization name"></selector>,
-				B.O.D.=<selector DOMString="recordTarget patientRole patient birthTime" attribute="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3"></selector>
+				<selector path="recordTarget/@typeCode">typeCode=<data></data></selector>
+				<selector path="recordTarget/patientRole/@classCode">classCode=<data></data></selector>
+				<selector path="recordTarget/patientRole/patient/name">姓名=<data></data></selector>
+				<selector path="recordTarget/patientRole/providerOrganization/name">機構名稱=<data></data></selector>
+				<selector path="recordTarget/patientRole/patient/birthTime/@value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3">B.O.D.=<data></data></selector>
 			</div>
 		</template>
 		<script type="text/javascript">
@@ -25,21 +25,37 @@
 					}
 				};
 				function selectorParse(root, content) {
+					var xmlns = $(content).attr("xmlnsName");
 					var shadow = $(root.querySelectorAll('*'));
 					selectors = shadow.find('selector');
 					selectors.each(function(index, value) {
 						var obj = $(this);
-						var dom_string = obj.attr("DOMString");
-						var attr_string = obj.attr("attribute");
+						var path = obj.attr("path").split('/');
+						var attrib = obj.attr("path").match(/@([^0-9][-\w]*)/);
+						if(attrib != null) {
+							attrib = attrib[1];
+							path = path.slice(0, path.length - 1);
+						}
+						if(!!xmlns)
+							path = xmlns + '\\:' + path.join(sprintf('>%s\\:', xmlns));
+						else
+							path = path.join('>');
 						var match_string = obj.attr("match");
 						var format_string = obj.attr("format");
-						var dom = (dom_string != undefined) ? $(dom_string, content) : content;
-						var attr = (attr_string != undefined) ? dom.attr(attr_string) : null;
+						var dom = (path != "") ? $(content).find(path) : content;
+						var attr = (attrib != null) ? dom.attr(attrib) : null;
 						var ret = (attr != null) ? attr : $(dom).html();
-						if(ret == undefined) ret = null;
+						if(ret == undefined) {
+							ret = null;
+							obj.css('display', 'none');
+						}
 						if(ret != null && match_string != undefined && format_string != undefined)
 							ret = ret.replace(new RegExp(match_string), format_string);
-						obj.html(ret);
+						var data = obj.find('data');
+						if(data != null)
+							data.html(ret);
+						else
+							obj.html(ret);
 					});
 					shadow.filter('div._XCD_Component').css('display', 'inline-block');
 				}

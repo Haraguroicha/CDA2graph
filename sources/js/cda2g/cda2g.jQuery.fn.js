@@ -4,3 +4,15 @@ $.fn.serializeToString = function serializeToString() {
 	this.each(function(){xmlString.push(oSerializer.serializeToString(this));});
 	return xmlString.join('\n');
 }
+$.fn.findNS = function(namespace, find) {
+	var prefix = "";
+	if(!!namespace && !!find)
+		prefix = namespace + "\\:"
+	return this.find(prefix+find);
+};
+$.fn.filterNS = function(namespace, find) {
+	var prefix = "";
+	if(!!namespace && !!find)
+		prefix = namespace + "\\:"
+	return this.filter(prefix+find);
+};
