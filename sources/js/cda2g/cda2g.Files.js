@@ -155,7 +155,7 @@ cda2g.Files = new function Files() {
 				var val = $(content).xpath(path);
 				if(val.length > 0) {
 					ret = $('<span/>');
-					if(mode == "image")
+					if(mode == "image") {
 						val.each(function() {
 							var info = cda2g.Files.getMediaInfo(mode, this);
 							var base64 = $(this).text().trim();
@@ -177,11 +177,14 @@ cda2g.Files = new function Files() {
 							img.appendTo(a);
 							a.appendTo(ret);
 						});
-					if(mode == "binary")
+					}
+					if(mode == "binary") {
+						var list = $('<ul/>');
 						val.each(function() {
 							var info = cda2g.Files.getMediaInfo(mode, this);
 							var base64 = $(this).text().trim();
 							cda2g.logger.log(sprintf("Selecting path:'%s'%s observationMedia='%s' filename='%s'", path, ((!!attr) ? "@" + attr : ""), info.observationMedia, info.filename));
+							var li = $('<li/>');
 							var a = cda2g.Files.createBlobDownload({
 								"Content-Type": info.observationMedia,
 								"encoding": "base64",
@@ -189,9 +192,12 @@ cda2g.Files = new function Files() {
 								"content": base64,
 								"filename": info.filename
 							});
-							a.text(info.filename);
-							a.appendTo(ret);
+							a.text(sprintf("%s (%s bytes)", info.filename, atob(base64).length));
+							a.appendTo(li);
+							li.appendTo(list);
 						});
+						list.appendTo(ret);
+					}
 				} else {
 					if(placeholder == undefined)
 						obj.css('display', 'none');

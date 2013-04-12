@@ -66,6 +66,7 @@ function pluginLoad() {
 		pl.addModule("cda2g/cda2g.String.Extensions");
 		pl.addModule("cda2g/cda2g.etc.last");
 		pl.addModule("jquery.xpath");
+		pl.addModule("jquery-getpath");
 		pl.addModule("components-polyfill");
 		pl.init();
 	}

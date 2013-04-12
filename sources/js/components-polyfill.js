@@ -89,9 +89,9 @@ scope.Declaration.prototype = {
         attributes += ((attributes.length > 0) ? " " : "") + this.nodeName + '="' + this.nodeValue + '"';
       });
     });
-    console.log("Dynamically load for: " + element.tagName.toString().toLowerCase() + 
+    cda2g.logger.log(sprintf("Dynamically load component for: %s%s", $(element).getPath(),
           (($(element).filter('[is]').length > 0) ? "[" + attributes + "]" : "")
-        );
+        ));
     // FIXME: We shouldn't be updating __proto__ like this on each morph.
     this.element.generatedConstructor.prototype.__proto__ = document.createElement(this.element.extends);
     element.__proto__ = this.element.generatedConstructor.prototype;
