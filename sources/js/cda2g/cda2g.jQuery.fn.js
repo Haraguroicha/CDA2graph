@@ -16,3 +16,4 @@ $.fn.filterNS = function(namespace, find) {
 		prefix = namespace + "\\:"
 	return this.filter(prefix+find);
 };
+$.fn.findAndSelf = function(selector) { return this.find(selector).andSelf().filter(selector); }

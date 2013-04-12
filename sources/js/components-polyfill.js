@@ -239,7 +239,7 @@ scope.run = function(obj, events) {
   var factory = new scope.DeclarationFactory();
   parser.onparse = factory.createDeclaration;
   factory.oncreate = function(declaration) {
-    [].forEach.call($(obj).find(
+    [].forEach.call($(obj).findAndSelf(
         declaration.element.extends + '[is=' + declaration.element.name +
         ']'), declaration.morph);
   }
