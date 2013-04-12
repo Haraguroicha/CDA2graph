@@ -134,7 +134,7 @@ cda2g.Files = new function Files() {
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s", CDAcode.attr("code"), hospitalOID.attr("root"), components.length));
 		cda_header.appendTo(cdah);
 		cda_body.appendTo(cdab)
-		cda2g.Pages.addPage();
+		cda2g.Pages.addPage().setTitle(this.name);
 		cda2g.Pages.appendHTML(cdah.wrapAll('<div/>').parent().html() + cdab.wrapAll('<div/>').parent().html());
 	}
 	this.selectorParse = function selectorParse(root, content) {

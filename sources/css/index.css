@@ -93,11 +93,27 @@ section.page-view {
 	height: 270mm;
 	box-shadow: 4px 4px 12px -2px rgba(90%,90%,95%,0.6);
 }
+section.page-view > header {
+	background-color: transparent;
+	margin-top: -40px;
+	height: 40px;
+	position: relative;
+}
+section.page-view > header > title {
+	position: absolute;
+	bottom: 0px;
+	display: block;
+}
 section.page-view > article {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	border: 1px dashed lightgray;
+}
+section.page-view > footer {
+	background-color: transparent;
+	text-align: right;
+	font-weight: bold;
 }
 #menubox {
 	background: -webkit-gradient(linear, left top, left bottom, from(#445566), to(#223344));

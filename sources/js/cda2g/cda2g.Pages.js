@@ -34,8 +34,17 @@ cda2g.Pages = new function Pages() {
 		art.pageNum = pageNum;
 		art.defaultScrollTop = defaultScrollTop;
 		art.appendHTML = function(html, offsetTop) { return cda2g.Pages.appendHTML(this.pageNum, html, offsetTop || this.defaultScrollTop); }
+		art.getTitle = function(title) {return $(this).parent().find('header>title').html();}
+		art.setTitle = function(title) {return $(this).parent().find('header>title').html(title);}
 		$(art).scroll(function(event){ this.scrollTop = 0; });
+		var title = (this.getPages() > 0) ? this.getLastPage().getTitle() : "";
+		var header = $('<header><title/></header>');
+		if(title != "")
+			header.find('title').html(title);
+		header.appendTo(sec);
 		sec.appendChild(art);
+		$('<footer/>').appendTo(sec);
+		$(sec).find('footer').html('&#35;' + pageNum + '/').append($('<pageTotal/>'));
 		pageArticle.appendChild(sec);
 		cda2g.UI.resize();
 		return this.getPage(pageNum);

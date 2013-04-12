@@ -27,6 +27,8 @@ cda2g.UI = new function _UI() {
 		var pdTotal = $("pageNum").find('total').html();
 		pdNow = (pdNow == undefined) ? 0 : parseInt(pdNow);
 		pdTotal = (pdTotal == undefined) ? 0 : parseInt(pdTotal);
+		if(pdTotal != page[1])
+			$('pageTotal').html(page[1]);
 		if(pdNow != page[0] || pdTotal != page[1]) {
 			$("pageNum").html(pageData);
 			if(!cda2g.onCoreEvent)
