@@ -109,62 +109,80 @@ cda2g.Files = new function Files() {
 			var format_string = obj.attr("format");
 			var placeholder = obj.attr("placeholder");
 			var type = obj.attr("type");
-			var observationMedia = undefined;
-			var filename = undefined;
+			var mode = obj.attr("mode");
 			if(type == "observationMedia") {
-				observationMedia = $(content).xpath(path + '/*:id[@assigningAuthorityName]').attr('assigningAuthorityName');
-				filename = $(content).xpath(path + '/*:id[@extension and @root="FileName"]').attr('extension');
 				path += "/*:value";
-			}
-			var val = $(content).xpath(path);
-			var ret = "";
-			if(val.length > 0) {
-				if(attr != undefined)
-					val = val.attr(attr);
-				else
-					val = val.text();
-			} else{
-				val = undefined;
-			}
-			if(val == undefined) {
-				if(placeholder == undefined)
-					obj.css('display', 'none');
-				else
-					val = placeholder;
-			}
-			if(val != undefined && match_string != undefined && format_string != undefined)
-				ret = val.replace(new RegExp(match_string), format_string);
-			else
-				ret = val;
-			if(val == undefined)
-				val = "";
-			if(ret == undefined)
-				ret = "";
-			if(type == "observationMedia") {
-				if($(content).xpath(path).length > 0) {
-					val = $(content).xpath(path);
-					ret = $('<span/>')
-					val.each(function() {
-						var base64 = $(this).text().trim();
-						cda2g.logger.log(sprintf("Selecting path:'%s'%s observationMedia='%s' filename='%s'", path, ((!!attr) ? "@" + attr : ""), observationMedia, filename));
-						var img = $('<img/>').attr('src', cda2g.Files.createBlob({
-							"Content-Type": observationMedia,
-							"encoding": "base64",
-							"output": "DataURI",
-							"content": base64
-						}));
-						var a = $('<a/>').attr('href', cda2g.Files.createBlobURL(cda2g.Files.createBlob({
-							"Content-Type": observationMedia,
-							"encoding": "base64",
-							"output": "blob",
-							"content": base64
-						}))).attr('download', filename);
-						a[0].dataset.downloadurl = [observationMedia, filename, a.attr('href')].join(':');
-					img.appendTo(a);
-					a.appendTo(ret);
-					});
+				var val = $(content).xpath(path);
+				if(val.length > 0) {
+					ret = $('<span/>');
+					if(mode == "image")
+						val.each(function() {
+							var info = cda2g.Files.getMediaInfo(mode, this);
+							var base64 = $(this).text().trim();
+							cda2g.logger.log(sprintf("Selecting path:'%s'%s observationMedia='%s' filename='%s'", path, ((!!attr) ? "@" + attr : ""), info.observationMedia, info.filename));
+							var img = $('<img/>').attr('src', cda2g.Files.createBlob({
+								"Content-Type": info.observationMedia,
+								"encoding": "base64",
+								"output": "DataURI",
+								"content": base64,
+								"filename": info.filename
+							}));
+							var a = cda2g.Files.createBlobDownload({
+								"Content-Type": info.observationMedia,
+								"encoding": "base64",
+								"output": "blob",
+								"content": base64,
+								"filename": info.filename
+							});
+							img.appendTo(a);
+							a.appendTo(ret);
+						});
+					if(mode == "binary")
+						val.each(function() {
+							var info = cda2g.Files.getMediaInfo(mode, this);
+							var base64 = $(this).text().trim();
+							cda2g.logger.log(sprintf("Selecting path:'%s'%s observationMedia='%s' filename='%s'", path, ((!!attr) ? "@" + attr : ""), info.observationMedia, info.filename));
+							var a = cda2g.Files.createBlobDownload({
+								"Content-Type": info.observationMedia,
+								"encoding": "base64",
+								"output": "blob",
+								"content": base64,
+								"filename": info.filename
+							});
+							a.text(info.filename);
+							a.appendTo(ret);
+						});
+				} else {
+					if(placeholder == undefined)
+						obj.css('display', 'none');
+					else
+						val = placeholder;
 				}
 			} else {
+				var val = $(content).xpath(path);
+				var ret = "";
+				if(val.length > 0) {
+					if(attr != undefined)
+						val = val.attr(attr);
+					else
+						val = val.text();
+				} else{
+					val = undefined;
+				}
+				if(val == undefined) {
+					if(placeholder == undefined)
+						obj.css('display', 'none');
+					else
+						val = placeholder;
+				}
+				if(val != undefined && match_string != undefined && format_string != undefined)
+					ret = val.replace(new RegExp(match_string), format_string);
+				else
+					ret = val;
+				if(val == undefined)
+					val = "";
+				if(ret == undefined)
+					ret = "";
 				cda2g.logger.log(sprintf("Selecting path:'%s'%s value='%s' => '%s'", path, ((!!attr) ? "@" + attr : ""), val, ret));
 			}
 			var data = obj.find('data');
@@ -175,6 +193,19 @@ cda2g.Files = new function Files() {
 		});
 		shadow.filter('div._XCD_Component').css('display', 'block');
 		$(content).css('display', 'block');
+	}
+	this.getMediaInfo = function getMediaInfo(mode, content) {
+		var observationMedia = undefined;
+		var filename = undefined;
+		if(mode == "image") {
+			observationMedia = $(content).xpath('../*:id[@assigningAuthorityName]').attr('assigningAuthorityName');
+			filename = $(content).xpath('../*:id[@extension and @root="FileName"]').attr('extension');
+		}
+		if(mode == "binary") {
+			observationMedia = $(content).xpath('../*:id[@assigningAuthorityName]').attr('assigningAuthorityName');
+			filename = $(content).xpath('../*:id[@extension]').attr('extension');
+		}
+		return {"observationMedia": observationMedia, "filename": filename};
 	}
 	this.createBlobArray = function createBlobArray(blob) {
 		var ua = new Uint8Array(blob.length);
@@ -191,5 +222,10 @@ cda2g.Files = new function Files() {
 	this.createBlobURL = function createBlobURL(blob) {
 		var URLObj = window.URL || window.webkitURL;
 		return URLObj.createObjectURL(blob);
+	}
+	this.createBlobDownload = function createBlobDownload(obj) {
+		var a = $('<a/>').attr('href', this.createBlobURL(this.createBlob(obj))).attr('download', obj.filename);
+		a[0].dataset.downloadurl = [obj['Content-Type'], obj.filename, a.attr('href')].join(':');
+		return a;
 	}
 }
