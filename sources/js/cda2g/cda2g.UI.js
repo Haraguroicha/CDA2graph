@@ -23,7 +23,11 @@ cda2g.UI = new function _UI() {
 			_("core_pageNum_firstContent"), _("core_pageNum_middleContent"), _("core_pageNum_lastContent"),
 			page[0], page[1]
 		).replace(/'/g, '"');
-		if($("pageNum").html() != pageData) {
+		var pdNow = $("pageNum").find('now').html();
+		var pdTotal = $("pageNum").find('total').html();
+		pdNow = (pdNow == undefined) ? 0 : parseInt(pdNow);
+		pdTotal = (pdTotal == undefined) ? 0 : parseInt(pdTotal);
+		if(pdNow != page[0] || pdTotal != page[1]) {
 			$("pageNum").html(pageData);
 			if(!cda2g.onCoreEvent)
 				history.pushState({type: "page", data: page}, document.title, "./?page=" + page[0]);

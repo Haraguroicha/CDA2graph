@@ -1,0 +1,170 @@
+<element extends="cda2g" name="cda-header" constructor="cdaHeader">
+	<decorator>
+		<template>
+			<style scoped="scoped">
+				@import url(components/css/XCD.css);
+			</style>
+			<style scoped="scoped">
+				table {
+					border: solid 1px black;
+					border-collapse: collapse;
+					width: 100%;
+				}
+				table th, table td {
+					border: solid 1px black;
+				}
+				th {
+					font-size: 14pt;
+				}
+				td {
+					font-size: 10pt;
+				}
+			</style>
+			<div class="_XCD_Component" style="display: none;">
+				<table>
+					<tr>
+						<th colspan="4">
+							<selector path="recordTarget/patientRole/providerOrganization/name" placeholder="OOO??">
+								<data></data>
+								<selector path="code[@displayName]" attr="displayName"></selector>
+								電子病歷資料
+							</selector>
+						</th>
+					</tr>
+					<tr>
+						<td>
+							<selector path="recordTarget/patientRole/patient/name">
+								姓名：<data></data>
+								<selector path="recordTarget/patientRole/patient/administrativeGenderCode[@code]" attr="code">(<data></data>)</selector>
+							</selector>
+						</td>
+						<td>
+							<selector path="recordTarget/patientRole/patient/id[@extension]" attr="extension">
+								身分證字號：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector path="recordTarget/patientRole/id[@extension]" attr="extension">
+								病歷號碼：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector path="author/time[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})" format="$1/$2/$3 $4:$5:$6">
+								文件產生時間：<data></data>
+							</selector>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<selector path="recordTarget/patientRole/patient/maritalStatusCode[@code]" attr="code">
+								婚姻狀況：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector path="recordTarget/patientRole/patient/birthTime[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3">
+								B.O.D.：<data></data>
+							</selector>
+						</td>
+						<td colspan="2">
+							<selector path="recordTarget/patientRole/addr/streetAddressLine">
+								地址：<data></data>
+							</selector>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<selector path="recordTarget/patientRole/telecom[@use='H' and @value]" attr="value">
+								家用電話：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector path="recordTarget/patientRole/telecom[@use='WP' and @value]" attr="value">
+								公司電話：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector path="recordTarget/patientRole/telecom[@use='MC' and @value]" attr="value">
+								手機：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector path="recordTarget/patientRole/telecom[@use='PUB' and @value]" attr="value">
+								E-Mail：<data></data>
+							</selector>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</template>
+		<script type="text/javascript">
+			if (this !== window) {
+				cdaHeader.prototype = {
+					onClick: function(e) {
+						$(e.currentTarget).find("span").each(function(index, element) {
+							$(element).html("test");
+						});
+					}
+				};
+				this.lifecycle({
+					created: function(root) {
+						var shadow = $(root.querySelectorAll('*'));
+						$(this).on("DOMNodeInserted", function(e) {cda2g.Files.selectorParse(e.relatedNode.webkitShadowRoot, $(this));});
+						if(this.childNodes.length > 0) {
+							cda2g.Files.selectorParse(root, $(this));
+						}
+					}
+				});
+			}
+		</script>
+	</decorator>
+</element>
+<element extends="cda2g" name="cda-body" constructor="cdaBody">
+	<decorator>
+		<template>
+			<style scoped="scoped">
+				@import url(components/css/XCD.css);
+			</style>
+			<style scoped="scoped">
+				table {
+					border: solid 1px black;
+					border-collapse: collapse;
+					width: 100%;
+				}
+				table th, table td {
+					border: solid 1px black;
+				}
+				th {
+					font-size: 14pt;
+				}
+				td {
+					font-size: 10pt;
+				}
+			</style>
+			<div class="_XCD_Component" style="display: none;">
+				<selector path="component/structuredBody/component/section/code[@code='52040-3']/../entry/observationMedia" type="observationMedia">
+					醫學影像<br/><data></data>
+				</selector>
+			</div>
+		</template>
+		<script type="text/javascript">
+			if (this !== window) {
+				cdaBody.prototype = {
+					onClick: function(e) {
+						$(e.currentTarget).find("span").each(function(index, element) {
+							$(element).html("test");
+						});
+					}
+				};
+				this.lifecycle({
+					created: function(root) {
+						var shadow = $(root.querySelectorAll('*'));
+						$(this).on("DOMNodeInserted", function(e) {cda2g.Files.selectorParse(e.relatedNode.webkitShadowRoot, $(this));});
+						if(this.childNodes.length > 0) {
+							cda2g.Files.selectorParse(root, $(this));
+						}
+					}
+				});
+			}
+		</script>
+	</decorator>
+</element>

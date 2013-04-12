@@ -5,13 +5,6 @@
 	/*font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif !important;*/
 	/*font-family: cdaFont;*/
 }
-object[rel="X-UI-Components"] {
-	visibility: hidden;
-	width: 0px;
-	height: 0px;
-	padding: 0px;
-	margin: 0px;
-}
 body {
 	background-color: #333;
 	overflow: hidden;
@@ -200,4 +193,9 @@ section.page-view > article {
 	-moz-animation: fadeInRightDown 1000ms;
 	-o-animation: fadeInRightDown 1000ms;
 	animation: fadeInRightDown 1000ms;
+}
+.cda-widget > article > cda2g {
+	height: inherit;
+	width: inherit;
+	display: inline-block;
 }

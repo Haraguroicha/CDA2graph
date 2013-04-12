@@ -53,11 +53,24 @@ scope.Declaration.prototype = {
   },
 
   evalScript: function(script) {
-    if(script.getAttribute('src') == undefined) {
+    var url = script.getAttribute('src');
+    if(url == undefined) {
       SCRIPT_SHIM[1] = script.textContent;
       eval(SCRIPT_SHIM.join(''));
     } else {
       //FIXME: Add support for external js loading.
+      var request = new XMLHttpRequest();
+
+      request.open('GET', url, false);
+      request.onloadend = function() {
+        if (request.status >= 200 && request.status < 300 || request.status === 304) {
+          SCRIPT_SHIM[1] = request.response;
+          eval(SCRIPT_SHIM.join(''));
+        } else {
+          console.error("Can't load external js file.", request.status, request);
+        }
+      };
+      request.send();
     }
   },
 
@@ -189,15 +202,25 @@ scope.Loader.prototype = {
   onload: null,
   onerror: null,
 
-  start: function(e) {
-    [].forEach.call(document.querySelectorAll('object[rel=X-UI-Components]'), function(link) {
-      this.load(link.contentDocument.body.innerHTML);
+  start: function() {
+    [].forEach.call(document.querySelectorAll('link[rel=components]'), function(link) {
+      this.load(link.href);
     }, this);
   },
 
-  load: function(objectData) {
+  load: function(url) {
+    var request = new XMLHttpRequest();
     var loader = this;
-    loader.onload && loader.onload(objectData);
+
+    request.open('GET', url);
+    request.onloadend = function() {
+      if (request.status >= 200 && request.status < 300 || request.status === 304) {
+        loader.onload && loader.onload(request.response);
+      } else {
+        loader.onerror && loader.onerror(request.status, request);
+      }
+    };
+    request.send();
   }
 }
 

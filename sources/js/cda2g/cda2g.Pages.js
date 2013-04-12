@@ -81,8 +81,9 @@ cda2g.Pages = new function Pages() {
 		var prevWidgets = lastPage.getElementsByClassName("cda-widget");
 		var prevLastWidget = prevWidgets[prevWidgets.length - 1];
 		var prevPageScrollTop = prevLastWidget.offsetTop - lastPage.offsetTop;
-		if(prevLastWidget.scrollHeight + prevPageScrollTop > lastPage.offsetHeight) {
-			cda2g.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1));
+		var lastWidgetPoint = prevLastWidget.scrollHeight + prevPageScrollTop;
+		if(lastWidgetPoint > lastPage.offsetHeight) {
+			cda2g.logger.log(sprintf("Object is too large, page #%s breaking to #%s. %s > %s", page, page + 1, lastWidgetPoint, lastPage.offsetHeight));
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return setTimeout(function(){cda2g.Pages.addPage(nextScrollTop).appendHTML(html);}, 10);
 		}

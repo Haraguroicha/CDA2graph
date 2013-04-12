@@ -14,6 +14,8 @@ FileETag None
 	</ifModule>
 </filesMatch>
 
+DirectoryIndex index.xhtml
+
 AddType text/plain              .properties
 AddType text/json               .json
 AddType font/woff               .woff
