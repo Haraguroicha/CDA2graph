@@ -110,8 +110,10 @@ cda2g.Files = new function Files() {
 			var placeholder = obj.attr("placeholder");
 			var type = obj.attr("type");
 			var observationMedia = undefined;
+			var filename = undefined;
 			if(type == "observationMedia") {
 				observationMedia = $(content).xpath(path + '/*:id[@assigningAuthorityName]').attr('assigningAuthorityName');
+				filename = $(content).xpath(path + '/*:id[@extension and @root="FileName"]').attr('extension');
 				path += "/*:value";
 			}
 			var val = $(content).xpath(path);
@@ -138,11 +140,33 @@ cda2g.Files = new function Files() {
 				val = "";
 			if(ret == undefined)
 				ret = "";
-			if(observationMedia != undefined)
-				ret = sprintf('data:%s;base64,%s', observationMedia, ret.trim());
-			cda2g.logger.log(sprintf("Selecting path:'%s'%s value='%s' => '%s'", path, ((!!attr) ? "@" + attr : ""), ((ret.indexOf(';base64,') != -1) ? "base64 blob Data" : val), ((ret.indexOf(';base64,') != -1) ? "base64 blob Data" : ret)));
-			if(observationMedia != undefined)
-				ret = $('<img/>').attr('src', ret);
+			if(type == "observationMedia") {
+				if($(content).xpath(path).length > 0) {
+					val = $(content).xpath(path);
+					ret = $('<span/>')
+					val.each(function() {
+						var base64 = $(this).text().trim();
+						cda2g.logger.log(sprintf("Selecting path:'%s'%s observationMedia='%s' filename='%s'", path, ((!!attr) ? "@" + attr : ""), observationMedia, filename));
+						var img = $('<img/>').attr('src', cda2g.Files.createBlob({
+							"Content-Type": observationMedia,
+							"encoding": "base64",
+							"output": "DataURI",
+							"content": base64
+						}));
+						var a = $('<a/>').attr('href', cda2g.Files.createBlobURL(cda2g.Files.createBlob({
+							"Content-Type": observationMedia,
+							"encoding": "base64",
+							"output": "blob",
+							"content": base64
+						}))).attr('download', filename);
+						a[0].dataset.downloadurl = [observationMedia, filename, a.attr('href')].join(':');
+					img.appendTo(a);
+					a.appendTo(ret);
+					});
+				}
+			} else {
+				cda2g.logger.log(sprintf("Selecting path:'%s'%s value='%s' => '%s'", path, ((!!attr) ? "@" + attr : ""), val, ret));
+			}
 			var data = obj.find('data');
 			if(data.length != 0)
 				data.html(ret);
@@ -151,5 +175,21 @@ cda2g.Files = new function Files() {
 		});
 		shadow.filter('div._XCD_Component').css('display', 'block');
 		$(content).css('display', 'block');
+	}
+	this.createBlobArray = function createBlobArray(blob) {
+		var ua = new Uint8Array(blob.length);
+		for(var i = 0; i < blob.length; i++)
+			ua[i] = blob.charCodeAt(i);
+		return ua;
+	}
+	this.createBlob = function createBlob(obj) {
+		if(obj.output == "DataURI")
+			return sprintf('data:%s;%s,%s', obj['Content-Type'], obj.encoding, obj.content);
+		if(obj.output == "blob")
+			return new Blob([((obj.encoding == "base64") ? this.createBlobArray(atob(obj.content)) : obj.content)], {type: obj['Content-Type']});
+	}
+	this.createBlobURL = function createBlobURL(blob) {
+		var URLObj = window.URL || window.webkitURL;
+		return URLObj.createObjectURL(blob);
 	}
 }
