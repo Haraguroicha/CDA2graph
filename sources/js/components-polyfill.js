@@ -1,4 +1,5 @@
-(function(scope) {
+window.__exported_components_polyfill_scope__ = {"runManually": true};
+var __polyfill = (function(scope) {
 
 var scope = scope || {};
 
@@ -224,10 +225,10 @@ scope.Loader.prototype = {
   }
 }
 
-scope.run = function() {
+scope.run = function(obj, events) {
+  if(events == undefined)
+    events = 'DOMContentLoaded DOMNodeInserted';
   var loader = new scope.Loader();
-  document.addEventListener('DOMContentLoaded', loader.start);
-  document.addEventListener('DOMNodeInserted', loader.start);
   var parser = new scope.Parser();
   loader.onload = parser.parse;
   loader.onerror = function(status, resp) {
@@ -238,16 +239,21 @@ scope.run = function() {
   var factory = new scope.DeclarationFactory();
   parser.onparse = factory.createDeclaration;
   factory.oncreate = function(declaration) {
-    [].forEach.call(document.querySelectorAll(
+    [].forEach.call($(obj).find(
         declaration.element.extends + '[is=' + declaration.element.name +
         ']'), declaration.morph);
   }
+  if(events != '')
+    $(obj).on(events, loader.start);
+  else
+    loader.start();
 }
 
 if (!scope.runManually) {
-  scope.run();
+  scope.run($(document));
 }
 
 function nil() {}
 
-})(window.__exported_components_polyfill_scope__);
+});
+__polyfill(window.__exported_components_polyfill_scope__);

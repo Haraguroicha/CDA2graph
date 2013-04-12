@@ -12,7 +12,7 @@ cda2g.Files = new function Files() {
 	this.importFiles = function importFiles(e) {
 		if(e.dataTransfer.files.length > 0) {
 			var fss = e.dataTransfer.files;
-			files = { "./size": 0 };
+			files = { "./size": 0, "./loader": [], "./list": [] };
 			for(var k in fss) {
 				var fs = fss[k];
 				if(typeof(fs)=="object") {
@@ -41,7 +41,10 @@ cda2g.Files = new function Files() {
 									obj["./size"] += f.size;
 									cda2g.logger.log(sprintf("ClinicalDocument%s loaded: `%s`(%s bytes)", ((!!f.xmlns) ? sprintf("[xmlns:%s]", f.xmlns) : ""), f.name, f.size));
 									obj[f.name] = f;
-									f.parser();
+									obj["./list"].push(f.name);
+									obj["./loader"].push(f.name);
+									if(obj["./loader"].length == fss.length)
+										cda2g.Files.initParse();
 								} else {
 									cda2g.logger.log(sprintf("loaded file: `%s`(%s bytes), but that is not valid ClinicalDocument.", f.name, f.size));
 									$("<div title='" + _("mistypeCDA") + "'/>")
@@ -78,8 +81,45 @@ cda2g.Files = new function Files() {
 			files.__defineGetter__("size", function() {
 				return this["./size"];
 			});
+			files.__defineGetter__("count", function() {
+				return (!!this["./list"]) ? this["./list"].length : 0;
+			});
 			cda2g.Pages.clearView();
 		}
+	}
+	this.initParse = function initParse() {
+		$("#fileLoader").dialog({
+			width: 600,
+			height: 250,
+			modal: true,
+			show: { effect: "drop", direction: "left" },
+			hide: { effect: "drop", direction: "right" },
+			open: function(event, ui) {
+				$(".ui-dialog-titlebar-close").hide();
+				$("#fileLoader").attr("data-l10n-id", "fileInitializing");
+				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "fileInitializing");
+			},
+			close: function(event,ui) { $("#fileMessage").html('') },
+			closeOnEscape: false,
+			draggable: false,
+			resizable: false
+		});
+		setTimeout(function(){cda2g.Files.parseCDA();}, 10);
+	}
+	this.parseCDA = function parseCDA() {
+		var loader = this.files["./loader"];
+		if(!!loader)
+			if(loader.length > 0) {
+				var obj = this.files[loader[0]];
+				obj.parser();
+				this.files["./loader"] = this.files["./loader"].slice(1);
+				$("#fileMessage").prepend(sprintf('<span data-l10n-id="fileLoading">Loading </span>\'%s\' (%s bytes)...<br />', obj.name, obj.size));
+				$("#fileProgress").progressbar({value: ((this.files.count - this.files["./loader"].length) / this.files.count * 100)});
+				if(files["./loader"].length == 0) {
+					$("#fileMessage").prepend('<span data-l10n-id="fileFinalizing">Finalizing</span>...<br/>');
+					setTimeout(function(){$( "#fileLoader" ).dialog('close');}, 1000);
+				}
+			}
 	}
 	this.CDAParser = function CDAParser() {
 		if(!!!this.xml) return;

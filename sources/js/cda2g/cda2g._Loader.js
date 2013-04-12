@@ -2,7 +2,7 @@ function initialization() {
 	var LOAD_ERROR = "Loading Error!!";
 	document.title += " - Loading...";
 	$(function() {
-		$( "#plLoader" ).dialog({
+		$("#plLoader").dialog({
 			width: 600,
 			height: 250,
 			modal: true,
@@ -20,7 +20,7 @@ function initialization() {
 					$('#unknownError').modal('show');
 				}
 			},
-			close: function(event,ui) { setTimeout("cda2g.init(); cda2g.Pages.addPage(); sample();", 100); },
+			close: function(event,ui) { $("#plMessage").html('');setTimeout("cda2g.init(); cda2g.Pages.addPage(); sample();", 100); },
 			closeOnEscape: false,
 			draggable: false,
 			resizable: false
@@ -50,7 +50,7 @@ $(document).ready(function() {
 	initialization();
 });
 function pluginLoad() {
-	$( "#plProgress" ).progressbar({value: 0});
+	$("#plProgress").progressbar({value: 0});
 	if(!$.browser.msie) {
 		pl.addModule("cda2g/cda2g.jQuery.fn");
 		pl.addModule("cda2g/cda2g.etc.first");

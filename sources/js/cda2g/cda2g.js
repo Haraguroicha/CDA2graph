@@ -18,6 +18,12 @@ var cda2g = new function _cda2g() {
 		
 		this.setDropArea($(".page-wrapper")[0], $("#fileImporter")[0]);
 		this.UI.resize();
+		window.__exported_components_polyfill_scope__.run($('article.pageBox'), 'ComponentAppended');
+		window.__exported_components_polyfill_scope__.run($('pageNum'), 'DOMContentLoaded');
+		$('pageNum').trigger('DOMContentLoaded');
+		$('article.pageBox').on('ComponentAppended', function(){$('article.pageBox').trigger('ContentAppeded');});
+		$('article.pageBox').on('ContentAppeded', function(){setTimeout(function(){cda2g.Pages.contentAppened();}, 250);});
+		$(document).on('ComponentAppended', function(){setTimeout(function(){cda2g.Files.parseCDA();}, 10);});
 	}
 	this.setTitle = function setTitle(n, parent) {
 		this.enumerateCall(n, function(il) { cda2g.getParent(il, parent).title = il.innerText; });

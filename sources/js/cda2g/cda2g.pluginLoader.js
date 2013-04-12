@@ -14,8 +14,8 @@ var pl = new function pluginLoader(mods) {
 		script.setAttribute("type","text/javascript");
 		script.setAttribute("src", "js/" + mod + ".js");
 		script.onload = function () {
-			$( "#plMessage" ).prepend('<span data-l10n-id="plLoading">Loading </span>\'' + mod + '\'...<br />');
-			$( "#plProgress" ).progressbar({value: actived / modules.length * 100});
+			$("#plMessage").prepend('<span data-l10n-id="plLoading">Loading </span>\'' + mod + '\'...<br />');
+			$("#plProgress").progressbar({value: actived / modules.length * 100});
 			setTimeout(function(){pl.init();}, 25);
 		}
 		document.getElementsByTagName("head")[0].appendChild(script);
@@ -37,7 +37,7 @@ var pl = new function pluginLoader(mods) {
 			}
 		}
 		if(isEnd && typeof(main) == "function") {
-			$( "#plMessage" ).prepend('<span data-l10n-id="plFinalizing">Finalizing</span>...<br/>');
+			$("#plMessage").prepend('<span data-l10n-id="plFinalizing">Finalizing</span>...<br/>');
 			setTimeout("main();", 500);
 		}
 	}

@@ -1,5 +1,5 @@
 cda2g.Pages = new function Pages() {
-	var cacheHTML = [];
+	this.cacheHTML = [];
 	var lineHeight = -1;
 	var pageTester = document.createElement("div");
 	pageTester.id = "pageTester";
@@ -75,8 +75,8 @@ cda2g.Pages = new function Pages() {
 		//If call this method directly by calling cda2g.Pages.appendHTML(html[, offset]);
 		if(typeof(page) == "string" && (typeof(html) == "number" || typeof(html) == "undefined"))
 			return this.getLastPage().appendHTML(page, html);
-		if(cacheHTML.length == 0) cacheHTML.push(html);
-		if(html != cacheHTML[0]) return cacheHTML.push(html);
+		if(this.cacheHTML.length == 0) this.cacheHTML.push(html);
+		if(html != this.cacheHTML[0]) return this.cacheHTML.push(html);
 		var lastPage = this.addContent(this.getPage(page), html, offsetTop);
 		var prevWidgets = lastPage.getElementsByClassName("cda-widget");
 		var prevLastWidget = prevWidgets[prevWidgets.length - 1];
@@ -87,9 +87,15 @@ cda2g.Pages = new function Pages() {
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
 			return setTimeout(function(){cda2g.Pages.addPage(nextScrollTop).appendHTML(html);}, 10);
 		}
-		cacheHTML = cacheHTML.slice(1);
-		if(cacheHTML.length > 0) return this.appendHTML(cacheHTML[0]);
+		$('article.pageBox').trigger('ComponentAppended');
 		return lastPage;
+	}
+	this.contentAppened = function contentAppened() {
+		if(this.cacheHTML.length > 0) {
+			this.cacheHTML = this.cacheHTML.slice(1);
+			if(this.cacheHTML.length > 0)
+				this.appendHTML(this.cacheHTML[0]);
+		}
 	}
 	this.addContent = function addContent(page, html, offsetTop) {
 		var pack = this.packSection(html, offsetTop);
