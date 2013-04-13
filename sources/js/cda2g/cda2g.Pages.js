@@ -38,12 +38,12 @@ cda2g.Pages = new function Pages() {
 		art.setTitle = function(title) {return $(this).parent().find('header>title').html(title);}
 		$(art).scroll(function(event){ this.scrollTop = 0; });
 		var title = (this.getPages() > 0) ? this.getLastPage().getTitle() : "";
-		var header = $('<header><title/></header>');
+		var header = $('<header class="outside"><title class="outside"/></header>');
 		if(title != "")
 			header.find('title').html(title);
 		header.appendTo(sec);
 		sec.appendChild(art);
-		$('<footer/>').appendTo(sec);
+		$('<footer class="outside"/>').appendTo(sec);
 		$(sec).find('footer').html('&#35;' + pageNum + '/').append($('<pageTotal/>'));
 		pageArticle.appendChild(sec);
 		cda2g.UI.resize();
