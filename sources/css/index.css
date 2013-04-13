@@ -115,10 +115,10 @@ section.page-view > article {
 section.page-view > footer.outside {
 	background-color: transparent;
 	text-align: right;
-	font-weight: bold;
 	border-top: solid 1px lightgray;
 }
 title.outside, footer.outside {
+	font-weight: bold;
 	margin-left: -50px;
 	padding-left: 50px;
 	margin-right: -50px;
