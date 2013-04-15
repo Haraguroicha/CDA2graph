@@ -32,13 +32,16 @@ function initialization() {
 			type: "GET",
 			url: sslURL,
 			dataType: "json",
+			converters: {"text json": jQuery.parseJSON},
+			async: false,
 			success: function(data) {
-				if(data.ssl == true)
-					window.location.href = sslURL.replace(/\/\.\.\/ssl\.json$/, "");
-				else
-					pluginLoad();
+				if(data.ssl == true) {
+					$('#plMessage').html('Redirecting you to ' + sslURL);
+					setTimeout(function(){window.location.href = location.origin.replace(/^https?:\/\//,"https://") + location.pathname;}, 1000);
+				}
 			},
-			error: function(xhr, statusText) {
+			error: function(xhr, statusType, statusText) {
+				console.log("Redirect has an '" + statusType + "' error: " + statusText);
 				if(statusText == "error")
 					$("#sslError").modal('show');
 			}
