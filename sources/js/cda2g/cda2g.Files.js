@@ -27,17 +27,22 @@ cda2g.Files = new function Files() {
 								f.date = fs.lastModifiedDate;
 								f.size = e.total;
 								f.xmlnsURI = "urn:hl7-org:v3";
-								f.xmlnsPrefix = f.data.match(new RegExp(sprintf('xmlns(:([\\w]*))?="%s"', f.xmlnsURI)))[2];
+								try {
+									f.xmlnsPrefix = f.data.match(new RegExp(sprintf('xmlns(:([\\w]*))?="%s"', f.xmlnsURI)))[2];
+								} catch(e) {
+									f.xmlnsPrefix = null;
+								}
 								f.isDoc = ((f.data.match(/<\?xml[^?>]+\?>\s*(<\?xml-stylesheet .+\?>)?\s*<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>([\s\w\W]*)/)) ? true : false);
 								f.xml = null;
+								f.xss = null;
 								f.parser = cda2g.Files.CDAParser;
 								try {
 									f.xml = $.parseXML(f.data);
 								} catch(e) {
 									f.isDoc = false;
 								}
-								f.xss = (f.xml.nextSibling != null) ? ((f.xml.nextSibling.nodeType == document.COMMENT_NODE) ? f.xml.nextSibling.textContent : null) : null;
 								if(f.isDoc) {
+									f.xss = (f.xml.nextSibling != null) ? ((f.xml.nextSibling.nodeType == document.COMMENT_NODE) ? f.xml.nextSibling.textContent : null) : null;
 									obj["./size"] += f.size;
 									cda2g.logger.log(sprintf("ClinicalDocument%s loaded: `%s`(%s bytes)", ((!!f.xmlns) ? sprintf("[xmlns:%s]", f.xmlns) : ""), f.name, f.size));
 									obj[f.name] = f;
@@ -49,9 +54,10 @@ cda2g.Files = new function Files() {
 									cda2g.logger.log(sprintf("loaded file: `%s`(%s bytes), but that is not valid ClinicalDocument.", f.name, f.size));
 									$("<div title='" + _("mistypeCDA") + "'/>")
 										.html(_("canNotReadCDA"))
+										.append($("<img/>").attr("src", "img/CDA_Sample.png"))
 										.dialog({
-											width: 600,
-											height: 250,
+											width: 625,
+											height: 480,
 											modal: true,
 											show: { effect: "drop", direction: "up" },
 											hide: { effect: "drop", direction: "up" },
@@ -84,7 +90,6 @@ cda2g.Files = new function Files() {
 			files.__defineGetter__("count", function() {
 				return (!!this["./list"]) ? this["./list"].length : 0;
 			});
-			cda2g.Pages.clearView();
 		}
 	}
 	this.initParse = function initParse() {
@@ -104,6 +109,7 @@ cda2g.Files = new function Files() {
 			draggable: false,
 			resizable: false
 		});
+		cda2g.Pages.clearView();
 		setTimeout(function(){cda2g.Files.parseCDA();}, 10);
 	}
 	this.parseCDA = function parseCDA() {
