@@ -42,10 +42,15 @@ body *::-webkit-scrollbar-thumb:window-inactive {
 .page-wrapper:first-child {
 	height: 30px;
 }
-section.page-wrapper > article.page-viewpoint > section.page-viewpoint > header > pageNum {
+section.page-wrapper > article.page-viewpoint > section.page-viewpoint > footer > pageNum {
 	position: fixed;
 	bottom: 10px;
 	right: 10px;
+}
+section.page-wrapper > article.page-viewpoint > section.page-viewpoint > footer > version {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
 }
 article.page-viewpoint {
 	background-color: #222;
