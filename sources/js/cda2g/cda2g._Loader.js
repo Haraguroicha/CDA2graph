@@ -36,8 +36,9 @@ function initialization() {
 			async: false,
 			success: function(data) {
 				if(data.ssl == true) {
+					sslURL = location.origin.replace(/^https?:\/\//,"https://") + location.pathname;
 					$('#plMessage').html('Redirecting you to ' + sslURL);
-					setTimeout(function(){window.location.href = location.origin.replace(/^https?:\/\//,"https://") + location.pathname;}, 1000);
+					setTimeout(function(){window.location.href = sslURL;}, 1000);
 				}
 			},
 			error: function(xhr, statusType, statusText) {
