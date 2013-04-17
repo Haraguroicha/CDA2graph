@@ -65,11 +65,12 @@
 							url: ".version",
 							dataType: "text",
 							complete: function(version) {
-								var ver = version.responseText.trim().split("\n");
+								var ver = version.responseText.trim().split("::");
 								self.html("");
 								$("<rev />").html(ver[0]).appendTo(self);
 								$("<shorthash />").html(ver[1]).appendTo(self);
 								$("<hash />").html(ver[2]).appendTo(self);
+								console.log(ver[3])
 								$("<commitDateTime />").html(new Date(ver[3]).toLocaleString()).appendTo(self);
 							}
 						});
