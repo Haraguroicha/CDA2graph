@@ -4,12 +4,6 @@
 			<style scoped="scoped">
 				div#pageNumber {
 					color: white;
-					text-shadow: 3px 3px 10px gray;
-					border: solid 1px lightgray;
-					border-radius: 5px;
-					padding: 5px 7px 5px 7px;
-					background-color: rgba(80, 80, 80, 0.75);
-					z-index: 99;
 				}
 			</style>
 			<div id="pageNumber">
@@ -44,20 +38,13 @@
 <element extends="version" name="version" constructor="version">
 	<decorator>
 		<template>
-			<style scoped="scoped">
-				div#version {
-					color: lightgray;
-					text-shadow: 3px 3px 10px gray;
-					border: solid 1px lightgray;
-					border-radius: 5px;
-					padding: 0px 3px 0px 3px;
-					background-color: rgba(80, 80, 80, 0.75);
-					z-index: 99;
-				}
-			</style>
 			<div id="version">
 				<content select="rev"></content>
-				<br />
+				<span> </span>
+				<content select="shorthash"></content>
+				<span> </span>
+				<content select="commitDateTime"></content>
+				<span> </span>
 				<content select="hash"></content>
 			</div>
 		</template>
@@ -78,10 +65,12 @@
 							url: ".version",
 							dataType: "text",
 							complete: function(version) {
-								var ver = version.responseText.replace(/\n/g, "").split(": ");
+								var ver = version.responseText.trim().split("\n");
 								self.html("");
 								$("<rev />").html(ver[0]).appendTo(self);
-								$("<hash />").html(ver[1]).appendTo(self);
+								$("<shorthash />").html(ver[1]).appendTo(self);
+								$("<hash />").html(ver[2]).appendTo(self);
+								$("<commitDateTime />").html(new Date(ver[3]).toLocaleString()).appendTo(self);
 							}
 						});
 					}

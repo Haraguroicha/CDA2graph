@@ -1,7 +1,7 @@
 cda2g.UI = new function _UI() {
 	this.setUI = function setUI() {
 		document.title = _("title");
-		$(".page-viewpoint")[0].style.height = window.innerHeight - $("#menubox")[0].offsetHeight + "px";
+		$(".page-viewpoint")[0].style.height = window.innerHeight - $("#menubox")[0].offsetHeight - $("section.page-wrapper > footer")[0].offsetHeight + "px";
 		$(".page-viewpoint")[0].style.top = $("#menubox")[0].offsetHeight + "px";
 		$("pageNum").css("visibility", "");
 	}
