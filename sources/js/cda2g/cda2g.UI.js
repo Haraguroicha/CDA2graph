@@ -51,7 +51,7 @@ cda2g.UI = new function _UI() {
 				}, 100);
 			}, 100);
 			var cjk = lang.split("-")[0];
-			var fontFamily = "'cdaFont'" + ((cjk == "zh" || cjk == "ko" || cjk == "ja") ? ", 'cdaFont-" + cjk + "'" : "") + ", sans-serif";
+			var fontFamily = "'cdaFont'" + ((cjk == "zh" || cjk == "ko" || cjk == "ja") ? ", 'cdaFont-" + cjk + "'" : "") + ', "Helvetica Neue", Helvetica, Arial, sans-serif';
 			$("body > *").css("font-family", fontFamily);
 			cda2g.logger.log(sprintf("Change font to `%s` by language: %s", fontFamily, lang));
 		}
