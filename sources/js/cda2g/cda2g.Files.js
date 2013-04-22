@@ -149,7 +149,7 @@ cda2g.Files = new function Files() {
 		selectors = shadow.find('selector');
 		selectors.each(function(index, value) {
 			var obj = $(this);
-			var path = '*:' + obj.attr("path").split('/').join('/*:').replace(/\/\*:\.\./g, "/..");
+			var path = '*:' + obj.attr("path").split('/').join('/*:').replace(/\ ?(,|\||\ or\ [^@]|\ and\ [^@]|\ OR\ [^@]|\ AND\ [^@])\ ?/g, " $1 *:").replace(/\/\*:\.\./g, "/..");
 			var attr = obj.attr('attr');
 			var match_string = obj.attr("match");
 			var format_string = obj.attr("format");
@@ -217,7 +217,13 @@ cda2g.Files = new function Files() {
 					if(attr != undefined)
 						val = val.attr(attr);
 					else
-						val = val.text();
+						for(var i = 0; i < val.length; i++) {
+							var v = $(val[i]).text();
+							if(v.length > 0) {
+								val = v;
+								break;
+							}
+						}
 				} else{
 					val = undefined;
 				}
