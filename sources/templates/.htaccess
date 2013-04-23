@@ -1,0 +1,6 @@
+Options -Indexes
+
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !-f
+RewriteCond %{REQUEST_URI} !-d
+RewriteRule	(.*) %{REQUEST_URI}/../../components/cdaDemo.xhtml?template=$1 [R=302,NC,L]
