@@ -1,6 +1,19 @@
 Options -Indexes
 
 RewriteEngine on
-RewriteCond %{REQUEST_URI} !-f
-RewriteCond %{REQUEST_URI} !-d
-RewriteRule	(.*) %{REQUEST_URI}/../../components/cdaDemo.xhtml?template=$1 [R=302,NC,L]
+
+# Redirect file to default.xhtml if the file doesn't exist
+RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteCond %{REQUEST_FILENAME} !-L
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ %{REQUEST_URI}/../default.xhtml [R=307,L]
+
+# Redirect default.xhtml to cdaDemo.xhtml if default.xhtml doesn't exist
+RewriteCond %{REQUEST_URI} (.*)/default.xhtml$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteCond %{REQUEST_FILENAME} !-L
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule (.*)/(.*)$ %{REQUEST_URI}/../../../components/cdaDemo.xhtml?template=$1/$2 [R=303,L]
