@@ -95,7 +95,7 @@ cda2g.Files = new function Files() {
 	this.initParse = function initParse() {
 		$("#fileLoader").dialog({
 			width: 600,
-			height: 250,
+			height: 400,
 			modal: true,
 			show: { effect: "drop", direction: "left" },
 			hide: { effect: "drop", direction: "right" },
@@ -104,7 +104,7 @@ cda2g.Files = new function Files() {
 				$("#fileLoader").attr("data-l10n-id", "fileInitializing");
 				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "fileInitializing");
 			},
-			close: function(event,ui) { $("#fileMessage").html('') },
+			close: function(event,ui) { $("#fileMessage").html(''); },
 			closeOnEscape: false,
 			draggable: false,
 			resizable: false
@@ -113,22 +113,25 @@ cda2g.Files = new function Files() {
 		setTimeout(function(){cda2g.Files.parseCDA();}, 10);
 	}
 	var XCD = $('<style scoped="scoped" />').html("@import url(components/css/XCD.css);");
-	this.parseCDA = function parseCDA() {
-		$('cda2g[is]').each(function() {
+	this.appendXCD = function appendXCD() {
+		return $('cda2g[is]').each(function() {
 			var node = this;
 			if(!!node.webkitShadowRoot) {
-				var sr = node.webkitShadowRoot.querySelectorAll('*')
+				var sr = node.webkitShadowRoot;
+				var qa = sr.querySelectorAll('style')
 				var haveXCD = false;
-				$(sr).filter('style').each(function() {
+				$(qa).filter('style').each(function() {
 					if(this.innerHTML.match(/@import url\(components\/css\/XCD\.css\);/) != null)
 						haveXCD = true;
 				});
 				if(!haveXCD) {
-					cda2g.logger.log("Append XCD scoped style Element");
-					$(node.webkitShadowRoot).append(XCD);
+					cda2g.logger.log(sprintf("Append XCD scoped style Element to cda2g[is='%s' cda.filename='%s']", $(node).attr('is'), $(node).attr('cda.filename')));
+					$(sr).append(XCD.clone());
 				}
 			}
 		});
+	}
+	this.parseCDA = function parseCDA() {
 		var loader = this.files["./loader"];
 		if(!!loader)
 			if(loader.length > 0) {
@@ -139,13 +142,18 @@ cda2g.Files = new function Files() {
 				$("#fileProgress").progressbar({value: ((this.files.count - this.files["./loader"].length) / this.files.count * 100)});
 				if(files["./loader"].length == 0) {
 					$("#fileMessage").prepend('<span data-l10n-id="fileFinalizing">Finalizing</span>...<br/>');
-					setTimeout(function(){$( "#fileLoader" ).dialog('close');}, 1000);
+					setTimeout(function(){
+						$("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>');
+						cda2g.Files.appendXCD();
+					}, 1000);
+					setTimeout(function(){$( "#fileLoader" ).dialog('close');}, 2000);
 				}
 			}
 	}
 	this.CDAParser = function CDAParser() {
 		if(!!!this.xml) return;
 		var doc = $(this.xml);
+		var filename = this.name;
 		var cda_header = doc.xpath("*:ClinicalDocument/(* except self::*/*:component)");
 		var cda_body = doc.xpath("*:ClinicalDocument/*:component");
 		var CDAcode = cda_header.xpath("../*:code");
@@ -168,6 +176,7 @@ cda2g.Files = new function Files() {
 			dataType: "text",
 			async: false,
 			success: function (data, textStatus, jqXHR) {
+				var temp = template.replace(/templates\//g, "");
 				xTemplate = parseInt(jqXHR.getResponseHeader("X-Template"));
 				var message = "";
 				switch(xTemplate) {
@@ -187,10 +196,11 @@ cda2g.Files = new function Files() {
 					default:
 
 				}
+				$("#fileMessage").prepend(sprintf("<pre>%s; %s</pre>", xTemplate, temp));
 				cda2g.logger.log(sprintf("Query template code=%s, return message='%s'", xTemplate, message));
 			}
 		});
-		var cda = $(sprintf('<cda2g is="cda%s" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
+		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_root, components.length, template));
 		if(cdaName == 200 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
 			$('head').append($(sprintf('<link type="application/xhtml+xml" rel="components" href="%s" />', template)));
