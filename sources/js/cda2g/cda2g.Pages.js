@@ -81,6 +81,7 @@ cda2g.Pages = new function Pages() {
 		return Math.floor(this.getPage(this.getPages()).offsetHeight / this.getLineHeight());
 	}
 	this.appendHTML = function appendHTML(page, html, offsetTop) {
+		cda2g.UI.deactivateDrop();
 		//If call this method directly by calling cda2g.Pages.appendHTML(html[, offset]);
 		if(typeof(page) == "string" && (typeof(html) == "number" || typeof(html) == "undefined"))
 			return this.getLastPage().appendHTML(page, html);
@@ -97,6 +98,7 @@ cda2g.Pages = new function Pages() {
 			return setTimeout(function(){cda2g.Pages.addPage(nextScrollTop).appendHTML(html);}, 10);
 		}
 		$('article.pageBox').trigger('ComponentAppended');
+		cda2g.UI.activateDrop();
 		return lastPage;
 	}
 	this.contentAppened = function contentAppened() {

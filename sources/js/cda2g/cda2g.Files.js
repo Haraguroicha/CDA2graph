@@ -146,7 +146,7 @@ cda2g.Files = new function Files() {
 						$("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>');
 						cda2g.Files.appendXCD();
 					}, 1000);
-					setTimeout(function(){$( "#fileLoader" ).dialog('close');}, 2000);
+					setTimeout(function(){ $("#fileLoader").dialog('close'); cda2g.UI.activateDrop(); }, 2000);
 				}
 			}
 	}

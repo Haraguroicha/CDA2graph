@@ -16,7 +16,7 @@ var cda2g = new function _cda2g() {
 		}, true);
 		$("<div id='textPaddingWrapper'></div>").text("textPaddingWrapper_1234567890_~!@#$%^&*()_+?").appendTo($(document));
 		
-		this.setDropArea($(".page-wrapper")[0], $("#fileImporter")[0]);
+		this.UI.setDropArea();
 		this.UI.resize();
 		window.__exported_components_polyfill_scope__.run($('pageNum'), 'DOMContentLoaded');
 		$('pageNum').trigger('DOMContentLoaded');
@@ -34,6 +34,7 @@ var cda2g = new function _cda2g() {
 					self.html(_(l10n));
 			});
 		});
+		setTimeout(function(){cda2g.UI.activateDrop();}, 1000);
 	}
 	this.setTitle = function setTitle(n, parent) {
 		this.enumerateCall(n, function(il) { cda2g.getParent(il, parent).title = il.innerText; });
@@ -48,59 +49,6 @@ var cda2g = new function _cda2g() {
 		var cssClass = "selectedItem";
 		this.enumerateCall(_$$("." + cssClass), function(il) { cda2g.getParent(il, parent).classList.remove(cssClass); });
 		cda2g.getParent(obj, parent).classList.add(cssClass);
-	}
-	this.setDropArea = function setDropArea(dpb, dpa) {
-		$(window).on("resize", function (e) {
-			dpa.style.width = dpb.offsetWidth - 10 + "px";
-			dpa.style.height = window.innerHeight - dpb.offsetHeight - 10 + "px";
-		});
-		var sp = function dpsp(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			return false;
-		}
-		var dpaf = function dpaDragHover(e) {
-			e.originalEvent.dataTransfer.dropEffect = "link";
-			if(e.type == "dragover" && cda2g.Files.isFiles(e.originalEvent)) {
-				this.classList.add("DragDropArea");
-				dpb.classList.add("NonDragDropArea");
-			} else {
-				this.classList.remove("DragDropArea");
-				dpb.classList.remove("NonDragDropArea");
-			}
-		}
-		var dpbf = function dpbDragHover(e) {
-			e.originalEvent.dataTransfer.dropEffect = "none";
-			if(e.type == "dragover" && cda2g.Files.isFiles(e.originalEvent) && !(e.pageY < dpb.offsetHeight)) {
-				dpa.classList.add("DragDropArea");
-				this.classList.add("NonDragDropArea");
-			} else {
-				dpa.classList.remove("DragDropArea");
-				this.classList.remove("NonDragDropArea");
-			}
-		}
-		var dpDrop = function dpDrop(e) {
-			e.preventDefault();
-			e.stopPropagation();
-			if(!this.classList.contains("NonDragDropArea")) {
-				cda2g.Files.importFiles(e.originalEvent);
-			}
-			dpa.classList.remove("DragDropArea");
-			dpb.classList.remove("NonDragDropArea");
-			return false;
-		}
-		$(dpa).on("dragenter", sp);
-		$(dpa).on("dragleave", sp);
-		$(dpa).on("dragleave", dpaf);
-		$(dpa).on("dragover", sp);
-		$(dpa).on("dragover", dpaf);
-		$(dpa).on("drop", dpDrop);
-
-		$(dpb).on("dragenter", sp);
-		$(dpb).on("dragleave", sp);
-		$(dpb).on("dragover", sp);
-		$(dpb).on("dragover", dpbf);
-		$(dpb).on("drop", dpDrop);
 	}
 	this.getParent = function getParent(t, p) {
 		if(p == undefined) p = 0;

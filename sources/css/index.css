@@ -235,9 +235,7 @@ title.outside, footer.outside {
 	text-align: center;
 	vertical-align: middle;
 }
-#fileImporter.DragDropArea {
-	z-index: 100;
-	background-color: rgba(80, 80, 80, 0.75);
+.DragDropArea, .DragDropDisabledArea {
 	opacity: 1;
 }
 #fileImporter * {
@@ -245,6 +243,17 @@ title.outside, footer.outside {
 	font-family: 'Comic Sans MS' !important;
 	text-shadow: 0px 0px 0px transparent, 0px -1px 1px rgba(169, 169, 169, 0.75);
 	color: white;
+}
+#fileImporter.DragDropArea {
+	z-index: 1000;
+	opacity: 1;
+	background-color: rgba(80, 80, 80, 0.75);
+}
+#fileImporter.DragDropDisabledArea {
+	z-index: 5000;
+	opacity: 1;
+	background-color: rgba(80, 0, 0, 0.75);
+	cursor: no-drop;
 }
 .NonDragDropArea {
 	cursor: no-drop;
