@@ -112,7 +112,23 @@ cda2g.Files = new function Files() {
 		cda2g.Pages.clearView();
 		setTimeout(function(){cda2g.Files.parseCDA();}, 10);
 	}
+	var XCD = $('<style scoped="scoped" />').html("@import url(components/css/XCD.css);");
 	this.parseCDA = function parseCDA() {
+		$('cda2g[is]').each(function() {
+			var node = this;
+			if(!!node.webkitShadowRoot) {
+				var sr = node.webkitShadowRoot.querySelectorAll('*')
+				var haveXCD = false;
+				$(sr).filter('style').each(function() {
+					if(this.innerHTML.match(/@import url\(components\/css\/XCD\.css\);/) != null)
+						haveXCD = true;
+				});
+				if(!haveXCD) {
+					cda2g.logger.log("Append XCD scoped style Element");
+					$(node.webkitShadowRoot).append(XCD);
+				}
+			}
+		});
 		var loader = this.files["./loader"];
 		if(!!loader)
 			if(loader.length > 0) {
