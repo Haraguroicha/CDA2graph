@@ -129,19 +129,62 @@ cda2g.Files = new function Files() {
 	}
 	this.CDAParser = function CDAParser() {
 		if(!!!this.xml) return;
-		var cdah = $($(sprintf('<cda2g is="cda-header" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : ""))));
-		var cdab = $($(sprintf('<cda2g is="cda-body" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : ""))));
 		var doc = $(this.xml);
 		var cda_header = doc.xpath("*:ClinicalDocument/(* except self::*/*:component)");
 		var cda_body = doc.xpath("*:ClinicalDocument/*:component");
 		var CDAcode = cda_header.xpath("../*:code");
 		var hospitalOID = cda_header.xpath("../*:recordTarget/*:patientRole/*:id");
 		var components = cda_body.xpath("./*:structuredBody/*:component");
-		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s", CDAcode.attr("code"), hospitalOID.attr("root"), components.length));
+		var hospitalOID_root = hospitalOID.attr("root");
+		var CDAcode_code = CDAcode.attr("code");
+		if(hospitalOID_root == undefined)
+			hospitalOID_root = "";
+		if(CDAcode_code == undefined)
+			CDAcode_code = "";
+		var cdaName = sprintf("___%s___%s", CDAcode_code, hospitalOID_root);
+		var template = sprintf("templates/%s/%s.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"), ((hospitalOID_root != "") ? hospitalOID_root.md5() : "default"));
+		var cdah = $('<cdaHeader />');
+		var cdab = $('<cdaBody />');
+		var xTemplate = 0;
+		$.ajax({
+			type: "GET",
+			url: template,
+			dataType: "text",
+			async: false,
+			success: function (data, textStatus, jqXHR) {
+				xTemplate = parseInt(jqXHR.getResponseHeader("X-Template"));
+				var message = "";
+				switch(xTemplate) {
+					case 303:
+						message = sprintf("GET '%s' failed, using demo.", template);
+						cdaName = "Demo";
+						template = "components/cdaDemo.xhtml";
+						break;
+					case 307:
+						message = sprintf("GET '%s' failed, return default template.", template);
+						cdaName = sprintf("___%s", CDAcode_code);
+						template = sprintf("templates/%s/default.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"));
+						break;
+					case 200:
+						message = "OK";
+						break;
+					default:
+
+				}
+				cda2g.logger.log(sprintf("Query template code=%s, return message='%s'", xTemplate, message));
+			}
+		});
+		var cda = $(sprintf('<cda2g is="cda%s" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
+		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_root, components.length, template));
+		if(cdaName == 200 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
+			$('head').append($(sprintf('<link type="application/xhtml+xml" rel="components" href="%s" />', template)));
+			cda2g.logger.log(sprintf("CDA template=%s", template));
+		}
 		cda_header.appendTo(cdah);
-		cda_body.appendTo(cdab)
+		cda_body.appendTo(cdab);
+		cda.html(cdah.wrapAll('<div/>').parent().html() + cdab.wrapAll('<div/>').parent().html());
 		cda2g.Pages.addPage().setTitle(this.name);
-		cda2g.Pages.appendHTML(cdah.wrapAll('<div/>').parent().html() + cdab.wrapAll('<div/>').parent().html());
+		cda2g.Pages.appendHTML(cda.wrapAll('<div/>').parent().html());
 	}
 	this.selectorParse = function selectorParse(root, content) {
 		var xmlns = $(content).attr("xmlnsName");
@@ -156,9 +199,12 @@ cda2g.Files = new function Files() {
 			var placeholder = obj.attr("placeholder");
 			var type = obj.attr("type");
 			var mode = obj.attr("mode");
+			var section = obj.attr("section").toString();
+			section = section.substring(0, 1).toUpperCase() + section.substring(1);
+			var data = $($(content).children('cda' + section));
 			if(type == "observationMedia") {
 				path += "/*:value";
-				var val = $(content).xpath(path);
+				var val = data.xpath(path);
 				if(val.length > 0) {
 					ret = $('<span/>');
 					if(mode == "image") {
@@ -211,7 +257,7 @@ cda2g.Files = new function Files() {
 						val = placeholder;
 				}
 			} else {
-				var val = $(content).xpath(path);
+				var val = data.xpath(path);
 				var ret = "";
 				if(val.length > 0) {
 					if(attr != undefined)

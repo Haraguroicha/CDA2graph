@@ -1,19 +1,29 @@
 Options -Indexes
 
-RewriteEngine on
+<ifModule mod_headers.c>
+	RewriteEngine on
 
-# Redirect file to default.xhtml if the file doesn't exist
-RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
-RewriteCond %{REQUEST_FILENAME} !-s
-RewriteCond %{REQUEST_FILENAME} !-L
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ %{REQUEST_URI}/../default.xhtml [R=307,L]
+	RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
+	RewriteCond %{REQUEST_FILENAME} -s [OR]
+	RewriteCond %{REQUEST_FILENAME} -L [OR]
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^ - [E=template:200,L]
 
-# Redirect default.xhtml to cdaDemo.xhtml if default.xhtml doesn't exist
-RewriteCond %{REQUEST_URI} (.*)/default.xhtml$ [NC]
-RewriteCond %{REQUEST_FILENAME} !-s
-RewriteCond %{REQUEST_FILENAME} !-L
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule (.*)/(.*)$ %{REQUEST_URI}/../../../components/cdaDemo.xhtml?template=$1/$2 [R=303,L]
+	# Redirect file to default.xhtml if the file doesn't exist
+	RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
+	RewriteCond %{REQUEST_FILENAME} !-s
+	RewriteCond %{REQUEST_FILENAME} !-L
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^ %{REQUEST_URI}/../default.xhtml [E=template:307,R=307,L]
+
+	# Redirect default.xhtml to cdaDemo.xhtml if default.xhtml doesn't exist
+	RewriteCond %{REQUEST_URI} (.*)/default.xhtml$ [NC]
+	RewriteCond %{REQUEST_FILENAME} !-s
+	RewriteCond %{REQUEST_FILENAME} !-L
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule (.*)/(.*)$ %{REQUEST_URI}/../../../components/cdaDemo.xhtml?template=$1/$2 [E=template:303,R=303,L]
+	Header always set X-Template "%{template}e"
+</ifModule>

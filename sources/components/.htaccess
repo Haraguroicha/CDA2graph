@@ -1,0 +1,13 @@
+Options -Indexes
+
+<ifModule mod_headers.c>
+	RewriteEngine on
+
+	RewriteCond %{REQUEST_URI} (.*)/cdaDemo.xhtml?(.*)$ [NC]
+	RewriteRule ^ - [E=template:303,L]
+
+	RewriteCond %{REQUEST_URI} (.*)/cdaDemo.xhtml$ [NC]
+	RewriteRule ^ - [E=template:200,L]
+
+	Header always set X-Template "%{template}e"
+</ifModule>
