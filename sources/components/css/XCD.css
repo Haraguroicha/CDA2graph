@@ -19,3 +19,6 @@ eachselector > result {
 img {
 	max-width: 690px;
 }
+info {
+	display: none;
+}

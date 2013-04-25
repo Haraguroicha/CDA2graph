@@ -32,6 +32,18 @@
 					margin-left: 15px;
 				}
 			</style>
+			<info>
+				<header>
+					<choose>
+						<exist>
+							<selector section="header" path="title"></selector>
+						</exist>
+						<otherwise>
+							<selector section="header" path="code[@displayName]" attr="displayName"></selector>
+						</otherwise>
+					</choose>
+				</header>
+			</info>
 			<div class="_XCD_Component" style="display: none;">
 				<table>
 					<tr>

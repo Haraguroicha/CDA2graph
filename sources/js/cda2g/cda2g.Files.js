@@ -375,6 +375,7 @@ cda2g.Files = new function Files() {
 		$(content).css('display', 'block');
 		this.chooseParse(root, content);
 		this.eachParse(root, content);
+		cda2g.Pages.getLastPage().setTitle(shadow.find('info>header').text().trim());
 	}
 	this.eachParse = function eachParse(root, content) {
 		var shadow = $(root.querySelectorAll('*'));
@@ -419,9 +420,9 @@ cda2g.Files = new function Files() {
 			var otherwise = $(c.find('otherwise'));
 			if(exist.find(':empty').length == 0) {
 				exist.css("display", "inline-block");
-				otherwise.css("display", "none");
+				otherwise.css("display", "none").remove();
 			} else {
-				exist.css("display", "none");
+				exist.css("display", "none").remove();
 				otherwise.css("display", "inline-block");
 			}
 		});
