@@ -212,22 +212,38 @@ cda2g.Files = new function Files() {
 		cda2g.Pages.addPage().setTitle(this.name);
 		cda2g.Pages.appendHTML(cda.wrapAll('<div/>').parent().html());
 	}
+	this.toAllXPathDomain = function toAllXPathDomain(path, parent) {
+		var ret = (!!parent ? this.toAllXPathDomain(parent) + "/" : "") + '*:' + path.split('/').join('/*:')
+			.replace(/\ ?(,|\||\ or\ [^@]|\ and\ [^@]|\ OR\ [^@]|\ AND\ [^@])\ ?/g,
+				sprintf(" $1 %s*:", (!!parent ? this.toAllXPathDomain(parent) + "/" : ""))
+			).replace(/\/\*:\.\./g, "/..");
+		return ret;
+	}
 	this.selectorParse = function selectorParse(root, content) {
-		var xmlns = $(content).attr("xmlnsName");
+		var xmlns = content.attr("xmlnsName");
 		var shadow = $(root.querySelectorAll('*'));
-		selectors = shadow.find('selector');
-		selectors.each(function(index, value) {
+		var parse = function parse(index, value) {
 			var obj = $(this);
-			var path = '*:' + obj.attr("path").split('/').join('/*:').replace(/\ ?(,|\||\ or\ [^@]|\ and\ [^@]|\ OR\ [^@]|\ AND\ [^@])\ ?/g, " $1 *:").replace(/\/\*:\.\./g, "/..");
+			var isEach = (obj.parents("eachselector").length != 0);
+			if(isEach) {
+				var section = obj.parents("eachselector").attr("section");
+				var path = cda2g.Files.toAllXPathDomain(obj.attr("path"), obj.parents("eachselector").attr("path"));
+			} else {
+				var section = obj.attr("section").toString();
+				var path = cda2g.Files.toAllXPathDomain(obj.attr("path"));
+			}
+			var id = obj.attr("id");
+			var data = $(content.children('cda' + section));
 			var attr = obj.attr('attr');
 			var match_string = obj.attr("match");
 			var format_string = obj.attr("format");
 			var placeholder = obj.attr("placeholder");
 			var type = obj.attr("type");
 			var mode = obj.attr("mode");
-			var section = obj.attr("section").toString();
+			var hideEmptyParent = obj.attr("onemptyhideparent");
+			var allChildren = obj.attr("allchildren");
+			allChildren = ((!!allChildren) ? (allChildren.toLowerCase() == "yes") : false);
 			section = section.substring(0, 1).toUpperCase() + section.substring(1);
-			var data = $($(content).children('cda' + section));
 			if(type == "observationMedia") {
 				path += "/*:value";
 				var val = data.xpath(path);
@@ -282,21 +298,48 @@ cda2g.Files = new function Files() {
 					else
 						val = placeholder;
 				}
+				if(val == undefined)
+					val = "";
+				if(ret == undefined)
+					ret = "";
 			} else {
 				var val = data.xpath(path);
 				var ret = "";
+				var rt = [];
 				if(val.length > 0) {
-					if(attr != undefined)
+					if(!!attr && !isEach)
 						val = val.attr(attr);
-					else
+					else {
 						for(var i = 0; i < val.length; i++) {
-							var v = $(val[i]).text();
+							var v = $(val[i]).clone();
+							v.find('*').each(function(){
+								//$(this).remove();
+							});
+							v = (!allChildren) ? v.text() : v.wrapAll('div').parent().html();
 							if(v.length > 0) {
-								val = v;
-								break;
+								rt.push(v);
+								if(!isEach)
+									break;
+							} else {
+								var valAttr = $($(val[i]).filter(sprintf('[%s]', attr))).attr(attr);
+								if(!!valAttr)
+									rt.push(valAttr);
+								else
+									rt.push("");
+								if(!isEach)
+									break;
 							}
 						}
-				} else{
+						if(isEach && id != undefined) {
+							var rr = {};
+							rr.id = id;
+							rr.value = rt;
+							val = escape(JSON.stringify(rr));
+						} else {
+							val = rt[0];
+						}
+					}
+				} else {
 					val = undefined;
 				}
 				if(val == undefined) {
@@ -313,16 +356,75 @@ cda2g.Files = new function Files() {
 					val = "";
 				if(ret == undefined)
 					ret = "";
-				cda2g.logger.log(sprintf("Selecting path:'%s'%s value='%s' => '%s'", path, ((!!attr) ? "@" + attr : ""), val, ret));
+				cda2g.logger.log(sprintf("Selecting path:'%s'%s value='%s' => '%s'", path, ((!!attr) ? "@" + attr : ""), (isEach) ? "JSON Data:" + unescape(val) : val, (isEach) ? "JSON Data:" + unescape(ret) : ret));
 			}
 			var data = obj.find('data');
 			if(data.length != 0)
 				data.html(ret);
 			else
 				obj.html(ret);
-		});
+			if(hideEmptyParent != undefined)
+				if(obj.css('display') == 'none')
+					$(obj).xpath(sprintf('.%s', '/..'.repeat(hideEmptyParent))).css('display', 'none');
+		}
+		selectors = shadow.find('selector:not(eachselector selector)');
+		selectors.each(parse);
+		selectors = shadow.find('eachselector selector');
+		selectors.each(parse);
 		shadow.filter('div._XCD_Component').css('display', 'block');
 		$(content).css('display', 'block');
+		this.chooseParse(root, content);
+		this.eachParse(root, content);
+	}
+	this.eachParse = function eachParse(root, content) {
+		var shadow = $(root.querySelectorAll('*'));
+		each = $(shadow.find('each'));
+		each.each(function() {
+			var result = [];
+			var length = 0;
+			var ec = $(this);
+			var selector = ec.parent().find('selector');
+			var jsonData = {};
+			selector.each(function() {
+				var self = $(this);
+				if(self.css('display') != "none") {
+					var data = JSON.parse(unescape(self.html().trim()));
+					jsonData[data.id] = data.value;
+					if(data.value.length > length)
+						length = data.value.length;
+				}
+			});
+			for(var i = 0; i < length; i++) {
+				result[i] = $('<result />');
+				var ecc = ec.clone();
+				ecc.find('json').each(function() {
+					var self = $(this);
+					var html = jsonData[self.attr('id')][i];
+					if(self.filter('data').length > 0)
+						self.filter('data').html(html);
+					else
+						self.html(html);
+				});
+				result[i].append(ecc.html());
+			}
+			$(this).parent().append(result);
+		});
+	}
+	this.chooseParse = function chooseParse(root, content) {
+		var shadow = $(root.querySelectorAll('*'));
+		choose = $(shadow.find('choose'));
+		choose.each(function() {
+			var c = $(this);
+			var exist = $(c.find('exist'));
+			var otherwise = $(c.find('otherwise'));
+			if(exist.find(':empty').length == 0) {
+				exist.css("display", "inline-block");
+				otherwise.css("display", "none");
+			} else {
+				exist.css("display", "none");
+				otherwise.css("display", "inline-block");
+			}
+		});
 	}
 	this.getMediaInfo = function getMediaInfo(mode, content) {
 		var observationMedia = undefined;

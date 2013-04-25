@@ -1,4 +1,4 @@
-<element extends="cda2g" name="cda___TW.Foxconn.Clinic.ChineseMedicine.1" constructor="cdaDemo">
+<element extends="cda2g" name="cda___51897-7___0401190010" constructor="cdaDemo">
 	<decorator>
 		<template>
 			<style scoped="scoped">
@@ -17,21 +17,37 @@
 					font-size: 10pt;
 				}
 			</style>
+			<style scoped="scoped">
+				h4 {
+					margin: 0px;
+					border-bottom: solid 1px #06F;
+				}
+				result {
+					margin-top: 0px;
+				}
+				result ~ * {
+					margin-top: 15px;
+				}
+				h4 ~ * {
+					margin-left: 15px;
+				}
+			</style>
 			<div class="_XCD_Component" style="display: none;">
 				<table>
 					<tr>
 						<th colspan="4">
 							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/name | recordTarget/patientRole/providerOrganization/name" placeholder="OOO??">
-								<data></data>
-								<choose>
-									<exist>
-										<selector section="header" path="title"></selector>
-									</exist>
-									<otherwise>
-										<selector section="header" path="code[@displayName]" attr="displayName"></selector>
-									</otherwise>
-								</choose>
-								電子病歷資料
+								<h2><data></data></h2>
+								<h5>
+									<choose>
+										<exist>
+											<selector section="header" path="title"></selector>
+										</exist>
+										<otherwise>
+											<selector section="header" path="code[@displayName]" attr="displayName"></selector>
+										</otherwise>
+									</choose>
+								</h5>
 							</selector>
 						</th>
 					</tr>
@@ -70,7 +86,7 @@
 							</selector>
 						</td>
 						<td colspan="2">
-							<selector section="header" path="recordTarget/patientRole/addr/streetAddressLine">
+							<selector section="header" path="recordTarget/patientRole/addr">
 								地址：<data></data>
 							</selector>
 						</td>
@@ -95,6 +111,31 @@
 							<selector section="header" path="recordTarget/patientRole/telecom[@use='PUB' and @value]" attr="value">
 								E-Mail：<data></data>
 							</selector>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<selector section="header" path="componentOf/encompassingEncounter/effectiveTime[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3">
+								發病日期：<data></data>
+							</selector>
+						</td>
+						<td>
+							<selector section="header" path="author/assignedAuthor/assignedPerson/name">
+								主治醫師：<data></data>
+							</selector>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<eachselector section="body" path="component/structuredBody/component/section/code[@code]/..">
+								<selector id="title" path="title[node()] | title[not(node())]/../code[@displayName]" attr="displayName"></selector>
+								<selector id="textParagraph" path="text/paragraph" allChildren="yes"></selector>
+								<each>
+									<h4><json id="title"></json></h4>
+									<json id="textParagraph"></json>
+								</each>
+								<result><h3>通報內容</h3></result>
+							</eachselector>
 						</td>
 					</tr>
 					<tr>

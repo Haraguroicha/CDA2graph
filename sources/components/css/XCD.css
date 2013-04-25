@@ -4,8 +4,15 @@ div._XCD_Component {
 	text-shadow: 3px 3px 10px gray;
 	*/
 }
-selector {
+eachselector, selector {
+	width: 100%;
 	display: inline-block;
+}
+eachselector > *:not(result) {
+	display: none;
+}
+eachselector > result {
+	display: block;
 }
 img {
 	max-width: 690px;
