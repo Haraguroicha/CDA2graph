@@ -157,16 +157,16 @@ cda2g.Files = new function Files() {
 		var cda_header = doc.xpath("*:ClinicalDocument/(* except self::*/*:component)");
 		var cda_body = doc.xpath("*:ClinicalDocument/*:component");
 		var CDAcode = cda_header.xpath("../*:code");
-		var hospitalOID = cda_header.xpath("../*:recordTarget/*:patientRole/*:id");
+		var hospitalOID = cda_header.xpath("../*:custodian/*:assignedCustodian/*:representedCustodianOrganization/*:id | ../*:recordTarget/*:patientRole/*:providerOrganization/*:id");
 		var components = cda_body.xpath("./*:structuredBody/*:component");
-		var hospitalOID_root = hospitalOID.attr("root");
+		var hospitalOID_extension = hospitalOID.attr("extension");
 		var CDAcode_code = CDAcode.attr("code");
-		if(hospitalOID_root == undefined)
-			hospitalOID_root = "";
+		if(hospitalOID_extension == undefined)
+			hospitalOID_extension = "";
 		if(CDAcode_code == undefined)
 			CDAcode_code = "";
-		var cdaName = sprintf("___%s___%s", CDAcode_code, hospitalOID_root);
-		var template = sprintf("templates/%s/%s.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"), ((hospitalOID_root != "") ? hospitalOID_root.md5() : "default"));
+		var cdaName = sprintf("___%s___%s", CDAcode_code, hospitalOID_extension);
+		var template = sprintf("templates/%s/%s.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"), ((hospitalOID_extension != "") ? hospitalOID_extension.md5() : "default"));
 		var cdah = $('<cdaHeader />');
 		var cdab = $('<cdaBody />');
 		var xTemplate = 0;
@@ -201,7 +201,7 @@ cda2g.Files = new function Files() {
 			}
 		});
 		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
-		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_root, components.length, template));
+		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_extension, components.length, template));
 		if(cdaName != 303 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
 			$('head').append($(sprintf('<link type="application/xhtml+xml" rel="components" href="%s" />', template)));
 			cda2g.logger.log(sprintf("CDA template=%s", template));
