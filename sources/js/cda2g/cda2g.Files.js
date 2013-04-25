@@ -321,7 +321,7 @@ cda2g.Files = new function Files() {
 								if(!isEach)
 									break;
 							} else {
-								var valAttr = $($(val[i]).filter(sprintf('[%s]', attr))).attr(attr);
+								var valAttr = (!!attr) ? $($(val[i]).filter(sprintf('[%s]', attr))).attr(attr) : "";
 								if(!!valAttr)
 									rt.push(valAttr);
 								else
