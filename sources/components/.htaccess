@@ -9,5 +9,9 @@ Options -Indexes
 	RewriteCond %{REQUEST_URI} (.*)/cdaDemo.xhtml$ [NC]
 	RewriteRule ^ - [E=template:200,L]
 
+	Header unset ETag
+	Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+	Header set Pragma "no-cache"
+	Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
 	Header always set X-Template "%{template}e"
 </ifModule>
