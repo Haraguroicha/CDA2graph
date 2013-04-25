@@ -5,8 +5,10 @@ div._XCD_Component {
 	*/
 }
 eachselector, selector {
-	width: 100%;
 	display: inline-block;
+}
+eachselector {
+	display: block;
 }
 eachselector > *:not(result) {
 	display: none;
