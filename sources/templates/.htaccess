@@ -2,14 +2,23 @@ Options -Indexes
 
 <ifModule mod_headers.c>
 	RewriteEngine on
-
+	
+	# If match requested file then set 200
 	RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
 	RewriteCond %{REQUEST_FILENAME} -s [OR]
 	RewriteCond %{REQUEST_FILENAME} -L [OR]
 	RewriteCond %{REQUEST_FILENAME} -f [OR]
 	RewriteCond %{REQUEST_FILENAME} -d
 	RewriteRule ^ - [E=template:200,L]
-
+	
+	# If match defailt.xhtml then set 307
+	RewriteCond %{REQUEST_URI} (.*)/default.xhtml$ [NC]
+	RewriteCond %{REQUEST_FILENAME} -s [OR]
+	RewriteCond %{REQUEST_FILENAME} -L [OR]
+	RewriteCond %{REQUEST_FILENAME} -f [OR]
+	RewriteCond %{REQUEST_FILENAME} -d
+	RewriteRule ^ - [E=template:307,L]
+	
 	# Redirect file to default.xhtml if the file doesn't exist
 	RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
 	RewriteCond %{REQUEST_FILENAME} !-s
@@ -17,7 +26,7 @@ Options -Indexes
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^ %{REQUEST_URI}/../default.xhtml [E=template:307,R=307,L]
-
+	
 	# Redirect default.xhtml to cdaDemo.xhtml if default.xhtml doesn't exist
 	RewriteCond %{REQUEST_URI} (.*)/default.xhtml$ [NC]
 	RewriteCond %{REQUEST_FILENAME} !-s
@@ -25,5 +34,6 @@ Options -Indexes
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule (.*)/(.*)$ %{REQUEST_URI}/../../../components/cdaDemo.xhtml?template=$1/$2 [E=template:303,R=303,L]
+	
 	Header always set X-Template "%{template}e"
 </ifModule>

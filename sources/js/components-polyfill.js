@@ -240,8 +240,8 @@ scope.run = function(obj, events) {
   parser.onparse = factory.createDeclaration;
   factory.oncreate = function(declaration) {
     [].forEach.call($(obj).findAndSelf(
-        declaration.element.extends + '[is=' + declaration.element.name +
-        ']'), declaration.morph);
+        declaration.element.extends + '[is="' + declaration.element.name +
+        '"]'), declaration.morph);
   }
   if(events != '')
     $(obj).on(events, loader.start);

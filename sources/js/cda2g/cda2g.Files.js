@@ -202,7 +202,7 @@ cda2g.Files = new function Files() {
 		});
 		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_root, components.length, template));
-		if(cdaName == 200 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
+		if(cdaName != 303 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
 			$('head').append($(sprintf('<link type="application/xhtml+xml" rel="components" href="%s" />', template)));
 			cda2g.logger.log(sprintf("CDA template=%s", template));
 		}
