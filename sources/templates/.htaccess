@@ -3,6 +3,11 @@ Options -Indexes
 <ifModule mod_headers.c>
 	RewriteEngine on
 	
+	RewriteRule ^ - [E=isssl:http]
+	RewriteCond %{HTTPS} =on [OR]
+	RewriteCond %{HTTP:X-SSL-cipher} !^$
+	RewriteRule ^ - [E=isssl:https]	
+	
 	# If match requested file then set 200
 	RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
 	RewriteCond %{REQUEST_FILENAME} -s [OR]
@@ -25,7 +30,7 @@ Options -Indexes
 	RewriteCond %{REQUEST_FILENAME} !-L
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule ^ %{REQUEST_URI}/../default.xhtml [E=template:307,R=307,L]
+	RewriteRule ^ %{ENV:isssl}://%{HTTP_HOST}%{REQUEST_URI}/../default.xhtml [E=template:307,R=307,L]
 	
 	# Redirect default.xhtml to cdaDemo.xhtml if default.xhtml doesn't exist
 	RewriteCond %{REQUEST_URI} (.*)/default.xhtml$ [NC]
@@ -33,11 +38,11 @@ Options -Indexes
 	RewriteCond %{REQUEST_FILENAME} !-L
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteRule (.*)/(.*)$ %{REQUEST_URI}/../../../components/cdaDemo.xhtml?template=$1/$2 [E=template:303,R=303,L]
+	RewriteRule (.*)/(.*)$ %{ENV:isssl}://%{HTTP_HOST}%{REQUEST_URI}/../../../components/cdaDemo.xhtml?template=$1/$2 [E=template:303,R=303,L]
 	
 	Header unset ETag
-	Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
-	Header set Pragma "no-cache"
-	Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+	Header always set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+	Header always set Pragma "no-cache"
+	Header always set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
 	Header always set X-Template "%{template}e"
 </ifModule>
