@@ -176,6 +176,7 @@ cda2g.Files = new function Files() {
 		if(!!!this.xml) return;
 		var doc = $(this.xml);
 		var filename = this.name;
+		var filesize = this.size;
 		var cda_header = doc.xpath("*:ClinicalDocument/(* except self::*/*:component)");
 		var cda_body = doc.xpath("*:ClinicalDocument/*:component");
 		var CDAcode = cda_header.xpath("../*:code");
@@ -216,13 +217,17 @@ cda2g.Files = new function Files() {
 						message = "OK";
 						break;
 					default:
-
 				}
 				$("#fileMessage").prepend(sprintf("<pre>%s; %s</pre>", xTemplate, temp));
 				cda2g.logger.log(sprintf("Query template code=%s, return message='%s'", xTemplate, message));
 			}
 		});
-		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none; height: 1px !important; overflow: hidden;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
+		var parsing = $('<parsing is="parsing" />');
+		parsing.append('<loading class="l10n" /><filename /><filesize />');
+		parsing.find('loading.l10n').html(_("fileLoading"));
+		parsing.find('filename').html(filename);
+		parsing.find('filesize').html(filesize);
+		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none; height: 0px !important; overflow: hidden;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_extension, components.length, template));
 		if(cdaName != 303 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
 			$('head').append($(sprintf('<link type="application/xhtml+xml" rel="components" href="%s" />', template)));
@@ -231,8 +236,8 @@ cda2g.Files = new function Files() {
 		cda_header.appendTo(cdah);
 		cda_body.appendTo(cdab);
 		cda.html(cdah.wrapAll('<div/>').parent().html() + cdab.wrapAll('<div/>').parent().html());
-		cda2g.Pages.addPage();//.setTitle(this.name);
-		cda2g.Pages.appendHTML(cda.wrapAll('<div/>').parent().html());
+		cda2g.Pages.addPage();
+		cda2g.Pages.appendHTML(parsing.wrapAll('<div/>').parent().html() + cda.wrapAll('<div/>').parent().html());
 	}
 	this.toAllXPathDomain = function toAllXPathDomain(path, parent) {
 		var ret = (!!parent ? this.toAllXPathDomain(parent) + "/" : "") + '*:' + path.split('/').join('/*:')

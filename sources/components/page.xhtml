@@ -1,4 +1,47 @@
-<element extends="pageNum" name="pageNum" constructor="pageNum">
+<element extends="parsing" name="parsing">
+	<decorator>
+		<template>
+			<style scoped="scoped">
+				div#parsing {
+					color: red;
+					text-align: center;
+					font-weight: bold;
+					font-size: 20pt;
+					margin: 10px;
+				}
+			</style>
+			<div id="parsing">
+				<content select="loading.l10n"></content>
+				'<content select="filename"></content>'
+				(<content select="filesize"></content> bytes)...
+			</div>
+		</template>
+	</decorator>
+</element>
+<element extends="span" name="testFont">
+	<docorator>
+		<template>
+			<div id="testFont"></div>
+		</template>
+		<script type="text/javascript">
+			if (this !== window) {
+				this.lifecycle({
+					created: function(root) {
+						var templateANSI = "";
+						var test = $(root.querySelector('#testFont'));
+						for(var i = 33; i < 127; i++)
+							templateANSI += i.toString() + ':&#' + ((i <= 0xf) ? '0' : '') + i.toString() + '; ';
+						test.html(templateANSI);
+						test.append($('<span class="zh"/>').text("測試 ".repeat(10)));
+						test.append($('<span class="ja"/>').text("測試 テスト 試みる ".repeat(10)));
+						test.append($('<span class="ko"/>').text("測試 테스트 ".repeat(10)));
+					}
+				});
+			}
+		</script>
+	</docorator>
+</element>
+<element extends="pageNum" name="pageNum">
 	<decorator>
 		<template>
 			<style scoped="scoped">
@@ -18,24 +61,9 @@
 				<content select="last.l10n"></content>
 			</div>
 		</template>
-		<script type="text/javascript">
-			if (this !== window) {
-				pageNum.prototype = {
-					onClick: function(e) {
-						return false;
-					}
-				};
-				this.lifecycle({
-					created: function(root) {
-						container = root.querySelector('#pageNumber');
-						$(container).on('click', this.onClick);
-					}
-				});
-			}
-		</script>
 	</decorator>
 </element>
-<element extends="version" name="version" constructor="version">
+<element extends="version" name="version">
 	<decorator>
 		<template>
 			<div id="version">
@@ -50,16 +78,9 @@
 		</template>
 		<script type="text/javascript">
 			if (this !== window) {
-				version.prototype = {
-					onClick: function(e) {
-						return false;
-					}
-				};
 				this.lifecycle({
 					created: function(root) {
 						self = $(this);
-						container = root.querySelector('#version');
-						$(container).on('click', this.onClick);
 						$.ajax({
 							type: "GET",
 							url: ".version",
@@ -79,32 +100,4 @@
 			}
 		</script>
 	</decorator>
-</element>
-<element extends="span" name="testFont" constructor="testFont">
-	<docorator>
-		<template>
-			<div id="testFont"></div>
-		</template>
-		<script type="text/javascript">
-			if (this !== window) {
-				testFont.prototype = {
-					onClick: function(e) {
-						return false;
-					}
-				};
-				this.lifecycle({
-					created: function(root) {
-						var templateANSI = "";
-						var test = $(root.querySelector('#testFont'));
-						for(var i = 33; i < 127; i++)
-							templateANSI += i.toString() + ':&#' + ((i <= 0xf) ? '0' : '') + i.toString() + '; ';
-						test.html(templateANSI);
-						test.append($('<span class="zh"/>').text("測試 ".repeat(10)));
-						test.append($('<span class="ja"/>').text("測試 テスト 試みる ".repeat(10)));
-						test.append($('<span class="ko"/>').text("測試 테스트 ".repeat(10)));
-					}
-				});
-			}
-		</script>
-	</docorator>
 </element>
