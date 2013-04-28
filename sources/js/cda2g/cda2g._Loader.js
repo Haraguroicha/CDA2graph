@@ -91,7 +91,7 @@ function main() {
 	});
 }
 function sample() {
-	cda2g.Pages.getLastPage().setTitle("sample Demo Document");
+	cda2g.Pages.getLastPage().setHeader("sample Demo Document");
 	setTimeout('cda2g.Pages.appendHTML("1 ".repeat(20)+"<span is=\'testFont\' class=\'testFont-ub\'></span><span is=\'testFont\' class=\'testFont-bm\'></span><span is=\'testFont\' class=\'testFont-zh\'></span><span is=\'testFont\' class=\'testFont-ja\'></span><span is=\'testFont\' class=\'testFont-ko\'></span>");', 1);
 	setTimeout('cda2g.Pages.appendHTML("2 ".repeat(20)+"test測試123 ".repeat(50));', 2);
 	setTimeout('cda2g.Pages.appendHTML("3 ".repeat(20)+"test測試123 ".repeat(500));', 3);

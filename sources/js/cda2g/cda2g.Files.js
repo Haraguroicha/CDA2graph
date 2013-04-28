@@ -112,7 +112,7 @@ cda2g.Files = new function Files() {
 		cda2g.Pages.clearView();
 		setTimeout(function(){cda2g.Files.parseCDA();}, 10);
 	}
-	var XCD = $('<style scoped="scoped" />').html("@import url(components/css/XCD.css);");
+	var XCD = $('<style scoped="scoped" />').html("@import url(css/index.css);@import url(components/css/XCD.css);");
 	this.appendXCD = function appendXCD() {
 		return $('cda2g[is]').each(function() {
 			var node = this;
@@ -142,13 +142,35 @@ cda2g.Files = new function Files() {
 				$("#fileProgress").progressbar({value: ((this.files.count - this.files["./loader"].length) / this.files.count * 100)});
 				if(files["./loader"].length == 0) {
 					$("#fileMessage").prepend('<span data-l10n-id="fileFinalizing">Finalizing</span>...<br/>');
-					setTimeout(function(){
-						$("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>');
-						cda2g.Files.appendXCD();
-					}, 1000);
-					setTimeout(function(){ $("#fileLoader").dialog('close'); cda2g.UI.activateDrop(); }, 2000);
+					setTimeout(function(){cda2g.Files.appendXCD();}, 1000);
+					setTimeout(function(){cda2g.Files.convertShadowRootToHTML(cda2g.Pages.getPageNumber());}, 1500);
+					
 				}
 			}
+	}
+	this.convertShadowRootToHTML = function convertShadowRootToHTML(p) {
+		var pf = p[0];
+		var pe = p[1];
+		$("#fileMessage").prepend('<span data-l10n-id="fileRePaging">Re-Paging!!</span><br/>');
+		setTimeout(function(){cda2g.Files.shadowRootToHTML(p);}, 100);
+	}
+	this.shadowRootToHTML = function shadowRootToHTML(p) {
+		var cda = $('cda2g');
+		if(cda.length == 0) {
+			setTimeout(function(){ $("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>'); }, 1000);
+			setTimeout(function(){ $("#fileLoader").dialog('close'); cda2g.UI.activateDrop(); }, 1500);
+			return;
+		}
+		var pf = p[1] - cda.length + 1;
+		var pe = p[1];
+		var info = $(cda[0].webkitShadowRoot.querySelectorAll('*')).filter('info');
+		var shadowRootHTML = cda[0].webkitShadowRoot.innerHTML;
+		var header = info.find('header').text().trim();
+		var footer = info.find('footer').text().trim();
+		$("#fileProgress").progressbar({value: (pf / pe) * 100});
+		cda2g.Pages.addPage().setHeader(header).setFooter(footer).appendHTML(shadowRootHTML);
+		cda2g.Pages.removePage(1);
+		setTimeout(function(){cda2g.Files.shadowRootToHTML(p);}, 250);
 	}
 	this.CDAParser = function CDAParser() {
 		if(!!!this.xml) return;
@@ -200,7 +222,7 @@ cda2g.Files = new function Files() {
 				cda2g.logger.log(sprintf("Query template code=%s, return message='%s'", xTemplate, message));
 			}
 		});
-		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
+		var cda = $(sprintf('<cda2g is="cda%s" cda.filename="%s" style="display: none; height: 1px !important; overflow: hidden;" xmlnsPrefix="%s" xmlnsURI="%s"/>', cdaName, filename, ((!!this.xmlnsPrefix) ? this.xmlnsPrefix : ""), ((!!this.xmlnsURI) ? this.xmlnsURI : "")));
 		cda2g.logger.log(sprintf("CDA data parsed. DOC_CODE='%s', HOS_ID='%s', components=%s, templates=%s", CDAcode_code, hospitalOID_extension, components.length, template));
 		if(cdaName != 303 && $(sprintf('link[rel="components"][href="%s"]', template)).length == 0) {
 			$('head').append($(sprintf('<link type="application/xhtml+xml" rel="components" href="%s" />', template)));
@@ -209,7 +231,7 @@ cda2g.Files = new function Files() {
 		cda_header.appendTo(cdah);
 		cda_body.appendTo(cdab);
 		cda.html(cdah.wrapAll('<div/>').parent().html() + cdab.wrapAll('<div/>').parent().html());
-		cda2g.Pages.addPage().setTitle(this.name);
+		cda2g.Pages.addPage();//.setTitle(this.name);
 		cda2g.Pages.appendHTML(cda.wrapAll('<div/>').parent().html());
 	}
 	this.toAllXPathDomain = function toAllXPathDomain(path, parent) {
@@ -375,7 +397,7 @@ cda2g.Files = new function Files() {
 		$(content).css('display', 'block');
 		this.chooseParse(root, content);
 		this.eachParse(root, content);
-		cda2g.Pages.getLastPage().setTitle(shadow.find('info>header').text().trim());
+		cda2g.Pages.getLastPage().setHeader(shadow.find('info>header').text().trim());
 	}
 	this.eachParse = function eachParse(root, content) {
 		var shadow = $(root.querySelectorAll('*'));

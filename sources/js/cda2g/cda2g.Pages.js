@@ -34,17 +34,23 @@ cda2g.Pages = new function Pages() {
 		art.pageNum = pageNum;
 		art.defaultScrollTop = defaultScrollTop;
 		art.appendHTML = function(html, offsetTop) { return cda2g.Pages.appendHTML(this.pageNum, html, offsetTop || this.defaultScrollTop); }
-		art.getTitle = function(title) {return $(this).parent().find('header>title').html();}
-		art.setTitle = function(title) {return $(this).parent().find('header>title').html(title);}
+		art.getHeader = function(title) {return $(this).parent().find('header>title').html();}
+		art.setHeader = function(title) {$(this).parent().find('header>title').html(title); return this;}
+		art.getFooter = function(title) {return $(this).parent().find('footer>title').html();}
+		art.setFooter = function(title) {$(this).parent().find('footer>title').html(title); return this;}
 		$(art).scroll(function(event){ this.scrollTop = 0; });
-		var title = (this.getPages() > 0) ? this.getLastPage().getTitle() : "";
-		var header = $('<header class="outside"><title class="outside"/></header>');
-		if(title != "")
-			header.find('title').html(title);
-		header.appendTo(sec);
+		var header = (this.getPages() > 0) ? this.getLastPage().getHeader() : "";
+		var footer = (this.getPages() > 0) ? this.getLastPage().getFooter() : "";
+		var headerTitle = $('<header class="outside"><title class="outside"/></header>');
+		var footerTitle = $('<footer class="outside"><title class="outside"/></footer>');
+		if(header != "")
+			headerTitle.find('title').html(header);
+		if(footer != "")
+			footerTitle.find('title').html(footer);
+		headerTitle.appendTo(sec);
 		sec.appendChild(art);
-		$('<footer class="outside"/>').appendTo(sec);
-		$(sec).find('footer').html('&#35;' + pageNum + '/').append($('<pageTotal/>'));
+		footerTitle.appendTo(sec);
+		$(sec).find('footer').html('&#35;<thispage>' + pageNum + '</thispage>/').append($('<pageTotal/>'));
 		pageArticle.appendChild(sec);
 		cda2g.UI.resize();
 		return this.getPage(pageNum);
@@ -56,6 +62,7 @@ cda2g.Pages = new function Pages() {
 			cda2g.UI.resize();
 			this.scrollTo(p - 1);
 		}
+		cda2g.UI.refreshPageNumbers();
 	}
 	this.clearView = function clearView() {
 		$(".page-view").remove();

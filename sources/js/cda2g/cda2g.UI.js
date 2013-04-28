@@ -55,6 +55,14 @@ cda2g.UI = new function _UI() {
 		}
 		return pageData;
 	}
+	this.refreshPageNumbers = function refreshPageNumbers() {
+		var pagesNumber = cda2g.Pages.getPageNumber();
+		for(var p = 1; p <= pagesNumber[1]; p++) {
+			var page = cda2g.Pages.getPage(p);
+			page.pageNum = p;
+			$(page).parent('section.page-view').find('footer.outside > thispage').html(p);
+		}
+	}
 	this.activateDrop = function activeteDrop() {
 		return (this.dropping = true);
 	}
