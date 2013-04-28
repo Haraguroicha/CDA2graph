@@ -202,23 +202,27 @@ cda2g.Files = new function Files() {
 				var temp = template.replace(/templates\//g, "");
 				xTemplate = parseInt(jqXHR.getResponseHeader("X-Template"));
 				var message = "";
+				var redirectMessage = "";
 				switch(xTemplate) {
 					case 303:
 						message = sprintf("GET '%s' failed, using demo.", template);
 						cdaName = "Demo";
 						template = "components/cdaDemo.xhtml";
+						redirectMessage = template;
 						break;
 					case 307:
 						message = sprintf("GET '%s' failed, return default template.", template);
 						cdaName = sprintf("___%s", CDAcode_code);
 						template = sprintf("templates/%s/default.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"));
+						redirectMessage = template;
 						break;
 					case 200:
 						message = "OK";
 						break;
 					default:
 				}
-				$("#fileMessage").prepend(sprintf("<pre>%s; %s</pre>", xTemplate, temp));
+				redirectMessage = (redirectMessage.length > 0 ? " -&gt; " : "") + redirectMessage;
+				$("#fileMessage").prepend(sprintf("<pre>%s; %s%s</pre>", xTemplate, temp, redirectMessage));
 				cda2g.logger.log(sprintf("Query template code=%s, return message='%s'", xTemplate, message));
 			}
 		});
