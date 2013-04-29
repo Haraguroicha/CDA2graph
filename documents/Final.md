@@ -290,7 +290,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 本研究完成一套電子病歷檢視器的雲端應用平台，並且已經能夠直接顯示現行各種單張的解碼及提供將資料視覺化至自動分頁的畫面中的功能(如圖9畫面所示)，資料僅需要透過拖拉的方式即可匯入資料到瀏覽器中讀取(不需要上傳至伺服器)(如圖10及圖11畫面所示)，最終可以呈現不同單張與不同醫療機構的版本。  
 為了在檢視電子病歷資料的同時，要如同是觀看真實文件一般的直覺化操作，界面上呈現的樣式和列印出來的格式及樣貌必須皆完全一致。而一般使用者不論是否在有網路環境時，皆能使用此一平台瀏覽電子病歷資料。醫療院所也可以自行設計對應到每個單張的樣板檔及該單位專用的樣式至本系統或者插入到電子病歷檔中，讓使用者可以直接瀏覽使用而不影響檔案在各單位之間的資料交換，除資料交換以外也能讓醫療資訊系統呼叫引用本系統的檢視功能，本系統將能使電子病歷檢視之應用更具多元化。  
 ![系統自動分頁畫面](./image/255e571_systemScreenshot.png)  
-圖9 系統自動分頁畫面(測試分頁功能之文章源自[[27]])  
+圖9 系統自動分頁畫面  
 ![系統匯入資料到瀏覽器中的畫面](./image/6a3d808_systemScreenshot.png)  
 圖10 系統匯入資料到瀏覽器中的畫面  
 ![匯入CDA資料到瀏覽器後的畫面](./image/f0ffb3f_systemScreenshot.png)  
@@ -354,8 +354,7 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 23. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][23]
 24. [雲端運算 - Wikipedia][24]
 25. [Cloud Computing - Wikipedia][25]
-26. [簡余晏, 短評／落後的電影政令宣導, 2012][26]
-27. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][27]
+26. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][26]
 
 [1]: http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "全民健康雲啟動 整合個人健康履歷"
 [2]: http://www.digitimes.com.tw/tw/dt/n/shwnws.asp?CnlID=10&Cat=35&id=303217 "DIGITIMES - 全民健康雲"
@@ -395,7 +394,6 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 [26]: http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement"
 <!--以上雲端運算參考-->
 
-[27]: http://www.yuyen.tw/2012/08/blog-post_3024.html "簡余晏, 短評／落後的電影政令宣導, 2012"
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 檔案結尾
 	此行以下已經沒有任何內容
