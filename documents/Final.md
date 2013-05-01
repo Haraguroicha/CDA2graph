@@ -297,6 +297,22 @@ XML是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資�
 圖11 系統自動分頁畫面  
 
 ## 第二節 文件讀取及解析模組
+由於本系統讀取電子病歷文件時不需要將檔案上傳即可瀏覽，因此本系統會將檔案使用Drag & Drop的方式讓使用者輸入檔案，並且在接收到OnDrag Event的時候會處理資料的解析與讀取。
+在資料讀取的時候，為了要確定使用者輸入的檔案確實為符合臨床文件架構的電子病歷資料，故本系統會有以下規則來檢查是否為正確的文件格式：
+
+1. 確認是否有XML的文件宣告
+2. 檢查是否有ClinicalDocument的Root Element，並且有Element結尾
+3. 檢查是否有xmlns宣告為urn:hl7-org:v3的schema
+4. 其使用的RegExp檢查式為：`/<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>([\s\w\W]*)/`
+5. 但本系統不會根據宣告的schema去驗證XML是否符合schema的宣告
+
+在判斷為正確的檔案格式之後，即開始將檔案區分為兩個部分：CDA Header與CDA Body。其區分的方式為下列XPath表示：
+
+* 取得CDA Header：`*:ClinicalDocument/(* except self::*/*:component)`
+* 取得CDA Body：`*:ClinicalDocument/*:component`
+
+在區分之後，將會分別以`cdaHeader`與`cdaBody`的tag包裝起來，放入`cda2g`這個tag內使用Web Components的API處理在這個tag內的資料讀取。在資料處理的時候，會根據樣板檔的描述，去決定選擇header的資料或者是body的資料，並且使用XPath的方式提供資料的選取。在選取的過程中，可以指定輸出的方式為具有格式化的資料或者純資料選取的方式輸出，若選取的資料不存在，則選取的時候不會有任何的資料輸出。  
+資料選取與輸出的處理完成之後，就會把Web Components元件內的資料讀取出來並且銷毀，以便分頁處理顯示畫面。而畫面的輸出處理，則主要會以一個單張資料為一頁，若該單張的資料過多，則會在分頁處折斷至下一頁處理，並且將折斷前的頁面屬性延伸到折斷後的新頁面上。
 
 ## 第三節 資料內嵌處理模組
 
