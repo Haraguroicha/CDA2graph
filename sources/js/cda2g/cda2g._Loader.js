@@ -64,6 +64,7 @@ function pluginLoad() {
 		pl.addModule("cda2g/cda2g.Date");
 		pl.addModule("cda2g/cda2g.Tabs");
 		pl.addModule("cda2g/cda2g.Files");
+		pl.addModule("cda2g/cda2g.green");
 		pl.addModule("cda2g/cda2g.Pages");
 		pl.addModule("cda2g/cda2g.logger");
 		pl.addModule("cda2g/cda2g.scroll.Extensions");
@@ -71,7 +72,9 @@ function pluginLoad() {
 		pl.addModule("cda2g/cda2g.etc.last");
 		pl.addModule("jquery.xpath");
 		pl.addModule("jquery-getpath");
+		pl.addModule("jQuery-ZenCoding");
 		pl.addModule("components-polyfill");
+		pl.addModule("vkbeautify.0.99.00.beta")
 		pl.init();
 	}
 }
