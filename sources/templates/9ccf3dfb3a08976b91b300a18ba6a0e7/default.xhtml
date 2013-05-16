@@ -44,11 +44,14 @@
 					</choose>
 				</header>
 			</info>
+			<processable>
+				<green root="疾病通報" filename="121.green.xml"></green>
+			</processable>
 			<div class="_XCD_Component" style="display: none;">
 				<table>
 					<tr>
 						<th colspan="4">
-							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/name | recordTarget/patientRole/providerOrganization/name" placeholder="OOO??">
+							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/name | recordTarget/patientRole/providerOrganization/name" placeholder="OOO??" target="醫院名稱">
 								<h2><data></data></h2>
 								<h5>
 									<choose>
@@ -65,9 +68,9 @@
 					</tr>
 					<tr>
 						<td>
-							<selector section="header" path="recordTarget/patientRole/patient/name">
+							<selector section="header" path="recordTarget/patientRole/patient/name" target="病患>姓名">
 								姓名：<data></data>
-								<selector section="header" path="recordTarget/patientRole/patient/administrativeGenderCode[@code]" attr="code">(<data></data>)</selector>
+								<selector section="header" path="recordTarget/patientRole/patient/administrativeGenderCode[@code]" attr="code" target="病患>性別">(<data></data>)</selector>
 							</selector>
 						</td>
 						<td>
@@ -139,9 +142,9 @@
 					</tr>
 					<tr>
 						<td colspan="4">
-							<eachselector section="body" path="component/structuredBody/component/section/code[@code]/..">
-								<selector id="title" path="title[node()] | title[not(node())]/../code[@displayName]" attr="displayName"></selector>
-								<selector id="textParagraph" path="text/paragraph" allChildren="yes"></selector>
+							<eachselector section="body" path="component/structuredBody/component/section/code[@code]/.." target="通報項目>通報資料">
+								<selector id="title" path="title[node()] | title[not(node())]/../code[@displayName]" attr="displayName" target="標題"></selector>
+								<selector id="textParagraph" path="text/paragraph" allChildren="yes" target="描述內容"></selector>
 								<each>
 									<h4><json id="title"></json></h4>
 									<json id="textParagraph"></json>
