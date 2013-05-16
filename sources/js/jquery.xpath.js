@@ -88,7 +88,7 @@ oException_messages["FONS0004"]	= "No namespace found for prefix.";
 
 
 function cLexer(sValue) {
-	var aMatch	= sValue.match(/\$?(?:(?![0-9-])(?:[\w-]+|\*):)?(?![0-9-])(?:[\w-]+|\*)|\(:|:\)|\/\/|\.\.|::|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|\.\d+(?:[eE][+-]?\d+)?|"[^"]*(?:""[^"]*)*"|'[^']*(?:''[^']*)*'|<<|>>|[!<>]=|(?![0-9-])[\w-]+:\*|\s+|./g);
+	var aMatch	= sValue.match(/\$?(?:(?![0-9-])(?:[\w\u4E00-\u9FA5\u0800-\u4E00-]+|\*):)?(?![0-9-])(?:[\w\u4E00-\u9FA5\u0800-\u4E00-]+|\*)|\(:|:\)|\/\/|\.\.|::|\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|\.\d+(?:[eE][+-]?\d+)?|"[^"]*(?:""[^"]*)*"|'[^']*(?:''[^']*)*'|<<|>>|[!<>]=|(?![0-9-])[\w\u4E00-\u9FA5\u0800-\u4E00-]+:\*|\s+|./g);
 	if (aMatch) {
 		var nStack	= 0;
 		for (var nIndex = 0, nLength = aMatch.length; nIndex < nLength; nIndex++)
@@ -2069,7 +2069,7 @@ cNameTest.prototype.prefix			= null;
 cNameTest.prototype.localName		= null;
 cNameTest.prototype.namespaceURI	= null;
 
-var rNameTest	= /^(?:(?![0-9-])([\w-]+|\*)\:)?(?![0-9-])([\w-]+|\*)$/;
+var rNameTest	= /^(?:(?![0-9-])([\w\u4E00-\u9FA5\u0800-\u4E00-]+|\*)\:)?(?![0-9-])([\w\u4E00-\u9FA5\u0800-\u4E00-]+|\*)$/;
 function fNameTest_parse (oLexer, oStaticContext) {
 	var aMatch	= oLexer.peek().match(rNameTest);
 	if (aMatch) {
@@ -3787,7 +3787,7 @@ cXSQName.prototype.toString	= function() {
 	return (this.prefix ? this.prefix + ':' : '') + this.localName;
 };
 
-var rXSQName	= /^(?:(?![0-9-])([\w-]+)\:)?(?![0-9-])([\w-]+)$/;
+var rXSQName	= /^(?:(?![0-9-])([\w\u4E00-\u9FA5\u0800-\u4E00-]+)\:)?(?![0-9-])([\w\u4E00-\u9FA5\u0800-\u4E00-]+)$/;
 cXSQName.cast	= function(vValue) {
 	if (vValue instanceof cXSQName)
 		return vValue;
