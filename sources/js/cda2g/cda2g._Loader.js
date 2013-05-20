@@ -11,7 +11,7 @@ function initialization() {
 			open: function(event, ui) {
 				$(".ui-dialog-titlebar-close").hide();
 				$("#plLoader").attr("data-l10n-id", "appInitializing");
-				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "appInitializing");
+				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "appInitializing").html(_("appInitializing"));
 				if($.browser.msie) {
 					$("#plLoader").attr("title", LOAD_ERROR);
 					$("#ui-dialog-title-plLoader").html(LOAD_ERROR);

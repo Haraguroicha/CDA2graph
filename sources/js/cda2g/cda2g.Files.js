@@ -1,5 +1,6 @@
 cda2g.Files = new function Files() {
 	var files = {};
+	var needGreen = null;
 	this.__defineGetter__("files", function() {return files;});
 	this.isFiles = function isFiles(e) {
 		var ff = false;
@@ -11,6 +12,7 @@ cda2g.Files = new function Files() {
 	}
 	this.importFiles = function importFiles(e) {
 		if(e.dataTransfer.files.length > 0) {
+			needGreen = (e.ctrlKey && e.altKey);
 			var fss = e.dataTransfer.files;
 			files = { "./size": 0, "./loader": [], "./list": [] };
 			for(var k in fss) {
@@ -102,7 +104,7 @@ cda2g.Files = new function Files() {
 			open: function(event, ui) {
 				$(".ui-dialog-titlebar-close").hide();
 				$("#fileLoader").attr("data-l10n-id", "fileInitializing");
-				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "fileInitializing");
+				$("#ui-dialog-title-fileLoader").attr("data-l10n-id", "fileInitializing").html(_("fileInitializing"));
 			},
 			close: function(event,ui) { $("#fileMessage").html(''); },
 			closeOnEscape: false,
@@ -158,7 +160,8 @@ cda2g.Files = new function Files() {
 		var cda = $('cda2g');
 		if(cda.length == 0) {
 			setTimeout(function(){ $("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>'); }, 1000);
-			setTimeout(function(){ $("#fileLoader").dialog('close'); cda2g.UI.activateDrop(); }, 1500);
+			setTimeout(function(){ $("#fileLoader").dialog('close'); }, 1500);
+			setTimeout(function(){ cda2g.green.requireConverting(needGreen); }, 2000);
 			return;
 		}
 		var pf = p[1] - cda.length + 1;
@@ -253,6 +256,15 @@ cda2g.Files = new function Files() {
 	this.selectorParse = function selectorParse(root, content) {
 		var xmlns = content.attr("xmlnsName");
 		var shadow = $(root.querySelectorAll('*'));
+		var filename = $(content).attr('cda.filename');
+		var info = shadow.filter('info');
+		if(info.length > 0)
+			info.attr('filename', filename);
+		else {
+			info = $('<info />');
+			info.attr('filename', filename);
+			shadow.append(info);
+		}
 		var parse = function parse(index, value) {
 			var obj = $(this);
 			var isEach = (obj.parents("eachselector").length != 0);
@@ -531,8 +543,8 @@ cda2g.Files = new function Files() {
 		a[0].dataset.downloadurl = [obj['Content-Type'], obj.filename, a.attr('href')].join(':');
 		return a;
 	}
-	this.redirectDownload = function redirectDownload(filename, data) {
-		var idString = 'downloadURI_' + new Date().toString().crc32();
+	this.redirectDownload = function redirectDownload(filename, data, displayName, dontInvoke) {
+		var idString = 'downloadURI_' + new cda2g.Date().toString().crc32();
 		var url = this.createBlobDownload({
 								"Content-Type": "text/xml",
 								"encoding": "string",
@@ -542,12 +554,17 @@ cda2g.Files = new function Files() {
 							});
 		url.attr('id', idString);
 		url.attr('target', '_blank');
+		if(!!displayName)
+			url.html(displayName);
 		$("#downloadURI").append(url);
-		$("#" + idString)[0].click();
-		setTimeout(function() {
-			window.URL.revokeObjectURL(url.attr('href'));
-			$("#" + idString).remove();
-		}, 1500);
-		//setTimeout(function() { $('.downloadURI').remove(); }, 500);
+		cda2g.logger.log(sprintf('Created a download url: %s', url.clone().wrapAll('div').parent().html()));
+		if(!dontInvoke) {
+			$("#" + idString)[0].click();
+			setTimeout(function() {
+				window.URL.revokeObjectURL(url.attr('href'));
+				$("#" + idString).remove();
+			}, 1500);
+		}
+		return url;
 	}
 }

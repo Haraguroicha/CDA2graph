@@ -34,20 +34,23 @@
 		<link type="application/xhtml+xml" rel="components" href="components/cdaDemo.xhtml" />
 	</head>
 	<body>
-		<div id="plLoader" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
-			<article data-l10n-id="appLoading"></article>
-			<div id="progressbarWrapper" style="height:22px; " class="ui-widget-default">
+		<section id="plLoader" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
+			<header data-l10n-id="appLoading"></header>
+			<article style="height:22px; " class="ui-widget-default">
 				<div id="plProgress" style="height:100%;"></div>
 				<div id="plMessage"></div>
-			</div>
-		</div>
-		<div id="fileLoader" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
-			<article data-l10n-id="fileLoading"></article>
-			<div id="progressbarWrapper" style="height:22px; " class="ui-widget-default">
+			</article>
+		</section>
+		<section id="fileLoader" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
+			<header data-l10n-id="fileLoading"></header>
+			<article style="height:22px; " class="ui-widget-default">
 				<div id="fileProgress" style="height:100%;"></div>
 				<div id="fileMessage"></div>
-			</div>
-		</div>
+			</article>
+		</section>
+		<section id="requireGreenCDA" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
+			<article data-l10n-id="requireGreenCDAMessage"></article>
+		</section>
 		<section id="baseView"></section>
 		<section id="downloadURI"></section>
 		<section class="page-wrapper">

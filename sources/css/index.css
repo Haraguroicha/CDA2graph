@@ -270,3 +270,6 @@ title.outside, footer.outside {
 	width: inherit;
 	display: inline-block;
 }
+#downloadURI {
+	display: none;
+}
