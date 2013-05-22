@@ -17,13 +17,16 @@
 					font-size: 10pt;
 				}
 			</style>
+			<processable>
+				<green root="通用單張" filename="green.xml"></green>
+			</processable>
 			<div class="_XCD_Component" style="display: none;">
 				<table>
 					<tr>
 						<th colspan="4">
-							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/name | recordTarget/patientRole/providerOrganization/name" placeholder="OOO??">
+							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/name | recordTarget/patientRole/providerOrganization/name" placeholder="OOO??" target="醫療機構名稱">
 								<data></data>
-								<selector section="header" path="code[@displayName]" attr="displayName"></selector>
+								<selector section="header" path="code[@displayName]" attr="displayName" target="單張名稱"></selector>
 								電子病歷資料
 							</selector>
 						</th>

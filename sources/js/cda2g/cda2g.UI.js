@@ -86,7 +86,7 @@ cda2g.UI = new function _UI() {
 			return false;
 		}
 		var dpaf = function dpaDragHover(e) {
-			e.originalEvent.dataTransfer.dropEffect = "link";
+			e.originalEvent.dataTransfer.dropEffect = (e.ctrlKey && e.altKey) ? "copy" : "link";
 			if(e.type == "dragover" && cda2g.Files.isFiles(e.originalEvent)) {
 				if(!cda2g.UI.dropping)
 					this.classList.add("DragDropDisabledArea");

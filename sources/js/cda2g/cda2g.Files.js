@@ -1,5 +1,6 @@
 cda2g.Files = new function Files() {
 	var files = {};
+	var needGreen = null;
 	this.__defineGetter__("files", function() {return files;});
 	this.isFiles = function isFiles(e) {
 		var ff = false;
@@ -11,6 +12,7 @@ cda2g.Files = new function Files() {
 	}
 	this.importFiles = function importFiles(e) {
 		if(e.dataTransfer.files.length > 0) {
+			needGreen = (e.ctrlKey && e.altKey);
 			var fss = e.dataTransfer.files;
 			files = { "./size": 0, "./loader": [], "./list": [] };
 			for(var k in fss) {
@@ -102,7 +104,7 @@ cda2g.Files = new function Files() {
 			open: function(event, ui) {
 				$(".ui-dialog-titlebar-close").hide();
 				$("#fileLoader").attr("data-l10n-id", "fileInitializing");
-				$("#ui-dialog-title-plLoader").attr("data-l10n-id", "fileInitializing");
+				$("#ui-dialog-title-fileLoader").attr("data-l10n-id", "fileInitializing").html(_("fileInitializing"));
 			},
 			close: function(event,ui) { $("#fileMessage").html(''); },
 			closeOnEscape: false,
@@ -158,7 +160,8 @@ cda2g.Files = new function Files() {
 		var cda = $('cda2g');
 		if(cda.length == 0) {
 			setTimeout(function(){ $("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>'); }, 1000);
-			setTimeout(function(){ $("#fileLoader").dialog('close'); cda2g.UI.activateDrop(); }, 1500);
+			setTimeout(function(){ $("#fileLoader").dialog('close'); }, 1500);
+			setTimeout(function(){ cda2g.green.requireConverting(needGreen); }, 2000);
 			return;
 		}
 		var pf = p[1] - cda.length + 1;
@@ -253,6 +256,15 @@ cda2g.Files = new function Files() {
 	this.selectorParse = function selectorParse(root, content) {
 		var xmlns = content.attr("xmlnsName");
 		var shadow = $(root.querySelectorAll('*'));
+		var filename = $(content).attr('cda.filename');
+		var info = shadow.filter('info');
+		if(info.length > 0)
+			info.attr('filename', filename);
+		else {
+			info = $('<info />');
+			info.attr('filename', filename);
+			shadow.append(info);
+		}
 		var parse = function parse(index, value) {
 			var obj = $(this);
 			var isEach = (obj.parents("eachselector").length != 0);
@@ -273,8 +285,10 @@ cda2g.Files = new function Files() {
 			var mode = obj.attr("mode");
 			var hideEmptyParent = obj.attr("onemptyhideparent");
 			var allChildren = obj.attr("allchildren");
+			var target = obj.attr("target");
 			allChildren = ((!!allChildren) ? (allChildren.toLowerCase() == "yes") : false);
 			section = section.substring(0, 1).toUpperCase() + section.substring(1);
+			target = ((!!target) ? target : null );
 			if(type == "observationMedia") {
 				path += "/*:value";
 				var val = data.xpath(path);
@@ -394,6 +408,14 @@ cda2g.Files = new function Files() {
 				data.html(ret);
 			else
 				obj.html(ret);
+			if(target) {
+				try {
+					var json = JSON.parse(unescape(ret));
+					console.log("green data have json.");
+				} catch(jserr) {
+					cda2g.green.createGreenNode(shadow, "", target, ret);
+				}
+			}
 			if(hideEmptyParent != undefined)
 				if(obj.css('display') == 'none')
 					$(obj).xpath(sprintf('.%s', '/..'.repeat(hideEmptyParent))).css('display', 'none');
@@ -411,6 +433,7 @@ cda2g.Files = new function Files() {
 	this.eachParse = function eachParse(root, content) {
 		var shadow = $(root.querySelectorAll('*'));
 		each = $(shadow.find('each'));
+		var targetPath = each.parents('eachselector').attr("target");
 		each.each(function() {
 			var result = [];
 			var length = 0;
@@ -421,21 +444,49 @@ cda2g.Files = new function Files() {
 				var self = $(this);
 				if(self.css('display') != "none") {
 					var data = JSON.parse(unescape(self.html().trim()));
-					jsonData[data.id] = data.value;
+					jsonData[data.id] = { "data": data.value, "target": self.attr("target") };
 					if(data.value.length > length)
 						length = data.value.length;
 				}
 			});
 			for(var i = 0; i < length; i++) {
+				var targetObj = null;
+				if(!!targetPath) {
+					targetObj = $.zc(targetPath);
+					var pg = shadow.xpath("//processable/green");
+					while(true) {
+						if(pg.find(targetObj[0].tagName).length > 0 && targetObj.children().length > 0) {
+							pg = pg.find(targetObj[0].tagName).last();
+							targetObj = targetObj.children();
+						} else {
+							if(pg.length > 0)
+								pg.append(targetObj);
+							break;
+						}
+					}
+					while(targetObj.children().length > 0) {
+						targetObj = targetObj.children();
+					}
+				}
 				result[i] = $('<result />');
 				var ecc = ec.clone();
 				ecc.find('json').each(function() {
 					var self = $(this);
-					var html = jsonData[self.attr('id')][i];
+					var html = jsonData[self.attr('id')].data[i];
+					var target = jsonData[self.attr('id')].target;
 					if(self.filter('data').length > 0)
 						self.filter('data').html(html);
 					else
 						self.html(html);
+					try {
+						var text = $(html).text();
+						if(text.length == 0)
+							text = html;
+					} catch(textErr) {
+						var text = html;
+					}
+					if(!!target)
+						cda2g.green.createGreenNode(shadow, targetObj, target, text);
 				});
 				result[i].append(ecc.html());
 			}
@@ -491,5 +542,29 @@ cda2g.Files = new function Files() {
 		var a = $('<a/>').attr('href', this.createBlobURL(this.createBlob(obj))).attr('download', obj.filename);
 		a[0].dataset.downloadurl = [obj['Content-Type'], obj.filename, a.attr('href')].join(':');
 		return a;
+	}
+	this.redirectDownload = function redirectDownload(filename, data, displayName, dontInvoke) {
+		var idString = 'downloadURI_' + new cda2g.Date().toString().crc32();
+		var url = this.createBlobDownload({
+								"Content-Type": "text/xml",
+								"encoding": "string",
+								"output": "blob",
+								"content": data,
+								"filename": filename
+							});
+		url.attr('id', idString);
+		url.attr('target', '_blank');
+		if(!!displayName)
+			url.html(displayName);
+		$("#downloadURI").append(url);
+		cda2g.logger.log(sprintf('Created a download url: %s', url.clone().wrapAll('div').parent().html()));
+		if(!dontInvoke) {
+			$("#" + idString)[0].click();
+			setTimeout(function() {
+				window.URL.revokeObjectURL(url.attr('href'));
+				$("#" + idString).remove();
+			}, 1500);
+		}
+		return url;
 	}
 }
