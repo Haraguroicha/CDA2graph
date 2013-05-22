@@ -5,9 +5,10 @@ Options -Indexes
 	
 	RewriteRule ^ - [E=isssl:http]
 	RewriteCond %{HTTPS} =on [OR]
-	RewriteCond %{HTTP:X-SSL-cipher} !^$
-	RewriteRule ^ - [E=isssl:https]	
-	
+	RewriteCond %{HTTP:X-SSL-cipher} !^$ [OR]
+	RewriteCond %{HTTP:X-FORWARDED-FOR} !127\.0\.0\.1 [NC]
+	RewriteRule ^ - [E=isssl:https]
+
 	# If match requested file then set 200
 	RewriteCond %{REQUEST_URI} !(.*)/default.xhtml$ [NC]
 	RewriteCond %{REQUEST_FILENAME} -s [OR]
