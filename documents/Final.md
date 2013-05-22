@@ -294,6 +294,7 @@
 24. [雲端運算 - Wikipedia][24]
 25. [Cloud Computing - Wikipedia][25]
 26. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][26]
+27. [VMware 雲端成熟度指標：台灣雲端運算普及率 44%][27]
 
 [1]: http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "全民健康雲啟動 整合個人健康履歷"
 [2]: http://www.digitimes.com.tw/tw/dt/n/shwnws.asp?CnlID=10&Cat=35&id=303217 "DIGITIMES - 全民健康雲"
@@ -331,6 +332,7 @@
 [24]: http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "雲端運算 - Wikipedia"
 [25]: http://en.wikipedia.org/wiki/Cloud_computing "Cloud Computing - Wikipedia"
 [26]: http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement"
+[27]: https://www.vmware.com/tw/company/news/releases/VMware-cloudindex2012tw-112012.html "VMware 雲端成熟度指標：台灣雲端運算普及率 44%"
 <!--以上雲端運算參考-->
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
