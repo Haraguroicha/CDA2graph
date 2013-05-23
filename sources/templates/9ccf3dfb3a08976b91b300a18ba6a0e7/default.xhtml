@@ -298,35 +298,6 @@
 						</td>
 					</tr>
 				</table>
-				<table>
-					<tr>
-						<td colspan="4">
-							<eachselector section="body" path="component/structuredBody/component/section/code[@code]/.." target="通報項目>通報資料">
-								<selector id="title" path="title[node()] | title[not(node())]/../code[@displayName]" attr="displayName" target="標題"></selector>
-								<selector id="textParagraph" path="text/paragraph" allChildren="yes" target="描述內容"></selector>
-								<each>
-									<h4><json id="title"></json></h4>
-									<json id="textParagraph"></json>
-								</each>
-								<result><h3>通報內容</h3></result>
-							</eachselector>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4">
-							<selector section="body" path="component/structuredBody/component/section/code[@code='52040-3']/../entry/observationMedia" type="observationMedia" mode="image" onEmptyHideParent="2">
-								醫學影像<br/><data></data>
-							</selector>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4">
-							<selector section="body" path="component/structuredBody/component/section/code[@code='55107-7']/../entry/observationMedia" type="observationMedia" mode="binary" onEmptyHideParent="2">
-								其他文件<br/><data></data>
-							</selector>
-						</td>
-					</tr>
-				</table>
 			</div>
 		</template>
 		<script type="text/javascript">
