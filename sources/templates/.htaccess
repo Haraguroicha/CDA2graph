@@ -7,6 +7,7 @@ Options -Indexes
 	RewriteCond %{HTTPS} =on [OR]
 	RewriteCond %{HTTP:X-SSL-cipher} !^$ [OR]
 	RewriteCond %{HTTP:X-FORWARDED-FOR} !127\.0\.0\.1 [NC]
+	RewriteCond %{HTTP:X-FORWARDED-FOR} !^$ [NC]
 	RewriteRule ^ - [E=isssl:https]
 
 	# If match requested file then set 200
