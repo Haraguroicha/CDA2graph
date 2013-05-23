@@ -16,12 +16,15 @@ eachselector > *:not(result) {
 eachselector > result {
 	display: block;
 }
+eachselector > selector, each {
+	display: none;
+}
 img {
 	max-width: 690px;
 }
 info {
 	display: none;
 }
-processable {
+processable, enumerator {
 	display: none;
 }

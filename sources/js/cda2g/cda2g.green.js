@@ -49,10 +49,16 @@ cda2g.green = new function green() {
 		return xmlData;
 	}
 	this.showDownloadLink = function showDownloadLink() {
+		var linksObj = {};
 		var links = [];
 		$("#downloadURI").clone().find('a').each(function() {
-			links.push($(this).wrapAll('<li/>').parent().wrapAll('<ul/>').parent());
+			linksObj[$(this).html().trim()] = $(this).wrapAll('<li/>').parent().wrapAll('<ul/>').parent();
 		});
+		for(var k in linksObj) {
+			var obj = linksObj[k];
+			if(typeof(obj) == "object")
+				links.push(obj);
+		}
 		$("<div title='" + _("downloader") + "'/>")
 			.html('')
 			.append(links)

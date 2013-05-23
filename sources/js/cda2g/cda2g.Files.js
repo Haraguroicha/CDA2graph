@@ -106,7 +106,10 @@ cda2g.Files = new function Files() {
 				$("#fileLoader").attr("data-l10n-id", "fileInitializing");
 				$("#ui-dialog-title-fileLoader").attr("data-l10n-id", "fileInitializing").html(_("fileInitializing"));
 			},
-			close: function(event,ui) { $("#fileMessage").html(''); },
+			close: function(event,ui) {
+				$("#fileMessage").html('');
+				setTimeout(function(){ cda2g.green.requireConverting(needGreen); }, 500);
+			},
 			closeOnEscape: false,
 			draggable: false,
 			resizable: false
@@ -114,7 +117,51 @@ cda2g.Files = new function Files() {
 		cda2g.Pages.clearView();
 		setTimeout(function(){cda2g.Files.parseCDA();}, 10);
 	}
-	var XCD = $('<style scoped="scoped" />').html("@import url(css/index.css);@import url(components/css/XCD.css);");
+	this.getStylesheetData = function getStylesheetData() {
+		var stylesheet = "";
+		$.ajax({
+			type: "GET",
+			url: 'css/fonts.css',
+			dataType: "text",
+			async: false,
+			success: function (data, textStatus, jqXHR) {
+				stylesheet += data;
+				cda2g.logger.log(sprintf("Query stylesheet successful", data));
+			}
+		});
+		$.ajax({
+			type: "GET",
+			url: 'css/animate.css',
+			dataType: "text",
+			async: false,
+			success: function (data, textStatus, jqXHR) {
+				stylesheet += data;
+				cda2g.logger.log(sprintf("Query stylesheet successful", data));
+			}
+		});
+		$.ajax({
+			type: "GET",
+			url: 'css/index.css',
+			dataType: "text",
+			async: false,
+			success: function (data, textStatus, jqXHR) {
+				stylesheet += data;
+				cda2g.logger.log(sprintf("Query stylesheet successful", data));
+			}
+		});
+		$.ajax({
+			type: "GET",
+			url: 'components/css/XCD.css',
+			dataType: "text",
+			async: false,
+			success: function (data, textStatus, jqXHR) {
+				stylesheet += data;
+				cda2g.logger.log(sprintf("Query stylesheet successful", data));
+			}
+		});
+		return $('<style scoped="scoped" />').html(stylesheet);
+	}
+	var XCD = null;
 	this.appendXCD = function appendXCD() {
 		return $('cda2g[is]').each(function() {
 			var node = this;
@@ -128,9 +175,11 @@ cda2g.Files = new function Files() {
 				});
 				if(!haveXCD) {
 					cda2g.logger.log(sprintf("Append XCD scoped style Element to cda2g[is='%s' cda.filename='%s']", $(node).attr('is'), $(node).attr('cda.filename')));
-					$(sr).append(XCD.clone());
+					$(sr).prepend(XCD.clone());
 				}
 			}
+		}).promise().done(function() {
+			setTimeout(function(){cda2g.Files.convertShadowRootToHTML(cda2g.Pages.getPageNumber());}, 1000);
 		});
 	}
 	this.parseCDA = function parseCDA() {
@@ -144,8 +193,8 @@ cda2g.Files = new function Files() {
 				$("#fileProgress").progressbar({value: ((this.files.count - this.files["./loader"].length) / this.files.count * 100)});
 				if(files["./loader"].length == 0) {
 					$("#fileMessage").prepend('<span data-l10n-id="fileFinalizing">Finalizing</span>...<br/>');
+					XCD = this.getStylesheetData();
 					setTimeout(function(){cda2g.Files.appendXCD();}, 1000);
-					setTimeout(function(){cda2g.Files.convertShadowRootToHTML(cda2g.Pages.getPageNumber());}, 1500);
 					
 				}
 			}
@@ -154,6 +203,7 @@ cda2g.Files = new function Files() {
 		var pf = p[0];
 		var pe = p[1];
 		$("#fileMessage").prepend('<span data-l10n-id="fileRePaging">Re-Paging!!</span><br/>');
+		cda2g.logger.log('Repainting Documents')
 		setTimeout(function(){cda2g.Files.shadowRootToHTML(p);}, 100);
 	}
 	this.shadowRootToHTML = function shadowRootToHTML(p) {
@@ -161,7 +211,6 @@ cda2g.Files = new function Files() {
 		if(cda.length == 0) {
 			setTimeout(function(){ $("#fileMessage").prepend('<span data-l10n-id="fileDone">Done!!</span><br/>'); }, 1000);
 			setTimeout(function(){ $("#fileLoader").dialog('close'); }, 1500);
-			setTimeout(function(){ cda2g.green.requireConverting(needGreen); }, 2000);
 			return;
 		}
 		var pf = p[1] - cda.length + 1;
@@ -267,6 +316,7 @@ cda2g.Files = new function Files() {
 		}
 		var parse = function parse(index, value) {
 			var obj = $(this);
+			var enumerators = obj.find('enumerator');
 			var isEach = (obj.parents("eachselector").length != 0);
 			if(isEach) {
 				var section = obj.parents("eachselector").attr("section");
@@ -360,7 +410,8 @@ cda2g.Files = new function Files() {
 							v.find('*').each(function(){
 								//$(this).remove();
 							});
-							v = (!allChildren) ? v.text() : v.wrapAll('div').parent().html();
+							var vv = (!allChildren) ? v.text() : v.wrapAll('div').parent().html();
+							v = (!!attr && vv.trim() == "") ? v.attr(attr) : vv;
 							if(v.length > 0) {
 								rt.push(v);
 								if(!isEach)
@@ -404,6 +455,10 @@ cda2g.Files = new function Files() {
 				cda2g.logger.log(sprintf("Selecting path:'%s'%s value='%s' => '%s'", path, ((!!attr) ? "@" + attr : ""), (isEach) ? "JSON Data:" + unescape(val) : val, (isEach) ? "JSON Data:" + unescape(ret) : ret));
 			}
 			var data = obj.find('data');
+			if(data.length > 0 && enumerators.length > 0) {
+				var matchEnum = enumerators.find(sprintf('data[match="%s"]', ret));
+				ret = matchEnum.html();
+			}
 			if(data.length != 0)
 				data.html(ret);
 			else
