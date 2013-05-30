@@ -1,0 +1,70 @@
+curl --location --head --insecure --url https://cda2g.hp.af.cm/templates/9ccf3dfb3a08976b91b300a18ba6a0e7/8eed412f2ef2379272b620cfa8580ecb.xhtml
+HTTP/1.1 307 Temporary Redirect
+Server: nginx
+Date: Thu, 30 May 2013 15:33:26 GMT
+Content-Type: text/html; charset=iso-8859-1
+Connection: keep-alive
+Keep-Alive: timeout=900
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+X-Template: 307
+Location: https://cda2g.hp.af.cm/templates/9ccf3dfb3a08976b91b300a18ba6a0e7/8eed412f2ef2379272b620cfa8580ecb.xhtml/../default.xhtml
+Vary: Accept-Encoding
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 May 2013 15:33:26 GMT
+Content-Type: application/xhtml+xml
+Content-Length: 11654
+Connection: keep-alive
+Keep-Alive: timeout=900
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+X-Template: 307
+Vary: X-FORWARDED-FOR
+Last-Modified: Sat, 25 May 2013 10:50:30 GMT
+Accept-Ranges: bytes
+
+curl --location --head --insecure --url https://cda2g.hp.af.cm/templates/078df904b021bea0ccf56f03ca7f971b/7a52d46f88c3001e4e2c1bf2732d86dc.xhtml
+HTTP/1.1 307 Temporary Redirect
+Server: nginx
+Date: Thu, 30 May 2013 15:35:44 GMT
+Content-Type: text/html; charset=iso-8859-1
+Connection: keep-alive
+Keep-Alive: timeout=900
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+X-Template: 307
+Location: https://cda2g.hp.af.cm/templates/078df904b021bea0ccf56f03ca7f971b/7a52d46f88c3001e4e2c1bf2732d86dc.xhtml/../default.xhtml
+Vary: Accept-Encoding
+
+HTTP/1.1 303 See Other
+Server: nginx
+Date: Thu, 30 May 2013 15:35:44 GMT
+Content-Type: text/html; charset=iso-8859-1
+Connection: keep-alive
+Keep-Alive: timeout=900
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+X-Template: 303
+Location: https://cda2g.hp.af.cm/templates/078df904b021bea0ccf56f03ca7f971b/default.xhtml/../../../components/cdaDemo.xhtml?template=078df904b021bea0ccf56f03ca7f971b/default.xhtml
+Vary: Accept-Encoding
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 30 May 2013 15:35:45 GMT
+Content-Type: application/xhtml+xml
+Content-Length: 4562
+Connection: keep-alive
+Keep-Alive: timeout=900
+Cache-Control: max-age=0, no-cache, no-store, must-revalidate
+Pragma: no-cache
+Expires: Wed, 11 Jan 1984 05:00:00 GMT
+X-Template: 303
+Last-Modified: Sat, 25 May 2013 10:50:39 GMT
+Accept-Ranges: bytes
+
