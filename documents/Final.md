@@ -3,12 +3,12 @@
 ### *The study of building Cloud Computing Platform for the Viewer of electronic medical records*
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 摘要
-
+國內衛生署推行電子病歷資料交換已經施行多年，電子病歷資料的交換必須透過健保局提供的虛擬私有網路與衛生署電子病歷交換平台交換電子病歷資料。各醫院的醫師看診時，必須有病患的健保卡與醫師的醫事憑證卡，連線至電子病歷交換平台申請資料調閱使用。鑒於目前雲端產業的興起，加上國內推動全民健康雲，病歷資料的交換互通與即時處理顯示已經成為了未來的趨勢。在電子病歷交換之後，會面臨到系統是否能直接呈現電子病歷包含的資料。因此本研究以公告的標準文件、超文本標記語言第五版技術及資訊技術與服務的構想來設計俱有永續經營的電子病歷檢視器，並部署至雲端平台，提供醫療院所能夠自行設計客制化的樣板檔來顯示各種電子病歷單張。使用本研究之檢視器平台瀏覽電子病歷資料時，僅需要三秒即可呈現，大幅降低電子病歷資料調閱的解碼等待時間。同時，本系統可把電子病歷轉換成其他格式的XML文件，大幅增加電子病歷的可用性。
 
 **關鍵字：_電子病歷、臨床文件架構、雲端運算、檢視器、超文本標記語言第五版_**
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Abstract
-
+Department of Health to implement Electronic Medical Record(EMR) data exchange has been practiced for many years. The exchange of EMR must be provided through the National Health Insurance Bureau of Virtual Private Network(VPN) and Department of Health EMR Exchange Center(EEC). Doctor application EMR data access EEC to use when visits, it must to be have health insurance card and medical certificate card. Given the current rise of the cloud industry and domestic promote universal health cloud, the exchange of medical information sharing and real-time processing to display has become the trend of the future. After the exchange of EMR, system will facing to show the data of contained in EMR directly. Therefore, this research using announcement standard documents and HTML5 technology and information technology and services to design and made the idea of sustainable EMR Viewer, and deployment to the cloud platform to provision of medical institutions to design their own customized template file to display a variety of EMR leaflets. Use of this research platform to view EMR data only requires three seconds to presented, and significantly reduce access to EMR decoding latency. Meanwhile, the system can be convert EMR into other formats XML file, substantial increase the availability of EMR.
 
 **Keywords:_Electronic Medical Record(EMR), Clinical Document Architecture(CDA), Cloud Computing, Viewer, Hyper-Text Markup Language 5(HTML5)_**
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
