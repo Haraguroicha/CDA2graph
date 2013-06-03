@@ -18,9 +18,9 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 國內衛生署推行的電子病歷的資料交換格式是由HL7制定的臨床文件架構所衍生的一種XML格式的文件，此文件格式現在國內已經有數百家醫院使用，各個醫院必須透過各自的`EEC`(E.M.R. Exchange Center, Electronic Medical Record Exchange Center) Gateway，經過健保局提供的`VPN`(Virtual Private Ntework)網路，與衛生署電子病歷交換平台(`EEC`)交換電子病歷資料。各醫院的醫師看診時，若要看其他醫院所產出的電子病歷，則必須有病患的健保卡與醫師的醫事憑證卡，連線至`EEC平台`申請相關的電子病歷資料調閱，隨後等待資料回傳後，即可直接在`HIS`(Hospital Information System)中直接瀏覽資料。但目前交換電子病歷資料的對等醫院皆必須要有`HIS`系統能夠編、解碼交換的電子病歷文件，否則無法解讀交換後的資料給醫生瀏覽。至目前為止，國內所有的電子病歷都必須要各家醫療院所自行開發電子病歷相關的編、解碼程式，然後經過衛生署認證後，才能上線至`EEC平台`開始做電子病歷交換的流程。
 
 ### 壹 國內電子病歷推行狀況
-民國九十七年開始，衛生署修訂了108項電子病歷單張範本及轉換成為國際表準的`HL7 CDA R2`格式[[4]]，並且制定了相關的資料欄位成為國內電子病歷資料交換的標準。在民國九十九年的『醫院實施電子病歷及互通補助計畫』中公告並開始使用四張醫院的病歷單張與中醫、西醫與牙醫等三張門診單張交換使用。而目前電子病歷推動計劃相關的補助以及申請醫院家次統計如表1所示。
+民國九十七年開始，衛生署修訂了108項電子病歷單張範本及轉換成為國際表準的`HL7 CDA R2`格式[[1]]，並且制定了相關的資料欄位成為國內電子病歷資料交換的標準。在民國九十九年的『醫院實施電子病歷及互通補助計畫』中公告並開始使用四張醫院的病歷單張與中醫、西醫與牙醫等三張門診單張交換使用。而目前電子病歷推動計劃相關的補助以及申請醫院家次統計如表1所示。
 
-表1 電子病歷推動計劃補助款項及申請醫院家次統計(參考於衛生署網站[[5]])
+表1 電子病歷推動計劃補助款項及申請醫院家次統計(參考於衛生署網站[[2]])
 
 |     項目/年度     |  99年度  | 100年度 | 101年度 |
 |------------------|---------|--------|---------|
@@ -32,9 +32,9 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 |    補助款餘額     |6.17千萬元|   0元   |   0元   |
 
 ## 第二節 研究動機
-在國際上，雲端服務與雲端醫療的爭相競爭之下，病歷資料的交換互通與即時處理顯示已經成為了未來的趨勢。尤其是國內的電子病歷交換之後，將會面臨到的是系統是否能夠直接呈現出電子病歷中所包含的資料，而不需要經由`HIS`系統去套用表單來呈現資料，並且能夠即時將同一份電子病歷迅速的轉換成不同的樣貌來顯示各種包含在內的病歷資料。
+在國際上，雲端服務與雲端醫療的爭相競爭之下，以及有不少學者已經開始著手使用雲端運算技術、Web 3.0與HTML5等新技術應用至醫療領域的研究[[3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13]]，因此病歷資料的交換互通與即時處理顯示已經成為了未來的趨勢。尤其是國內的電子病歷交換之後，將會面臨到的是系統是否能夠直接呈現出電子病歷中所包含的資料，而不需要經由`HIS`系統去套用表單來呈現資料，並且能夠即時將同一份電子病歷迅速的轉換成不同的樣貌來顯示各種包含在內的病歷資料。
 
-在目前國內政府力推全民健康雲[[1], [2]]，電子病歷的交換與使用是不可或缺的，而衛生署在為了推行電子病歷，並提出了推動補助款，加速國內電子病歷的普及率[[5]]。
+在目前國內政府力推全民健康雲[[14], [15]]，電子病歷的交換與使用是不可或缺的，而衛生署在為了推行電子病歷，並提出了推動補助款，加速國內電子病歷的普及率[[2]]。
 
 ## 第三節 研究目的
 為了可以增加政府推行電子病歷的成效，以現有技術考量，建置能使各家醫療院所產出的電子病歷能夠互通檢視的雲端檢視器平台，以及能夠提供一個讓各醫療院所自行客制化的表單格式互通至其他醫療院所使用。若在使用遠距照護等能產出符合CDA R2規範檔案的系統時，則也可使用此一檢視器平台來協助病患自行檢視資料，迅速瞭解自己的遠距照護內容。
@@ -52,15 +52,15 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 本章節依照研究目的，首先探討電子病歷的歷史與規格及國內交換的方式，並且依序探討資訊技術與服務概念，以及探討建置電子病歷檢視器平台所使用的技術等。
 
 ## 第一節 電子病歷
-電子病歷(Electronic Medical Record, `EMR`)是一種由電子化方式擷取、傳送、儲存、取回、連結與處理的多媒體資料，電子病歷主要的用途為協助醫療或其相關服務。其資料內容包括病患的個人資料、問題、`SOAP`(`Subjective`, 主觀陳訴; `Objective`, 客觀陳訴; `Assessment`, 評估; `Plan`, 計畫)、病程紀錄、護理計畫、護理記錄、生命徵象記錄、藥物使用記錄、過去病史、家族病史、預防接種記錄，與其相關的醫療實驗室的檢驗資料與報告，和相關的檢查資料與報告，凡是相關病情必要之資訊，如相對於疫情的旅遊史，則亦可成為電子病歷的一環而成為電子病歷的資料內容[[3]]。
+電子病歷(Electronic Medical Record, `EMR`)是一種由電子化方式擷取、傳送、儲存、取回、連結與處理的多媒體資料，電子病歷主要的用途為協助醫療或其相關服務。其資料內容包括病患的個人資料、問題、`SOAP`(`Subjective`, 主觀陳訴; `Objective`, 客觀陳訴; `Assessment`, 評估; `Plan`, 計畫)、病程紀錄、護理計畫、護理記錄、生命徵象記錄、藥物使用記錄、過去病史、家族病史、預防接種記錄，與其相關的醫療實驗室的檢驗資料與報告，和相關的檢查資料與報告，凡是相關病情必要之資訊，如相對於疫情的旅遊史，則亦可成為電子病歷的一環而成為電子病歷的資料內容[[16]]。
 
-目前在國內的電子病歷則是使用HL7 CDA R2的規格所制定的，在醫療院所做電子病歷資料交換時，必須經由健保局提供的`VPN`網路，透過電子病歷交換中心閘道器(`EEC Gateway`, Electronic Medical Record Exchange Center Gateway)交換資料。`EEC Gateway`是一個必須在各個醫院設立的閘道器主機，目的在於`EEC平台`可以透過此一閘道器作為一個中繼點，使用健保局提供的`VPN`當作管道，平時醫院可以將需要上傳的資料先儲存於該主機，並等待EEC平台定期的抓取上傳的資料。若是作為資料調閱時，可以透過`EEC平台`查詢資料索引，並且通知存有資料的`EEC Gateway`將完整資料回傳至`EEC`提供調閱，並隨後轉送至需要該調閱資料的單位的`EEC Gateway`內，`HIS`取得該資料後才能將資料轉換並呈現給醫事人員瀏覽。
+目前在國內的電子病歷則是使用HL7 CDA R2的規格所制定的[[17], [18], [19]]，在醫療院所做電子病歷資料交換時，必須經由健保局提供的`VPN`網路，透過電子病歷交換中心閘道器(`EEC Gateway`, Electronic Medical Record Exchange Center Gateway)交換資料[[20]]。`EEC Gateway`是一個必須在各個醫院設立的閘道器主機，目的在於`EEC平台`可以透過此一閘道器作為一個中繼點，使用健保局提供的`VPN`當作管道，平時醫院可以將需要上傳的資料先儲存於該主機，並等待EEC平台定期的抓取上傳的資料。若是作為資料調閱時，可以透過`EEC平台`查詢資料索引，並且通知存有資料的`EEC Gateway`將完整資料回傳至`EEC`提供調閱，並隨後轉送至需要該調閱資料的單位的`EEC Gateway`內，`HIS`取得該資料後才能將資料轉換並呈現給醫事人員瀏覽。
 
 ## 第二節 資訊技術與服務
 `ITIL`(Information Technology Infrastructure Library)針對的是使用者的感受，強調終端與終端的服務，與本研究開發之系統的關聯在於本研究強調於使用者可以自行設計樣本檔並且提供給其他使用者使用。
 
 ### 壹 基礎構想
-`資訊科技基礎構想`(`ITIL`)源起於1980年代的`英國政府商務部`(`OGC`, Office of Government Commerce)的前身組織 -- `顧客信用貿易協會`(`CCTA`, Consumer Credit Trade Association)所主導進行的「如何提升政府資訊科技與管理」研究專案。又被稱為資訊服務管理的最佳實務(Best Practice)。資訊服務管理的ISO標準(ISO/IEC 20000)主要參考架構所發展制定。
+`資訊科技基礎構想`(`ITIL`)源起於1980年代的`英國政府商務部`(`OGC`, Office of Government Commerce)的前身組織 -- `顧客信用貿易協會`(`CCTA`, Consumer Credit Trade Association)所主導進行的「如何提升政府資訊科技與管理」研究專案。又被稱為資訊服務管理的最佳實務(Best Practice)。資訊服務管理的ISO標準(ISO/IEC 20000)主要參考架構所發展制定。[[21]]
 
 `ITIL`之發展有三個階段：
 
@@ -84,7 +84,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 因為雲端醫療的電子病歷的專業領域與一般IT有所不同，其服務的項目是各個醫療院所所使用的醫師，而不是一般使用者；所以服務內容是透過各個不同的醫療單位所提供的資訊，並不是固定內容的資訊系統。因此本研究僅針對ITIL的服務管理做探討，其他模組則不在本研究的範圍。
 
 ### 貳 服務管理
-本研究僅使用到前面所述之`ITIL`的第一個`模組服務管理`(`ITSM`, IT Service Management)內細分的服務支援(Service Support)及服務遞送(Service Delivery)的服務傳遞部分，其詳細說明如下。
+本研究僅使用到前面所述之`ITIL`的第一個`模組服務管理`(`ITSM`, IT Service Management)[[22]]內細分的服務支援(Service Support)及服務遞送(Service Delivery)的服務傳遞部分，其詳細說明如下。
 
 服務遞送有以下五種管理：容量管理(Capacity Management)、服務水準管理(Service Level Management)、可用性管理(Availability Management)、服務永續性管理(Service Continuity Management)、服務的財務管理(Financial Management for Service)。本研究中使用到可用性管理與服務永續性管理兩部分。
 
@@ -119,9 +119,9 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 * 持續性管理應結合於企業整體永續經營計畫中
 
 ## 第三節 XML
-`可延伸標記式語言`(`XML`, eXtensible Markup Language)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從`標準通用標記式語言`(`SGML`, Standard Generalized Markup Language)中簡化修改出來的。它主要用到的有可延伸標記式語言、`可延伸樣式語言`(`XSL`, eXtensible Stylesheet Language)、`可擴展商業報告語言`(`XBRL`, eXtensible Business Reporting Language)和`XML路徑語言`(`XPath`, XML Path Language)等[[9]]。
+`可延伸標記式語言`(`XML`, eXtensible Markup Language)是一種標記式語言。標記指電腦所能理解的訊息符號，使用此種標記，電腦與電腦之間可以互相處理包含各種訊息的資料。XML是從`標準通用標記式語言`(`SGML`, Standard Generalized Markup Language)中簡化修改出來的[[23], [24]]。它主要用到的有可延伸標記式語言、`可延伸樣式語言`(`XSL`, eXtensible Stylesheet Language)、`可擴展商業報告語言`(`XBRL`, eXtensible Business Reporting Language)和`XML路徑語言`(`XPath`, XML Path Language)等[[25]]。
 
-`XML`是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資料，相對的`HTML`(Hyper-Text Markup Language)則是用來呈現資料，所以`XML`的主要用途如下[[9]]：
+`XML`是設計用來傳輸及儲存資料資訊，不是用來顯示或呈現資料，相對的`HTML`(Hyper-Text Markup Language)則是用來呈現資料，所以`XML`的主要用途如下[[25]]：
 
 1. 豐富文件(Rich Documents)自定義檔案的描述並使其具有更豐富的內容
 	* 屬於以檔案為主的應用
@@ -143,51 +143,53 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 * 使用條件搜索"`nodeA/(* except self::nodeB)`"：即是符合`nodeA`元素之下的任意元素，但不包含`nodeB`的元素皆將會被選取
 
 ## 第四節 Web 3.0
-`Web 3.0`是一個概念，他的定義在2006年11月的Technet峰會上首次被提出。Netflix創始人Reed Hastings認為「Web 1.0是撥號上網，50K平均頻寬，Web 2.0是1M平均頻寬，那Web 3.0就該是10M頻寬，全視頻的網路，這才感覺像Web 3.0。」，而隔年的8月7日，Google首席執行官埃里克•施密特出席首爾數字論壇認為「Web 2.0只是一個行銷術語，而你剛才正好發明了Web 3.0這個行銷術語。創建應用程序的方法將不同。到目前為止Web 2.0一詞的出現主要是回應某種叫做AJAX的概念，而對Web 3.0，我的預測將是拼湊在一起的應用程序」，其中提出Web 3.0將會有一些主要特性：
+`Web 3.0`是一個概念，他的定義在2006年11月的Technet峰會上首次被提出。Netflix創始人Reed Hastings認為「Web 1.0是撥號上網，50K平均頻寬，Web 2.0是1M平均頻寬，那Web 3.0就該是10M頻寬，全視頻的網路，這才感覺像Web 3.0。」[[26], [27]]，而隔年的8月7日，Google首席執行官埃里克•施密特出席首爾數字論壇認為「Web 2.0只是一個行銷術語，而你剛才正好發明了Web 3.0這個行銷術語。創建應用程序的方法將不同。到目前為止Web 2.0一詞的出現主要是回應某種叫做AJAX的概念，而對Web 3.0，我的預測將是拼湊在一起的應用程序」[[26], [28]]，其中提出Web 3.0將會有一些主要特性：
 
 * 應用程式相對較小
 * 資料處於Cloud中
 * 應用程式可以在任何設備上運行（電腦或者行動裝置）
 * 應用程式的速度非常快並能進行客製化
 * 此外應用程式像病毒一樣地擴散（社交網路，電子郵件等）
+* 包含了Web 2.0的語義網路與鏈結資料[[11], [12], [29], [30], [31]]
+* 資料與技術的混搭應用[[12], [30], [32]]
 
-而要如何達到Web 3.0的概念呢？其實我們只要替使用者提供更加豐富的相關使用者經驗，並且讓每個使用者可以有獨特的網路使用模式，如此一來，這就達到了Web 3.0的概念。
+而要如何達到Web 3.0的概念呢？其實我們只要替使用者提供更加豐富的相關使用者經驗[[10]]，並且讓每個使用者可以有獨特的網路使用模式，如此一來，這就達到了Web 3.0的概念。
 
 ### 壹 HTML5
-`超文本標記語言第五版`(`HTML5`, Hyper-Text Markup Language 5)草案的前身名為Web Applications 1.0，是在2004年由`WHATWG`提出，再於2007年獲`W3C`接納，並成立了新的`HTML`工作團隊。它是`HTML`下一個主要的版本，現在仍處於發展階段。目標是要取代1999年所制定的`HTML 4.01`和`XHTML 1.0`標準，以期望能在網際網路應用迅速發展的時候，使網路標準符合現代的網路需求。廣義的說`HTML5`，實際指的就是包括`HTML`、`CSS`和`JavaScript`在內的一套技術集合。它希望能夠減少瀏覽器需要外掛程式的豐富性網路應用服務(`RIA`, plug-in-based Rich Internet Application)，如Adobe Flash、Microsoft Silverlight，與Oracle JavaFX的需求，並且能夠提供更多有效增強網路應用的標準[[12]]。以下是本研究中所使用到的`HTML5`的功能。
+`超文本標記語言第五版`(`HTML5`, Hyper-Text Markup Language 5)草案的前身名為Web Applications 1.0，是在2004年由`WHATWG`提出[[33]]，再於2007年獲`W3C`接納，並成立了新的`HTML`工作團隊。它是`HTML`下一個主要的版本，現在仍處於發展階段。目標是要取代1999年所制定的`HTML 4.01`和`XHTML 1.0`標準，以期望能在網際網路應用迅速發展的時候，使網路標準符合現代的網路需求。廣義的說`HTML5`，實際指的就是包括`HTML`、`CSS`和`JavaScript`在內的一套技術集合[[34]]。它希望能夠減少瀏覽器需要外掛程式的豐富性網路應用服務(`RIA`, plug-in-based Rich Internet Application)，如Adobe Flash、Microsoft Silverlight，與Oracle JavaFX的需求，並且能夠提供更多有效增強網路應用的標準[[34], [35]]。以下是本研究中所使用到的`HTML5`的功能。
 
-* 離線儲存資料庫(離線網路應用程式)[[16]]：可以讓網頁不需要網路的狀態下儲存資料或存取資料，等有網路的時候再依照設計的模型決定是否要與伺服器同步資料
+* 離線儲存資料庫(離線網路應用程式)[[36], [37], [38]]：可以讓網頁不需要網路的狀態下儲存資料或存取資料，等有網路的時候再依照設計的模型決定是否要與伺服器同步資料
 * 編輯：讓網頁直接編輯，不再需要透過編輯器或所見即得編輯器
 * 拖放：使檔案的選擇不需要經由系統的對話視窗選擇即可使用拖放的方式將檔案放置在網頁中讓應用程式讀取資料
 * 瀏覽歷史管理
 * MIME和協議處理程式時表頭登記
-* 檔案API：處理檔案上傳和操縱檔案[[20]]
-* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下的檔案儲存要求[[21]]
-* 檔案寫入：從網路應用程式向檔案裡寫資料內容[[22]]
+* 檔案API：處理檔案上傳和操縱檔案[[38], [39]]
+* 目錄和檔案系統：這個API是為了滿足客戶端在沒有好的資料庫支援情況下的檔案儲存要求[[38], [40]]
+* 檔案寫入：從網路應用程式向檔案裡寫資料內容[[38], [41]]
 
 ### 貳 自適應網頁設計
 `自適應網頁設計`(`RWD`, Responsive Web Design)是一種網頁設計的概念，這種設計的方式可以使網站可以適應到多種瀏覽的裝置上(從電腦到行動電話或者行動裝置)閱讀，同時可以減少縮放和捲動。
 
-採用`RWD`設計的網站會使用到`CSS3`的媒體查詢，即是對`CSS`的 `@media` 規則的擴充，以適應不同大小的裝置。但是這在比較就版本的瀏覽器就無法使用。
+採用`RWD`設計的網站會使用到`CSS3`[[42]]的媒體查詢，即是對`CSS`的 `@media` 規則的擴充，以適應不同大小的裝置。但是這在比較就版本的瀏覽器就無法使用。
 
 ### 參 行動裝置與平板電腦的崛起，Web 3.0的時代來臨
 在過去，Web 2.0所使用的元件、概念，現在完全顛覆。`RWD`的理念已經逐漸成為目前的主流，讓網頁可以自行適應於各種不同的裝置與設備上可以自動調整顯示的方式；若再以傳統概念設計系統，則無法完全發揮原先預期設計理念的成果。在過去，開發系統時僅需要一般電腦使用者能夠正常使用即可，但由於行動裝置與平板電腦的輕便，已經逐漸的讓使用者轉型。現在的使用者不再需要固定的電腦主機即可使用各式各樣的系統來完成工作，行動應用程式的崛起也創造不少商機，更多的醫療機構也逐漸陸續的投資使用平板電腦作為日常工作所需之設備。現在，大多數的網站設計都已經導入了`RWD`理念，這理念不僅能節省開發成本，專注於開發與增加應用程式更多方面的應用。
 
 ## 第五節 雲端運算
-雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變。雲端運算通常可以認為包括以下三個層次的服務：基礎設施即服務(`IaaS`, Infrastructure as a service)，即是使用「基礎運算資源」，如處理能力、儲存空間、網路元件或中介軟體，使用者能掌握作業系統、儲存空間及已部署的應用程式和網路元件(如防火牆、負載平衡器等)，但並不掌握雲端基礎架構。例如: Amazon AWS；平台即服務(`PaaS`, Platform as a service)，即是使用主機操作應用程式，使用者有掌控運作應用程式的環境(也擁有主機部分掌控權)，但並不掌控作業系統、硬體或運作的網路基礎架構。使用的平台通常是應用程式基礎架構。例如: Google App Engine；軟體即服務(`SaaS`, Software as a service)，即是使用應用程式，但並不擁有作業系統、硬體或運作的網路基礎架構，是一種服務的觀念基礎，軟體服務的供應商以租賃的方式提供客戶服務，而非購買，比較常見的模式是提供帳號密碼來操作使用。例如: Microsoft CRM。這些雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
+雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變[[43]]。雲端運算通常可以認為包括以下三個層次的服務[[4], [44]]：基礎設施即服務(`IaaS`, Infrastructure as a service)，即是使用「基礎運算資源」，如處理能力、儲存空間、網路元件或中介軟體，使用者能掌握作業系統、儲存空間及已部署的應用程式和網路元件(如防火牆、負載平衡器等)，但並不掌握雲端基礎架構。例如: Amazon AWS；平台即服務(`PaaS`, Platform as a service)，即是使用主機操作應用程式，使用者有掌控運作應用程式的環境(也擁有主機部分掌控權)，但並不掌控作業系統、硬體或運作的網路基礎架構。使用的平台通常是應用程式基礎架構。例如: Google App Engine；軟體即服務(`SaaS`, Software as a service)，即是使用應用程式，但並不擁有作業系統、硬體或運作的網路基礎架構，是一種服務的觀念基礎，軟體服務的供應商以租賃的方式提供客戶服務，而非購買，比較常見的模式是提供帳號密碼來操作使用。例如: Microsoft CRM。這些雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
 
-根據美國國家標準和技術研究院的定義[[23]]，雲端運算服務應該具備以下幾條特徵：
+根據美國國家標準和技術研究院的定義[[45]]，雲端運算服務應該具備以下幾條特徵：
 
 * 需要時即可使用的自助服務：不需要人的操作即可以自動化的將需要的資源啟用
 * 寬頻網路存取：使用任何的網路或裝置存取
 * 資源池：可以將資源集合在一起，並且可以提供多人共享使用
 * 可快速重新部署：當有需求的時候可以自動化的重製來擴展服務寬度
-* 可被監控與量測的服務：讓系統可以很清楚的知道使用的狀況，並且可以控制和優化使用的資源
+* 可被監控與量測的服務：讓系統可以很清楚的知道使用的狀況，並且可以控制和優化使用的資源[[4]]
 
-本研究中，主要為資源池的使用方式來提供使用者服務，而且可以快速地重新部署系統至各地方醫療機構使用。
+本研究中，主要為資源池的使用方式來提供使用者服務，而且可以快速地重新部署系統至各地方醫療機構使用。另外，由Vilaplana等人的『將雲端概念應用至電子健康服務』與華中科技大學的郭樂江等人的『建置雲端運算環境的電子健康服務』研究指出，使用雲端運算能夠有效的降低使用者等待時間[[4], [9]]。以及國內東海大學楊朝棟教授等人所研究的『建制雲端醫學影像檔案存取系統』的研究中指出，使用雲端運算可以增加擴展性、成本效益以及擁有最佳策略、重製性及簡化管理的優勢[[46]]。至於醫療資訊系統領域的雲端應用也有於河南科技大學的王新磊及譚玉波等人研究之『雲端運算應用於醫療資訊系統』的研究中也同樣的指出，使用雲端運算可以解決建置成本與運作成本的議題[[8]]，而該議題在Yoon等人的研究中指出，建置電子病歷需要耗費龐大的人員訓練與建置成本[[47]]。
 
 ### 壹 雲端服務的普及度
-從目前國內衛生署正在積極推行「全民健康雲」，同時政府也在積極推行政府雲端應用加值服務中看出，不只政府推行雲端服務，甚至連國內外廠商也都陸續開始競爭。根據2012年11月，VMware委託Forrester Consulting進行的市場調查[[27]]中，台灣是首次納入調查範圍內，其中共有473位來自跨國企業、地區或區域企業、以及公部門等組織的資深IT工作者作為受訪者。在該調查內發現台灣的企業雲端的普及率為44%，略高於亞太地區的平均值2%，且受訪者中有27%表示尚未使用雲端解決方案，但未來有打算使用雲端方案，而在計畫採用雲端方案的受訪者中，有56%表示會在未來的18個月內落實。
+從目前國內衛生署正在積極推行「全民健康雲」，同時政府也在積極推行政府雲端應用加值服務中看出，不只政府推行雲端服務，甚至連國內外廠商也都陸續開始競爭。根據2012年11月，VMware委託Forrester Consulting進行的市場調查[[48]]中，台灣是首次納入調查範圍內，其中共有473位來自跨國企業、地區或區域企業、以及公部門等組織的資深IT工作者作為受訪者。在該調查內發現台灣的企業雲端的普及率為44%，略高於亞太地區的平均值2%，且受訪者中有27%表示尚未使用雲端解決方案，但未來有打算使用雲端方案，而在計畫採用雲端方案的受訪者中，有56%表示會在未來的18個月內落實。
 
 該調查內顯示，絕大多數的受訪者都能瞭解雲端方案對企業的益處，有76%受訪者表示雲端技術能有助於提升營運效能，79%認為能降低成本；另外有28%表示這對企業轉型帶來重要影響。另外，該調查也歸納出企業評估投入雲端前的重要因素，前三項包括：
 
@@ -199,9 +201,11 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 在國際上，很多物件的名稱都有不同的稱呼方式，而為了讓使用者可以更容易瞭解物件的名稱，因此必須要標註不同語言的名稱在物品上，而多國語系的應用程式也是如此。在一個應用程式的介面上，以不同的文字來呈現相同的功能，由於是針對不同語系的人所設計的文字，所以即使使用者是來自不同語系的國家也能正常的使用這個應用程式。若應用程式要往國際化發展的話，則勢必要有不同語系的翻譯，如此這個應用程式將能國際化發展。
 
 ## 第七節 其他相關研究
-目前與電子病歷相關的系統有`Microsoft HealthVault`與`Google Health`及陳榮駿(2011)撰寫之『應用於電子病歷呈現的臨床文件架構樣版管理平台之設計與建置』研究論文，但是目前Google已經於2012年的1月1日將`Google Health`終止服務了，因此這裡不再探討`Google Health`。
+目前與電子病歷相關的系統有`Microsoft HealthVault`與`Google Health`及陳榮駿(2011)撰寫之『應用於電子病歷呈現的臨床文件架構樣版管理平台之設計與建置』研究論文[[49]]，但是目前Google已經於2012年的1月1日將`Google Health`終止服務了，因此這裡不再探討`Google Health`。
 
 `Microsoft HealthVault`是一個個人健康履歷的網站，目前僅提供美國與英國地區的服務，其中包含個人健康歷、生理徵象、檢驗檢查、醫學影像等資料，皆能在此一服務上存取，並且可以匯出成電子病歷資料提供醫師檢視使用。由陳榮駿(2011)撰寫之論文中使用了可延伸樣式表語言(XSL, eXtension Stylesheet Language)來作為電子病歷檔案轉換套用成為顯示畫面的結果，其中包含了一個醫學詞彙代碼的資料庫，裡面可以將電子病歷文件中的代碼利用"`code`"與"`codeSystem`"所描述的代碼與OID資料做轉換的對應，並且在文件輸出的時候自動地將該代碼轉換為可辨識的文字輸出。而在管理平台中可以選擇是否要建立或者套用可延伸樣式表，並在樣式表內將電子病歷中的欄位名稱前後皆加上"`#`"符號作為區別。
+
+由Liwei, Hao等人之『使用HTML5增強電子病歷中的低劑量CT影像』研究使用了HTML5技術中的canvas 2D繪圖物件與一些相關技術，將DICOM的的影像，利用HTML5的Base64技術解讀出來，製作了一個純Web版本的增強式PACS檢視器[[6]]。
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 第参章 研究方法
@@ -240,7 +244,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 
 #### 3. 雲端部署  
 
-因為國內將要推行雲端醫療平台，故本研究將會以雲端平台的方式，將系統部署到雲端上，且採用開放原始碼的`Cloud Foundry平台`架構進行部署。但由於此種架構下的雲端平台的硬體需求必須達到最少128GB的記憶體[[26]]，因此本研究直接採用其他使用`Cloud Foundry`架構的`PaaS`平台服務來部署本系統，所以本階段需要利用部署工具將本系統部署至平台上即可使用(如圖2所示)。
+因為國內將要推行雲端醫療平台，故本研究將會以雲端平台的方式，將系統部署到雲端上，且採用開放原始碼的`Cloud Foundry平台`架構進行部署。但由於此種架構下的雲端平台的硬體需求必須達到最少128GB的記憶體[[50]]，因此本研究直接採用其他使用`Cloud Foundry`架構的`PaaS`平台服務來部署本系統，所以本階段需要利用部署工具將本系統部署至平台上即可使用(如圖2所示)。
 
 ![雲端部署架構示意圖](./graffle/cloudArchitecture.png)  
 圖2 雲端部署架構示意圖
@@ -337,7 +341,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 
 由於電子病歷資料可以內嵌其他附件資料(例如：圖片、文件)，所以這些資料都會儲存於電子病歷內的`observationMedia`段，並且會以`base64`的方式儲存資料的內容。而本模組會使用`HTML5`的File API來產生檔案的轉換及下載輸出，在檔案轉換輸出的時候會有以下流程：
 
-1. Base64使用瀏覽器`atob` function轉換為binary string資料
+1. Base64使用瀏覽器`atob` function轉換為binary string資料[[33]]
 2. 將binary string資料轉換回正確的binary資料
 3. 使用`Blob` class將binary資料轉換成瀏覽器的blob資料
 4. 建立blob URL
@@ -483,71 +487,9 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 參考文獻
-1. [全民健康雲啟動 整合個人健康履歷][1]
-2. [DIGITIMES - 全民健康雲][2]
-3. [電子病歷 - Wikipedia][3]
-4. [行政院衛生署電子病歷推動專區 - 簡介][4]
-5. [行政院衛生署電子病歷推動專區 - 歷年補助案][5]
-6. [K. W. Boone, "The CDA Book": Springer-Verlag London, 2011.][6]
-7. [Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005.][7]
-8. [T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010.][8]
-9. [XML - Wikipedia][9]
-10. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998][10]
-11. [Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008][11]
-12. [HTML5 - Wikipedia][12]
-13. [Steve Jobs, Thoughts on Flash, Apple Inc., 2010][13]
-14. [Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012][14]
-15. [Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722][15]
-16. [Ian Hickson, Web Storage, W3C Candidate Recommendation][16]
-17. [Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation][17]
-18. [Ian Hickson, HTML Living Standard, WHATWG][18]
-19. [Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft][19]
-20. [Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft][20]
-21. [Eric Uhrhane, File API: Directories and System, W3C Working Draft][21]
-22. [Eric Uhrhane, File API: Writer, W3C Working Draft][22]
-23. [Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011][23]
-24. [雲端運算 - Wikipedia][24]
-25. [Cloud Computing - Wikipedia][25]
-26. [Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement][26]
-27. [VMware 雲端成熟度指標：台灣雲端運算普及率 44%][27]
+[行政院衛生署電子病歷推動專區. (2010, 6/3). 簡介.][1][行政院衛生署電子病歷推動專區. (2010, 6/3). 歷年補助案.][2][G. Kanagaraj and A. C. Sumathi, "Proposal of an open-source Cloud computing system for exchanging medical images of a Hospital Information System," in Trendz in Information Sciences and Computing (TISC), 2011 3rd International Conference on, 2011, pp. 144-149.][3][J. Vilaplana, F. Solsona, F. Abella, R. Filgueira, and J. Rius, "The cloud paradigm applied to e-Health," Bmc Medical Informatics and Decision Making, vol. 13, Mar 14 2013.][4][L. Liu and D. Zhu, "An integrated e-service model for electronic medical records," Information Systems and e-Business Management, vol. 11, pp. 161-183, 2013/03/01 2013.][5][H. Liwei, J. Dongyan, D. Guo, F. Qianjing, and C. Siping, "Enhancing low-dose CT images in the EHR based on HTML5," in Biomedical and Health Informatics (BHI), 2012 IEEE-EMBS International Conference on, 2012, pp. 97-100.][6][C. Wen-Chung, L. Hsiu-Hsia, W. Tung-Shen, and C. Chin-Fa, "Bulding a cloud service for medical image processing based on service-orient archtecture," in Biomedical Engineering and Informatics (BMEI), 2011 4th International Conference on, 2011, pp. 1459-1465.][7][W. Xinlei and T. Yubo, "Application of cloud computing in the health information system," in Computer Application and System Modeling (ICCASM), 2010 International Conference on, 2010, pp. V1-179-V1-182.][8][G. Lejiang, C. Fangxin, C. Li, and T. Xiao, "The building of cloud computing environment for e-health," in E-Health Networking, Digital Ecosystems and Technologies (EDT), 2010 International Conference on, 2010, pp. 89-92.][9][A. Cho and D. Giustini, "Web 3.0 and health librarians: an introduction," Journal of the Canadian Health Libraries Association, vol. 29, pp. 13-18, 2008/03/01 2008.][10][M. N. Kamel Boulos and S. Wheeler, "The emerging Web 2.0 social software: an enabling suite of sociable technologies in health and health care education1," Health Information & Libraries Journal, vol. 24, pp. 2-23, 2007.][11][D. Giustini, "Web 3.0 and medicine," BMJ, vol. 335, pp. 1273-1274, 2007-12-20 00:00:00 2007.][12][S. M. Syed-Mohamad, S. H. Ali, and M. N. Mat-Husin, "The development and design of an electronic patient record using open source web-based technology," HIM J, vol. 39, pp. 30-5, 2010.][13][高彬原. (2012, 6/3). 全民健康雲啟動 整合個人健康履歷.][14][莊沛穎. (2012, 6/3). 全民健康雲.][15][Wikipedia. (6/3). 電子病歷.][16][K. W. Boone. (2011). The CDA Book.][17][H. Robert, A. Liora, B. Sandy, B. Calvin, M. Fred, V. Paul, and S. Amnon, "HL7 Clinical Document Architecture, Release 2.0," in ANSI, ed, 2005.][18][T. Benson, "Clinical Document Architecture," Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010.][19][行政院衛生署. (2011, 6/3). 電子病歷交換中心(EEC) 推廣說明會講義.][20][M. C. Valiente, E. Garcia-Barriocanal, and M. A. Sicilia, "Applying an ontology approach to IT service management for business-IT integration," Knowledge-Based Systems, vol. 28, pp. 76-87, Apr 2012.][21][M. C. Valiente, E. Garcia-Barriocanal, and M. A. Sicilia, "Applying Ontology-Based Models for Supporting Integrated Software Development and IT Service Management Processes," Ieee Transactions on Systems Man and Cybernetics Part C-Applications and Reviews, vol. 42, pp. 61-74, Jan 2012.][22][T. Bray, J. Paoli, and C. M. Sperberg-McQueen, "Extensible Markup Language (XML) 1.0," in W3C Recommendation, ed, 1998.][23][T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, and F. Yergeau, "Extensible Markup Language (XML) 1.0 (Fifth Edition)," in W3C Recommendation, ed, 2008.][24][Wikipedia. (6/3). XML.][25][J. M. Silva, A. S. M. M. Rahman, and A. E. Saddik, "Web 3.0: a vision for bridging the gap between real and virtual," presented at the Proceedings of the 1st ACM international workshop on Communicability design and evaluation in cultural and ecological multimedia system, Vancouver, British Columbia, Canada, 2008.][26][D. Farber. (2006, 2013/6/3). The new era of innovation.][27][R. MacManus. (2007, 2013/6/3). Eric Schmidt Defines Web 3.0.][28][J. Hendler, "Web 3.0 Emerging," Computer, vol. 42, pp. 111-113, 2009.][29][T. O'Reilly and J. Battelle, Web Squared: Web 2.0 Five Years On: O'Reilly Media, 2013.][30][T. Heath and C. Bizer, "Linked Data: Evolving the Web into a Global Data Space," Synthesis Lectures on the Semantic Web: Theory and Technology, vol. 1, pp. 1-136, 2011/02/09 2011.][31][K.-H. Cheung, K. Y. Yip, J. P. Townsend, and M. Scotch, "HCLS 2.0/3.0: Health care and life sciences data mashup using Web 2.0/3.0," Journal of Biomedical Informatics, vol. 41, pp. 694-705, 10// 2008.][32][I. Hickson, "HTML Living Standard," in WHATWG, ed, 2013.][33][S. Jobs. (2010, 2013/6/3). Thoughts on Flash. Apple Inc.][34][Wikipedia. (6/3). HTML5.][35][I. Hickson, "Web Storage," in W3C Candidate Recommendation, ed, 2011.][36][N. Mehta, J. Sicking, E. Graff, A. Popescu, and J. Orlow, "Indexed Database API," in W3C Working Draft, ed, 2012.][37][A. v. Kesteren and S. Pieters, "HTML5 differences from HTML4," in W3C Working Draft, ed, 2012.][38][A. Ranganathan and J. Sicking, "File API," in W3C Working Draft, ed, 2012.][39][E. Uhrhane, "File API: Directories and System," in W3C Working Draft, ed, 2012.][40][E. Uhrhane, "File API: Writer," in W3C Working Draft, ed, 2012.][41][S. Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012.][42][Wikipedia. (6/3). 雲端運算.][43]
+[Wikipedia. (6/3). Cloud Computing.][44][P. Mell and T. Grance, "The NIST Definition of Cloud Computing," in National Institute of Standards and Technology Special Publication ed, 2011, pp. 800-145.][45][Y. Chao-Tung, C. Lung-Teng, C. Wei-Li, and W. Kuan-Chieh, "Implementation of a Medical Image File Accessing System on Cloud Computing," in Computational Science and Engineering (CSE), 2010 IEEE 13th International Conference on, 2010, pp. 321-326.][46][D. Yoon, B. C. Chang, S. W. Kang, H. Bae, and R. W. Park, "Adoption of electronic health records in Korean tertiary teaching and general hospitals," International Journal of Medical Informatics, vol. 81, pp. 196-203, Mar 2012.][47][VMware. (2012, 6/3). VMware 雲端成熟度指標：台灣雲端運算普及率 44%.][48][陳榮駿, "應用於電子病歷呈現的臨床文件架構樣版管理平台之設計與建置," 碩士, 資訊管理研究所, 國立臺北護理健康大學, 台北市, 2011.][49][C. Foundry. (2013, 6/3). Deploying Cloud Foundry on vSphere - Hardware Requirement.][50]
 
-[1]: http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "全民健康雲啟動 整合個人健康履歷"
-[2]: http://www.digitimes.com.tw/tw/dt/n/shwnws.asp?CnlID=10&Cat=35&id=303217 "DIGITIMES - 全民健康雲"
-<!--以上全民健康雲參考-->
-
-[3]: http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "電子病歷 - Wikipedia"
-[4]: http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區 - 簡介"
-[5]: http://emr.doh.gov.tw/allowance.aspx "行政院衛生署電子病歷推動專區 - 歷年補助案"
-<!--以上電子病歷參考-->
-
-[6]: http://www.medlib.am/Fulltexts/The%20CDA%20TM%20BOOK%202011.pdf "K. W. Boone, "The CDA Book": Springer-Verlag London, 2011., ISBN: 978-0-85729-335-0, e-ISBN: 978-0-85729-336-7, DOI: 10.1007/978-0-85729-336-7"
-[7]: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1380194/pdf/30.pdf "Robert H, Liora A, Sandy B, Calvin B, Fred M, Paul V, Amnon S, “HL7 Clinical Document Architecture, Release 2.0,” ANSI, 2005."
-[8]: http://link.springer.com/content/pdf/10.1007%2F978-1-84882-803-2_9 "T. Benson, "Clinical Document Architecture", Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010."
-<!--以上HL7 CDA參考-->
-
-[9]: http://zh.wikipedia.org/wiki/XML "XML - Wikipedia"
-[10]: http://www.w3.org/TR/1998/REC-xml-19980210 "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Extensible Markup Language (XML) 1.0, W3C Recommendation 10-February-1998"
-[11]: http://www.w3.org/TR/2008/REC-xml-20081126/ "Tim Bray, Jean Paoli, C. M. Sperberg-McQueen, Eve Maler, François Yergeau, Extensible Markup Language (XML) 1.0 (Fifth Edition), W3C Recommendation 26 November 2008"
-<!--以上XML參考-->
-
-[12]: http://zh.wikipedia.org/wiki/HTML5 "HTML5 - Wikipedia"
-[13]: http://www.apple.com/hotnews/thoughts-on-flash/ "Steve Jobs, Thoughts on Flash, Apple Inc., 2010"
-[14]: http://www.w3.org/TR/2012/WD-html5-diff-20121025/ "Anne van Kesteren, Simon Pieters, HTML5 differences from HTML4, W3C Working Draft 25 October 2012"
-[15]: http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "Sergey Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012, ISBN: 0983386722"
-[16]: http://www.w3.org/TR/2011/CR-webstorage-20111208/ "Ian Hickson, Web Storage, W3C Candidate Recommendation"
-[17]: http://www.w3.org/TR/2012/CR-webmessaging-20120501/ "Ian Hickson, HTML5 Web Messaging, W3C Candidate Recommendation"
-[18]: http://www.whatwg.org/specs/web-apps/current-work/multipage/ "Ian Hickson, HTML Living Standard, WHATWG"
-[19]: http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "Nikunj Mehta, Jonas Sicking, Eliot Graff, Andrei Popescu, Jeremy Orlow, Indexed Database API, W3C Working Draft"
-[20]: http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "Arun Ranganathan, Jonas Sicking, File API, W3C Working Draft"
-[21]: http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "Eric Uhrhane, File API: Directories and System, W3C Working Draft"
-[22]: http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "Eric Uhrhane, File API: Writer, W3C Working Draft"
-<!--以上HTML5參考-->
-
-[23]: http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "Peter Mell, Timothy Grance, The NIST Definition of Cloud Computing, National Institute of Standards and Technology Special Publication 800-145, 2011"
-[24]: http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "雲端運算 - Wikipedia"
-[25]: http://en.wikipedia.org/wiki/Cloud_computing "Cloud Computing - Wikipedia"
-[26]: http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "Cloud Foundry Documentation - Deploying Cloud Foundry on vSphere - Hardware Requirement"
-[27]: https://www.vmware.com/tw/company/news/releases/VMware-cloudindex2012tw-112012.html "VMware 雲端成熟度指標：台灣雲端運算普及率 44%"
-<!--以上雲端運算參考-->
+[1]:	http://emr.doh.gov.tw/introduction.aspx "行政院衛生署電子病歷推動專區. (2010, 6/3). 簡介."[2]:	http://emr.doh.gov.tw/allowance.aspx "行政院衛生署電子病歷推動專區. (2010, 6/3). 歷年補助案."[3]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6169102 "G. Kanagaraj and A. C. Sumathi, "Proposal of an open-source Cloud computing system for exchanging medical images of a Hospital Information System," in Trendz in Information Sciences and Computing (TISC), 2011 3rd International Conference on, 2011, pp. 144-149."[4]:	http://www.biomedcentral.com/1472-6947/13/35 "J. Vilaplana, F. Solsona, F. Abella, R. Filgueira, and J. Rius, "The cloud paradigm applied to e-Health," Bmc Medical Informatics and Decision Making, vol. 13, Mar 14 2013."[5]:	http://dx.doi.org/10.1007/s10257-012-0188-6 "L. Liu and D. Zhu, "An integrated e-service model for electronic medical records," Information Systems and e-Business Management, vol. 11, pp. 161-183, 2013/03/01 2013."[6]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6211516 "H. Liwei, J. Dongyan, D. Guo, F. Qianjing, and C. Siping, "Enhancing low-dose CT images in the EHR based on HTML5," in Biomedical and Health Informatics (BHI), 2012 IEEE-EMBS International Conference on, 2012, pp. 97-100."[7]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=6098638 "C. Wen-Chung, L. Hsiu-Hsia, W. Tung-Shen, and C. Chin-Fa, "Bulding a cloud service for medical image processing based on service-orient archtecture," in Biomedical Engineering and Informatics (BMEI), 2011 4th International Conference on, 2011, pp. 1459-1465."[8]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5619051 "W. Xinlei and T. Yubo, "Application of cloud computing in the health information system," in Computer Application and System Modeling (ICCASM), 2010 International Conference on, 2010, pp. V1-179-V1-182."[9]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5496512 "G. Lejiang, C. Fangxin, C. Li, and T. Xiao, "The building of cloud computing environment for e-health," in E-Health Networking, Digital Ecosystems and Technologies (EDT), 2010 International Conference on, 2010, pp. 89-92."[10]:	http://dx.doi.org/10.5596/c07-035 "A. Cho and D. Giustini, "Web 3.0 and health librarians: an introduction," Journal of the Canadian Health Libraries Association, vol. 29, pp. 13-18, 2008/03/01 2008."[11]:	http://dx.doi.org/10.1111/j.1471-1842.2007.00701.x "M. N. Kamel Boulos and S. Wheeler, "The emerging Web 2.0 social software: an enabling suite of sociable technologies in health and health care education1," Health Information & Libraries Journal, vol. 24, pp. 2-23, 2007."[12]:	http://www.bmj.com/highwire/filestream/397760/field_highwire_article_pdf/0/1273 "D. Giustini, "Web 3.0 and medicine," BMJ, vol. 335, pp. 1273-1274, 2007-12-20 00:00:00 2007."[13]:	http://www.ncbi.nlm.nih.gov/pubmed/20335647 "S. M. Syed-Mohamad, S. H. Ali, and M. N. Mat-Husin, "The development and design of an electronic patient record using open source web-based technology," HIM J, vol. 39, pp. 30-5, 2010."[14]:	http://video.udn.com/video/Item/ItemPage.do?sno=324-233-2B3-2F3-2B3d4-233-2B3d3d3b34324-2334 "高彬原. (2012, 6/3). 全民健康雲啟動 整合個人健康履歷."[15]:	http://www.digitimes.com.tw/tw/dt/n/shwnws.asp?CnlID=10&Cat=35&id=303217 "莊沛穎. (2012, 6/3). 全民健康雲."[16]:	http://zh.wikipedia.org/zh-tw/%E7%94%B5%E5%AD%90%E7%97%85%E5%8E%86 "Wikipedia. (6/3). 電子病歷."[17]:	http://www.medlib.am/Fulltexts/The%20CDA%20TM%20BOOK%202011.pdf "K. W. Boone. (2011). The CDA Book."[18]:	http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1380194/pdf/30.pdf "H. Robert, A. Liora, B. Sandy, B. Calvin, M. Fred, V. Paul, and S. Amnon, "HL7 Clinical Document Architecture, Release 2.0," in ANSI, ed, 2005."[19]:	http://link.springer.com/content/pdf/10.1007/978-1-84882-803-2_9 "T. Benson, "Clinical Document Architecture," Principles of Health Interoperability HL7 and SNOMED, pp. 145-160, 2010."[20]:	http://eec.doh.gov.tw/EEC_handouts.pdf "行政院衛生署. (2011, 6/3). 電子病歷交換中心(EEC) 推廣說明會講義."[21]:	http://ac.els-cdn.com/S095070511100267X/1-s2.0-S095070511100267X-main.pdf?_tid=bea44f1e-cc33-11e2-9de1-00000aacb362&acdnat=1370253519_8d79111f61422af3af5e1bd0f33841f2 "M. C. Valiente, E. Garcia-Barriocanal, and M. A. Sicilia, "Applying an ontology approach to IT service management for business-IT integration," Knowledge-Based Systems, vol. 28, pp. 76-87, Apr 2012."[22]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5766768 "M. C. Valiente, E. Garcia-Barriocanal, and M. A. Sicilia, "Applying Ontology-Based Models for Supporting Integrated Software Development and IT Service Management Processes," Ieee Transactions on Systems Man and Cybernetics Part C-Applications and Reviews, vol. 42, pp. 61-74, Jan 2012."[23]:	http://www.w3.org/TR/1998/REC-xml-19980210 "T. Bray, J. Paoli, and C. M. Sperberg-McQueen, "Extensible Markup Language (XML) 1.0," in W3C Recommendation, ed, 1998."[24]:	http://www.w3.org/TR/2008/REC-xml-20081126 "T. Bray, J. Paoli, C. M. Sperberg-McQueen, E. Maler, and F. Yergeau, "Extensible Markup Language (XML) 1.0 (Fifth Edition)," in W3C Recommendation, ed, 2008."[25]:	http://zh.wikipedia.org/wiki/XML "Wikipedia. (6/3). XML."[26]:	http://dl.acm.org/citation.cfm?id=1462042 "J. M. Silva, A. S. M. M. Rahman, and A. E. Saddik, "Web 3.0: a vision for bridging the gap between real and virtual," presented at the Proceedings of the 1st ACM international workshop on Communicability design and evaluation in cultural and ecological multimedia system, Vancouver, British Columbia, Canada, 2008."[27]:	http://www.zdnet.com/blog/btl/technet-summit-the-new-era-of-innovation/3959 "D. Farber. (2006, 2013/6/3). The new era of innovation."[28]:	http://readwrite.com/2007/08/07/eric_schmidt_defines_web_30 "R. MacManus. (2007, 2013/6/3). Eric Schmidt Defines Web 3.0."[29]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=4755170 "J. Hendler, "Web 3.0 Emerging," Computer, vol. 42, pp. 111-113, 2009."[30]:	http://books.google.com.tw/books?id=UC5sB9xS9E0C "T. O'Reilly and J. Battelle, Web Squared: Web 2.0 Five Years On: O'Reilly Media, 2013."[31]:	http://dx.doi.org/10.2200/S00334ED1V01Y201102WBE001 "T. Heath and C. Bizer, "Linked Data: Evolving the Web into a Global Data Space," Synthesis Lectures on the Semantic Web: Theory and Technology, vol. 1, pp. 1-136, 2011/02/09 2011."[32]:	http://www.sciencedirect.com/science/article/pii/S1532046408000518 "K.-H. Cheung, K. Y. Yip, J. P. Townsend, and M. Scotch, "HCLS 2.0/3.0: Health care and life sciences data mashup using Web 2.0/3.0," Journal of Biomedical Informatics, vol. 41, pp. 694-705, 10// 2008."[33]:	http://www.whatwg.org/specs/web-apps/current-work/multipage/ "I. Hickson, "HTML Living Standard," in WHATWG, ed, 2013."[34]:	http://www.apple.com/hotnews/thoughts-on-flash/ "S. Jobs. (2010, 2013/6/3). Thoughts on Flash. Apple Inc."[35]:	http://zh.wikipedia.org/wiki/HTML5 "Wikipedia. (6/3). HTML5."[36]:	http://www.w3.org/TR/2011/CR-webstorage-20111208/ "I. Hickson, "Web Storage," in W3C Candidate Recommendation, ed, 2011."[37]:	http://www.w3.org/TR/2012/WD-IndexedDB-20120524/ "N. Mehta, J. Sicking, E. Graff, A. Popescu, and J. Orlow, "Indexed Database API," in W3C Working Draft, ed, 2012."[38]:	http://www.w3.org/TR/2012/WD-html5-diff-20121025/ "A. v. Kesteren and S. Pieters, "HTML5 differences from HTML4," in W3C Working Draft, ed, 2012."[39]:	http://www.w3.org/TR/2012/WD-FileAPI-20121025/ "A. Ranganathan and J. Sicking, "File API," in W3C Working Draft, ed, 2012."[40]:	http://www.w3.org/TR/2012/WD-file-system-api-20120417/ "E. Uhrhane, "File API: Directories and System," in W3C Working Draft, ed, 2012."[41]:	http://www.w3.org/TR/2012/WD-file-writer-api-20120417/ "E. Uhrhane, "File API: Writer," in W3C Working Draft, ed, 2012."[42]:	http://www.amazon.com/Sergeys-HTML5-CSS3-Quick-Reference/dp/0983386722 "S. Mavrody, Sergey's HTML5 & CSS3: Quick Reference. HTML5, CSS3 and APIs. Full Color (2nd Edition), 2012."[43]:	http://zh.wikipedia.org/wiki/%E9%9B%B2%E7%AB%AF%E9%81%8B%E7%AE%97 "Wikipedia. (6/3). 雲端運算."[44]:	http://en.wikipedia.org/wiki/Cloud_computing "Wikipedia. (6/3). Cloud Computing."[45]:	http://csrc.nist.gov/publications/nistpubs/800-145/SP800-145.pdf "P. Mell and T. Grance, "The NIST Definition of Cloud Computing," in National Institute of Standards and Technology Special Publication ed, 2011, pp. 800-145."[46]:	http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5692494 "Y. Chao-Tung, C. Lung-Teng, C. Wei-Li, and W. Kuan-Chieh, "Implementation of a Medical Image File Accessing System on Cloud Computing," in Computational Science and Engineering (CSE), 2010 IEEE 13th International Conference on, 2010, pp. 321-326."[47]:	http://www.ijmijournal.com/article/S1386-5056(11)00243-7 "D. Yoon, B. C. Chang, S. W. Kang, H. Bae, and R. W. Park, "Adoption of electronic health records in Korean tertiary teaching and general hospitals," International Journal of Medical Informatics, vol. 81, pp. 196-203, Mar 2012."[48]:	https://http://www.vmware.com/tw/company/news/releases/VMware-cloudindex2012tw-112012.html "VMware. (2012, 6/3). VMware 雲端成熟度指標：台灣雲端運算普及率 44%."[49]:	http://ndltd.ncl.edu.tw/cgi-bin/gs32/gsweb.cgi?o=dnclcdr&s=id=%22099NTCN0396009%22.&searchmode=basic "陳榮駿, "應用於電子病歷呈現的臨床文件架構樣版管理平台之設計與建置," 碩士, 資訊管理研究所, 國立臺北護理健康大學, 台北市, 2011."[50]:	http://cloudfoundry.github.com/docs/running/deploying-cf/vsphere/hardware_spec.html "C. Foundry. (2013, 6/3). Deploying Cloud Foundry on vSphere - Hardware Requirement."
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
