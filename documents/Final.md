@@ -355,7 +355,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 
 #### 6. 樣板檔編輯器
 
-
+本部分目前尚在開發中
 
 ## 第三節 相關技術及開發工具
 本研究準備使用的開發環境、開發工具、開發程式語言如下：
@@ -452,7 +452,7 @@ cda2g物件中包含了Web Components的內容及cdaHeader與cdaBody的資料物
 
 ### 伍 樣板檔編輯器
 
-
+本部分目前尚在開發中
 
 ## 第二節 討論
 本研究為了可以有更多的擴充性與靈活度，採用`Web Application`的方式寫作，並且結合`MVC`(Modal View Controller)的設計方式，以及結合`RWD`理念，所以本系統中隨時可以根據樣板檔內的設計不同而提供不同的擴充功能，因此僅需要修改樣板檔，即可馬上對應到任何有相關的電子病歷單張的檢視畫面。
