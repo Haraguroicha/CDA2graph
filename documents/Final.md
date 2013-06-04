@@ -215,7 +215,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 本研究設計一個電子病歷的檢視平台，提供各醫療院所及民眾使用。依據研究動機確認其研究目的之範圍，再進行國內、外的文獻、規範、書籍的探討，彙整技術的可行性及能否符合預期設計和目標，最後實作系統。該系統主要提供醫療院所做為一個電子病歷資料交換後的檢視平台，可於線上開發各種單張所需的檢視模板。最後驗證實作是否能達預期目標。如圖1所示本研究的研究流程與步驟：
 
 ![研究流程與步驟圖](./graffle/studyProcess.png)
-圖1 研究流與步驟程圖
+圖1 研究流程與步驟圖
 
 ### 壹 系統建置流程
 在整個系統建置的過程裡，首先做文件分析對`CDA`等相關的文件分析，然後做系統的規劃與設計，最後開始系統開發與部署至雲端平台上進行系統測試。
@@ -290,7 +290,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 * 提供樣板檔上傳介面，讓設計者可以提供樣板檔給對應的電子病歷單張
 
 ### 貳 系統分析與設計
-依照需求中所提及的系統建置步驟可以歸納出本研究之系統中，主要有五個系統模組來形成電子病歷檢視器，分別為(1)樣板管理模組;(2)文件讀取及解析模組;(3)資料內嵌處理模組;(4)樣板輸出處理模組;(5)多國語系模組;(6)樣板檔編輯器，以下將對這幾部分加以探討：
+依照需求中所提及的系統建置步驟可以歸納出本研究之系統中，主要有六個系統模組來形成電子病歷檢視器，分別為(1)樣板管理模組;(2)文件讀取及解析模組;(3)資料內嵌處理模組;(4)樣板輸出處理模組;(5)多國語系模組;(6)樣板檔編輯器，以下將對這幾部分加以探討：
 
 #### 1. 樣板管理模組
 
@@ -339,7 +339,7 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 
 本模組會讀取其樣板中的單張代碼，以及醫療機構代碼，並且依照這兩個代碼所組成的資料形成唯一值，根據這個唯一值對本系統要求電子病歷樣板檔回傳至前端系統，並且使用`Web Components`結合這些樣板檔使用於文件呈現、資料處理的模組處理，畫面的顯示與輸出處理主要會以一個單張資料為一頁，若該單張的資料過多，則會在超過範圍的分頁處截斷至下一頁處理，而被截斷的頁面屬性將會延伸到截斷後的新頁面上。
 
-由於電子病歷資料可以內嵌其他附件資料(例如：圖片、文件)，所以這些資料都會儲存於電子病歷內的`observationMedia`段，並且會以`base64`的方式儲存資料的內容。而本模組會使用`HTML5`的File API來產生檔案的轉換及下載輸出，在檔案轉換輸出的時候會有以下流程：
+由於電子病歷資料可以內嵌其他附件資料(例如：圖片、文件)，所以這些資料都會儲存於電子病歷內的`observationMedia`段，並且會以`Base64`的方式儲存資料的內容。而本模組會使用`HTML5`的File API來產生檔案的轉換及下載輸出，在檔案轉換輸出的時候會有以下流程：
 
 1. Base64使用瀏覽器`atob` function轉換為binary string資料[[33]]
 2. 將binary string資料轉換回正確的binary資料
@@ -358,9 +358,9 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 本部分目前尚在開發中
 
 ## 第三節 相關技術及開發工具
-本研究準備使用的開發環境、開發工具、開發程式語言如下：
+本研究使用的開發環境、開發工具、開發程式語言如下：
 
-- 開發環境：Macintosh OS X Mountain Lion 10.8.3、Microsoft Window 8 Pro
+- 開發環境：Macintosh OS X Mountain Lion 10.8.3、Microsoft Windows 8 Pro
 - 開發工具：Sublime Text 2 (純文字編輯器)、Google Chrome (瀏覽器開發環境)、SourceTree (git版本控管)、Mou (Markdown編輯器)
 - 開發語言：HTML 5、JavaScript、jQuery、jQuery UI、CSS、php (樣板檔上傳介面)、Markdown)
 
@@ -414,8 +414,8 @@ Department of Health to implement Electronic Medical Record(EMR) data exchange h
 ### 參 資料內嵌處理模組
 在資料讀取完成之後，會將資料內嵌至頁面中等待處理(進入此模組時，系統畫面會如圖10所示)，而其內嵌的結構與`CDA`格式相同，但僅只有將`CDA Header`與`CDA Body`分開至兩個物件內包裝，其中會包含使用`Web Components`的技術，而`Web Components`的描述結構皆在`#document-fragment`的物件內。(如圖11與圖12所示)
 
-![資料內嵌處理膜組的系統畫面](./image/LoadingNearCompleted.png)  
-圖10 資料內嵌處理膜組的系統畫面
+![資料內嵌處理模組的系統畫面](./image/LoadingNearCompleted.png)  
+圖10 資料內嵌處理模組的系統畫面
 
 ![內嵌資料於頁面中](./image/LoadingWhenWCWithCDA_.png)  
 圖11 內嵌資料於頁面中  
