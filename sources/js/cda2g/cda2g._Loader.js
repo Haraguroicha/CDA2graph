@@ -74,7 +74,7 @@ function pluginLoad() {
 		pl.addModule("jquery-getpath");
 		pl.addModule("jQuery-ZenCoding");
 		pl.addModule("components-polyfill");
-		pl.addModule("vkbeautify.0.99.00.beta")
+		pl.addModule("vkbeautify.0.99.00.beta");
 		pl.init();
 	}
 }
