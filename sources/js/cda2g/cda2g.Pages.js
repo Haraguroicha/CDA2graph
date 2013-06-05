@@ -1,4 +1,5 @@
 cda2g.Pages = new function Pages() {
+	this.cacheHTML = [];
 	var lineHeight = -1;
 	var pageTester = document.createElement("div");
 	pageTester.id = "pageTester";
@@ -30,11 +31,26 @@ cda2g.Pages = new function Pages() {
 		var sec = document.createElement("section");
 		sec.className = "page-view";
 		var art = document.createElement("article");
-		sec.appendChild(art);
 		art.pageNum = pageNum;
 		art.defaultScrollTop = defaultScrollTop;
 		art.appendHTML = function(html, offsetTop) { return cda2g.Pages.appendHTML(this.pageNum, html, offsetTop || this.defaultScrollTop); }
+		art.getHeader = function(title) {return $(this).parent().find('header>title').html();}
+		art.setHeader = function(title) {$(this).parent().find('header>title').html(title); return this;}
+		art.getFooter = function(title) {return $(this).parent().find('footer>title').html();}
+		art.setFooter = function(title) {$(this).parent().find('footer>title').html(title); return this;}
 		$(art).scroll(function(event){ this.scrollTop = 0; });
+		var header = (this.getPages() > 0) ? this.getLastPage().getHeader() : "";
+		var footer = (this.getPages() > 0) ? this.getLastPage().getFooter() : "";
+		var headerTitle = $('<header class="outside"><title class="outside"/></header>');
+		var footerTitle = $('<footer class="outside"><title class="outside"/></footer>');
+		if(header != "")
+			headerTitle.find('title').html(header);
+		if(footer != "")
+			footerTitle.find('title').html(footer);
+		headerTitle.appendTo(sec);
+		sec.appendChild(art);
+		footerTitle.appendTo(sec);
+		$(sec).find('footer').html('&#35;<thispage>' + pageNum + '</thispage>/').append($('<pageTotal/>'));
 		pageArticle.appendChild(sec);
 		cda2g.UI.resize();
 		return this.getPage(pageNum);
@@ -46,6 +62,10 @@ cda2g.Pages = new function Pages() {
 			cda2g.UI.resize();
 			this.scrollTo(p - 1);
 		}
+		cda2g.UI.refreshPageNumbers();
+	}
+	this.clearView = function clearView() {
+		$(".page-view").remove();
 	}
 	this.scrollTo = function scrollTo(p) {
 		if(p < $(".page-view").length && p > 0)
@@ -68,20 +88,32 @@ cda2g.Pages = new function Pages() {
 		return Math.floor(this.getPage(this.getPages()).offsetHeight / this.getLineHeight());
 	}
 	this.appendHTML = function appendHTML(page, html, offsetTop) {
+		cda2g.UI.deactivateDrop();
 		//If call this method directly by calling cda2g.Pages.appendHTML(html[, offset]);
 		if(typeof(page) == "string" && (typeof(html) == "number" || typeof(html) == "undefined"))
 			return this.getLastPage().appendHTML(page, html);
+		if(this.cacheHTML.length == 0) this.cacheHTML.push(html);
+		if(html != this.cacheHTML[0]) return this.cacheHTML.push(html);
 		var lastPage = this.addContent(this.getPage(page), html, offsetTop);
 		var prevWidgets = lastPage.getElementsByClassName("cda-widget");
 		var prevLastWidget = prevWidgets[prevWidgets.length - 1];
 		var prevPageScrollTop = prevLastWidget.offsetTop - lastPage.offsetTop;
-		if(prevLastWidget.scrollHeight + prevPageScrollTop > lastPage.offsetHeight) {
-			cda2g.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1));
+		var lastWidgetPoint = prevLastWidget.scrollHeight + prevPageScrollTop;
+		if(lastWidgetPoint > lastPage.offsetHeight) {
+			cda2g.logger.log(sprintf("Object is too large, page #%s breaking to #%s.", page, page + 1, lastWidgetPoint, lastPage.offsetHeight));
 			var nextScrollTop = -1 * (lastPage.offsetHeight - prevPageScrollTop - lastPage.scrollTop) + 1;
-			return this.addPage(nextScrollTop).appendHTML(html);
+			return setTimeout(function(){cda2g.Pages.addPage(nextScrollTop).appendHTML(html);}, 10);
 		}
-		cda2g.UI.updateX_UI();
+		$('article.pageBox').trigger('ComponentAppended');
+		cda2g.UI.activateDrop();
 		return lastPage;
+	}
+	this.contentAppened = function contentAppened() {
+		if(this.cacheHTML.length > 0) {
+			this.cacheHTML = this.cacheHTML.slice(1);
+			if(this.cacheHTML.length > 0)
+				this.appendHTML(this.cacheHTML[0]);
+		}
 	}
 	this.addContent = function addContent(page, html, offsetTop) {
 		var pack = this.packSection(html, offsetTop);

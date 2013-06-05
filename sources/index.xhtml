@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -20,39 +21,54 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css" />
 		<link rel="stylesheet" type="text/css" href="css/DarkCommon.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="css/fonts.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="css/animate.css" media="screen" />
 		<link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
-		<link rel="components" type="text/html" href="components/page.html" />
 		<title>電子病歷檢視器</title>
 		<script type="text/javascript" src="js/l10n.js"></script>
 		<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="js/components-polyfill.js"></script>
 		<script type="text/javascript" src="js/cda2g/cda2g.pluginLoader.js"></script>
 		<script type="text/javascript" src="js/cda2g/cda2g._Loader.js"></script>
 		<base href="#" target="_self" />
+		<link type="application/xhtml+xml" rel="components" href="components/page.xhtml" />
+		<link type="application/xhtml+xml" rel="components" href="components/cdaDemo.xhtml" />
 	</head>
 	<body>
-		<!--<object type="text/html" rel="X-UI-Components" data="components/page.html"></object>-->
-		<div id="plLoader">
-			<article data-l10n-id="appLoading"></article>
-			<div id="progressbarWrapper" style="height:22px; " class="ui-widget-default">
+		<section id="plLoader" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
+			<header data-l10n-id="appLoading"></header>
+			<article style="height:22px; " class="ui-widget-default">
 				<div id="plProgress" style="height:100%;"></div>
-			</div>
-		</div>
+				<div id="plMessage"></div>
+			</article>
+		</section>
+		<section id="fileLoader" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
+			<header data-l10n-id="fileLoading"></header>
+			<article style="height:22px; " class="ui-widget-default">
+				<div id="fileProgress" style="height:100%;"></div>
+				<div id="fileMessage"></div>
+			</article>
+		</section>
+		<section id="requireGreenCDA" class="ui-dialog" style="display: none;" role="dialog" data-backdrop="static" data-keyboard="false">
+			<article data-l10n-id="requireGreenCDAMessage"></article>
+		</section>
 		<section id="baseView"></section>
+		<section id="downloadURI"></section>
 		<section class="page-wrapper">
 			<header><nav><div id="menubox"><ul></ul></div></nav></header>
 			<article class="page-viewpoint">
 				<section class="page-viewpoint">
-					<header><pageNum style="visibility: hidden;" is="pageNum"></pageNum></header>
-					<article></article>
+					<header></header>
+					<article class="pageBox"></article>
 				</section>
 			</article>
+			<footer>
+				<version is="version"></version>
+				<pageNum style="visibility: hidden;" is="pageNum"></pageNum>
+			</footer>
 		</section>
 		<div id="fileImporter" class="text"><span data-l10n-id="dragNdrop"></span></div>
-		<editor id="editor" is="editor"></editor>
 		<!--Modal Windows Area Start-->
 		<!--Unknown Error-->
 		<section id="unknownError" class="modal hide fade" data-backdrop="static" data-keyboard="false">

@@ -1,0 +1,103 @@
+<element extends="parsing" name="parsing">
+	<decorator>
+		<template>
+			<style scoped="scoped">
+				div#parsing {
+					color: red;
+					text-align: center;
+					font-weight: bold;
+					font-size: 20pt;
+					margin: 10px;
+				}
+			</style>
+			<div id="parsing">
+				<content select="loading.l10n"></content>
+				'<content select="filename"></content>'
+				(<content select="filesize"></content> bytes)...
+			</div>
+		</template>
+	</decorator>
+</element>
+<element extends="span" name="testFont">
+	<docorator>
+		<template>
+			<div id="testFont"></div>
+		</template>
+		<script type="text/javascript">
+			if (this !== window) {
+				this.lifecycle({
+					created: function(root) {
+						var templateANSI = "";
+						var test = $(root.querySelector('#testFont'));
+						for(var i = 33; i < 127; i++)
+							templateANSI += i.toString() + ':&#' + ((i <= 0xf) ? '0' : '') + i.toString() + '; ';
+						test.html(templateANSI);
+						test.append($('<span class="zh"/>').text("測試 ".repeat(10)));
+						test.append($('<span class="ja"/>').text("測試 テスト 試みる ".repeat(10)));
+						test.append($('<span class="ko"/>').text("測試 테스트 ".repeat(10)));
+					}
+				});
+			}
+		</script>
+	</docorator>
+</element>
+<element extends="pageNum" name="pageNum">
+	<decorator>
+		<template>
+			<style scoped="scoped">
+				div#pageNumber {
+					color: white;
+				}
+			</style>
+			<div id="pageNumber">
+				<content select="first.l10n"></content>
+				<span> </span>
+				<content select="now"></content>
+				<span> </span>
+				<content select="middle.l10n"></content>
+				<span> </span>
+				<content select="total"></content>
+				<span> </span>
+				<content select="last.l10n"></content>
+			</div>
+		</template>
+	</decorator>
+</element>
+<element extends="version" name="version">
+	<decorator>
+		<template>
+			<div id="version">
+				<content select="rev"></content>
+				<span> </span>
+				<content select="shorthash"></content>
+				<span> </span>
+				<content select="commitDateTime"></content>
+				<span> </span>
+				<content select="hash"></content>
+			</div>
+		</template>
+		<script type="text/javascript">
+			if (this !== window) {
+				this.lifecycle({
+					created: function(root) {
+						self = $(this);
+						$.ajax({
+							type: "GET",
+							url: ".version",
+							dataType: "text",
+							complete: function(version) {
+								var ver = version.responseText.trim().split("::");
+								self.html("");
+								$("<rev />").html(ver[0]).appendTo(self);
+								$("<shorthash />").html(ver[1]).appendTo(self);
+								$("<hash />").html(ver[2]).appendTo(self);
+								console.log(ver[3])
+								$("<commitDateTime />").html(new Date(ver[3]).toLocaleString()).appendTo(self);
+							}
+						});
+					}
+				});
+			}
+		</script>
+	</decorator>
+</element>

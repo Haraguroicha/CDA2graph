@@ -1,15 +1,7 @@
-@import url(fonts.css);
 * {
 	/*font-family: Helvetica,Arial,sans-serif;*/
 	/*font-family: Helvetica, verdana, arial, "LiHei Pro", "儷黑 Pro", "微軟正黑體", "Microsoft JhengHei", "新細明體", "PMingLiu", sans-serif !important;*/
 	/*font-family: cdaFont;*/
-}
-object[rel="X-UI-Components"] {
-	visibility: hidden;
-	width: 0px;
-	height: 0px;
-	padding: 0px;
-	margin: 0px;
 }
 body {
 	background-color: #333;
@@ -48,10 +40,47 @@ body *::-webkit-scrollbar-thumb:window-inactive {
 .page-wrapper:first-child {
 	height: 30px;
 }
-section.page-wrapper > article.page-viewpoint > section.page-viewpoint > header > pageNum {
+section.page-wrapper > footer {
 	position: fixed;
-	bottom: 10px;
-	right: 10px;
+	left: 0px;
+	bottom: 0px;
+	height: 30px;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	background: #666;
+	display: block;
+	text-shadow: 3px 3px 10px gray;
+	background-color: rgba(80, 80, 80, 0.75);
+	color: lightgray;
+}
+section.page-wrapper > footer > *:first-child {
+	margin-left: 5px;
+}
+section.page-wrapper > footer > *:last-child {
+	margin-right: 5px;
+	padding-left: 5px;
+	margin-left: 5px;
+	border-left: solid 1px lightgray;
+}
+section.page-wrapper > footer > *:not(*:last-child) {
+	border-right: solid 1px lightgray;
+	padding-right: 5px;
+	margin-right: 5px;
+}
+section.page-wrapper > footer > * {
+	margin-top: 5px;
+	font-size: 10pt;
+	display: inline-block;
+}
+section.page-wrapper > footer > pageNum {
+	float: right;
+}
+section.page-wrapper > footer > version {
+	float: left;
+}
+section.page-wrapper > article.page-viewpoint > section.page-viewpoint > footer {
+	position: absolute;
 }
 article.page-viewpoint {
 	background-color: #222;
@@ -82,7 +111,11 @@ section.page-viewpoint {
 	top: -65535px;
 	left: -65535px;
 }
-.page-view {
+section.page-view {
+	-webkit-animation: fadeInRightDown 1000ms;
+	-moz-animation: fadeInRightDown 1000ms;
+	-o-animation: fadeInRightDown 1000ms;
+	animation: fadeInRightDown 1000ms;
 	display: block;
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -95,11 +128,36 @@ section.page-viewpoint {
 	height: 270mm;
 	box-shadow: 4px 4px 12px -2px rgba(90%,90%,95%,0.6);
 }
-.page-view > article {
+section.page-view > header {
+	background-color: transparent;
+	margin-top: -40px;
+	height: 40px;
+	position: relative;
+}
+section.page-view > header.outside > title.outside {
+	position: absolute;
+	bottom: 0px;
+	display: block;
+	width: 100%;
+	border-bottom: solid 1px lightgray;
+}
+section.page-view > article {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
 	border: 1px dashed lightgray;
+}
+section.page-view > footer.outside {
+	background-color: transparent;
+	text-align: right;
+	border-top: solid 1px lightgray;
+}
+title.outside, footer.outside {
+	font-weight: bold;
+	margin-left: -50px;
+	padding-left: 50px;
+	margin-right: -50px;
+	padding-right: 50px;
 }
 #menubox {
 	background: -webkit-gradient(linear, left top, left bottom, from(#445566), to(#223344));
@@ -175,9 +233,7 @@ section.page-viewpoint {
 	text-align: center;
 	vertical-align: middle;
 }
-#fileImporter.DragDropArea {
-	z-index: 100;
-	background-color: rgba(80, 80, 80, 0.75);
+.DragDropArea, .DragDropDisabledArea {
 	opacity: 1;
 }
 #fileImporter * {
@@ -186,9 +242,32 @@ section.page-viewpoint {
 	text-shadow: 0px 0px 0px transparent, 0px -1px 1px rgba(169, 169, 169, 0.75);
 	color: white;
 }
+#fileImporter.DragDropArea {
+	z-index: 1000;
+	opacity: 1;
+	background-color: rgba(80, 80, 80, 0.75);
+}
+#fileImporter.DragDropDisabledArea {
+	z-index: 5000;
+	opacity: 1;
+	background-color: rgba(80, 0, 0, 0.75);
+	cursor: no-drop;
+}
 .NonDragDropArea {
 	cursor: no-drop;
 }
 .cda-widget {
 	width: 100%;
+	-webkit-animation: fadeInRightDown 1000ms;
+	-moz-animation: fadeInRightDown 1000ms;
+	-o-animation: fadeInRightDown 1000ms;
+	animation: fadeInRightDown 1000ms;
+}
+.cda-widget > article > cda2g {
+	height: inherit;
+	width: inherit;
+	display: inline-block;
+}
+#downloadURI {
+	display: none;
 }

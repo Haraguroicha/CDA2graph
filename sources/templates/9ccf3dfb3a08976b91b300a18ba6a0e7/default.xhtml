@@ -1,0 +1,324 @@
+<element extends="cda2g" name="cda___51897-7" constructor="cdaDemo">
+	<decorator>
+		<template>
+			<style scoped="scoped">
+				table {
+					border: solid 1px black;
+					border-collapse: collapse;
+					width: 100%;
+				}
+				table th, table td {
+					border: solid 1px black;
+				}
+				th {
+					font-size: 14pt;
+				}
+				td {
+					font-size: 10pt;
+				}
+				h4 {
+					margin: 0px;
+					border-bottom: solid 1px #06F;
+				}
+				result {
+					margin-top: 0px;
+				}
+				result ~ * {
+					margin-top: 15px;
+				}
+				h4 ~ * {
+					margin-left: 15px;
+				}
+				hr {
+					margin: 5px 0px 5px 0px;
+				}
+				.data, .desH td {
+					vertical-align: top;
+					text-align: left !important;
+				}
+				.leftHead {
+					text-align: center;
+					width: 12px;
+				}
+				.dataHead {
+					text-align: center;
+					width: 34px;
+				}
+				.dataHead1 {
+					text-align: center;
+					width: 50px;
+				}
+				.dataHead2 {
+					text-align: center;
+					width: 75px;
+				}
+				.dataHead3 {
+					text-align: center;
+					width: 60px;
+				}
+				.titleHead {
+					text-align: center;
+					width: 150px;
+				}
+				.innerTB {
+					border: none 0px black;
+					vertical-align: top;
+				}
+				.innerTB table {
+					border: none 0px black;
+					margin: -1px -2px -1px -1px;
+				}
+				.desH {
+					height: 105px;
+					width: 678px;
+				}
+				.desH th {
+					font-size: 10pt;
+					font-weight: normal;
+					height: 20px;
+				}
+			</style>
+			<info>
+				<header>
+					<choose>
+						<exist>
+							<selector section="header" path="title"></selector>
+						</exist>
+						<otherwise>
+							<selector section="header" path="code[@displayName]" attr="displayName"></selector>
+						</otherwise>
+					</choose>
+				</header>
+			</info>
+			<processable>
+				<green root="疾病通報" filename="121.green.xml"></green>
+			</processable>
+			<div class="_XCD_Component" style="display: none;">
+				<table>
+					<tr>
+						<td rowspan="2">醫院資料</td>
+						<td>醫院/診所</td>
+						<td>
+							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/name | recordTarget/patientRole/providerOrganization/name" target="醫院名稱"></selector>
+						</td>
+						<td>醫院代碼</td>
+						<td>
+							<selector section="header" path="custodian/assignedCustodian/representedCustodianOrganization/id[@extension] | recordTarget/patientRole/providerOrganization/id[@extension]" attr="extension" target="醫院代碼"></selector>
+						</td>
+						<td>電話</td>
+						<td>
+							<selector section="header" path="author/assignedAuthor/representedOrganization/telecom[@value]" attr="value" target="醫院電話"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td>診斷醫師</td>
+						<td>
+							<selector section="header" path="author/assignedAuthor/assignedPerson/name" target="診斷醫師"></selector>
+						</td>
+						<td>院所地址</td>
+						<td colspan="3">
+							<selector section="header" path="author/assignedAuthor/representedOrganization/addr" target="醫院地址"></selector>
+						</td>
+					</tr>
+				</table>
+				<br/>
+				<table>
+					<tr>
+						<td class="leftHead" rowspan="7">1.患者資料</td>
+						<td class="dataHead" rowspan="2">患者姓名</td>
+						<td rowspan="2">
+							<selector section="header" path="recordTarget/patientRole/patient/name" target="病患>姓名"></selector>
+						</td>
+						<td class="dataHead" rowspan="2">性別</td>
+						<td rowspan="2">
+							<selector section="header" path="recordTarget/patientRole/patient/administrativeGenderCode[@code]" attr="code" target="病患>性別">
+								<enumerator>
+									<data match="M">男</data>
+									<data match="F">女</data>
+								</enumerator>
+								<data></data>
+							</selector>
+						</td>
+						<td class="dataHead" rowspan="2">出生日期</td>
+						<td rowspan="2">
+							<selector section="header" path="recordTarget/patientRole/patient/birthTime[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3" target="病患>出生日"></selector>
+						</td>
+						<td class="titleHead">身分證字號/護照號碼</td>
+					</tr>
+					<tr>
+						<td>
+							<selector section="header" path="recordTarget/patientRole/patient/id[@extension]" attr="extension" target="病患>身分證字號"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="dataHead" rowspan="3">國藉</td>
+						<td rowspan="3">
+							<selector section="header" path="recordTarget/patientRole/patient/ethnicGroupCode[@displayName]" attr="displayName" target="病患>國籍"></selector>
+						</td>
+						<td class="dataHead" rowspan="3">婚姻狀況</td>
+						<td rowspan="3">
+							<selector section="header" path="recordTarget/patientRole/patient/maritalStatusCode[@code]" attr="code" target="病患>婚姻狀況">
+								<enumerator>
+									<data match="N">廢止</data>
+									<data match="C">普通法</data>
+									<data match="D">離婚</data>
+									<data match="P">合作夥伴</data>
+									<data match="I">對話</data>
+									<data match="E">合法分居</data>
+									<data match="G">同居</data>
+									<data match="M">已婚</data>
+									<data match="O">其他</data>
+									<data match="R">註冊的合作夥伴</data>
+									<data match="A">分居</data>
+									<data match="S">單身</data>
+									<data match="U">未知</data>
+									<data match="B">未婚</data>
+									<data match="T">未報告</data>
+									<data match="W">寡</data>
+								</enumerator>
+								<data></data>
+							</selector>
+						</td>
+						<td class="leftHead" rowspan="3">電話</td>
+						<td class="dataHead">公司</td>
+						<td>
+							<selector section="header" path="recordTarget/patientRole/telecom[@use='WP' and @value]" attr="value" target="病患>電話>公司電話"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="dataHead">家用</td>
+						<td>
+							<selector section="header" path="recordTarget/patientRole/telecom[@use='H' and @value]" attr="value" target="病患>電話>家用電話"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="dataHead">手機</td>
+						<td>
+							<selector section="header" path="recordTarget/patientRole/telecom[@use='MC' and @value]" attr="value" target="病患>電話>行動電話"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="dataHead" rowspan="2">居住所</td>
+						<td rowspan="2" colspan="3">
+							<selector section="header" path="recordTarget/patientRole/addr" target="病患>地址"></selector>
+						</td>
+						<td class="dataHead" rowspan="2">職業</td>
+						<td rowspan="2">
+							<selector section="body" path="component/structuredBody/component/section/code[@code='11340-7']/../text" target="病患>職業"></selector>
+						</td>
+						<td class="titleHead">動物接觸史</td>
+					</tr>
+					<tr>
+						<td>--</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td class="leftHead" rowspan="4">2.病歷與日期</td>
+						<td class="dataHead">病歷號碼</td>
+						<td colspan="3">
+							<selector section="header" path="recordTarget/patientRole/id[@extension]" attr="extension" target="病患>病歷號碼"></selector>
+						</td>
+						<td class="dataHead">發病日期</td>
+						<td>
+							<selector section="header" path="componentOf/encompassingEncounter/effectiveTime[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3" target="疾病通報項目>發病日期"></selector>
+						</td>
+						<td class="titleHead data" rowspan="4">
+							旅遊史
+							<selector section="body" path="component/structuredBody/component/section/code[@code='10182-4']/../text" target="疾病通報項目>旅遊史"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="dataHead3">主要症狀/相關疫苗接種史</td>
+						<td class="data" colspan="3">
+							<selector section="body" path="component/structuredBody/component/section/code[@code='46691-2']/../text" target="疾病通報項目>主要症狀"></selector>
+							<hr/>
+							<selector section="body" path="component/structuredBody/component/section/code[@code='11369-6']/../text" target="疾病通報項目>相關疫苗接種史"></selector>
+						</td>
+						<td class="dataHead">診斷日期</td>
+						<td>
+							<selector section="body" path="component/structuredBody/component/section/code[@code='29548-5']/../entry/observation/effectiveTime[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})" format="$1/$2/$3 $4:$5" target="疾病通報項目>診斷日期"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="dataHead">住院情況</td>
+						<td>--</td>
+						<td class="dataHead">檢體<br/>採檢</td>
+						<td class="data">
+							<eachselector section="body" path="component/structuredBody/component/section/code[@code='29548-5']/../entry" target="通報項目>通報資料>採集檢體">
+								<selector id="specimen" path="observation/code[@displayName]" attr="displayName" target="檢體名稱"></selector>
+								<selector id="desc" path="observation/specimen/specimenRole/specimenPlayingEntity/desc" target="是否採集"></selector>
+								<each>
+									<json id="specimen"></json>：<json id="desc"></json>
+								</each>
+							</eachselector>
+						</td>
+						<td class="dataHead">死亡日期</td>
+						<td>0000/00/00</td>
+					</tr>
+					<tr>
+						<td class="dataHead">報告日期</td>
+						<td>
+							<selector section="header" path="effectiveTime[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})" format="$1/$2/$3 $4:$5" target="疾病通報項目>報告日期"></selector>
+						</td>
+						<td class="dataHead1">衛生局收到日</td>
+						<td>
+							<selector section="header" path="participant/associatedEntity[@classCode='北市衛生局']/../time[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3" target="疾病通報項目>收到日期>衛生局"></selector>
+						</td>
+						<td class="dataHead2">疾病管制局收到日</td>
+						<td>
+							<selector section="header" path="participant/associatedEntity[@classCode='疾病管制局']/../time[@value]" attr="value" match="([0-9]{4})([0-9]{2})([0-9]{2})" format="$1/$2/$3" target="疾病通報項目>收到日期>疾管局"></selector>
+						</td>
+					</tr>
+					<tr>
+						<td class="leftHead">3.疾病資料</td>
+						<td class="innerTB" colspan="7">
+							<table class="desH">
+								<tr>
+									<th>第一類傳染病</th>
+									<th>第二類傳染病</th>
+									<th>第三類傳染病</th>
+									<th>第四類傳染病</th>
+									<th>第五類傳染病</th>
+								</tr>
+								<tr>
+									<td>--</td>
+									<td>--</td>
+									<td>--</td>
+									<td>--</td>
+									<td>--</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td class="leftHead">4.備註</td>
+						<td class="data" colspan="7">
+							<selector section="body" path="component/structuredBody/component/section/code[@code='19146-0']/../text" target="疾病通報項目>備註"></selector>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</template>
+		<script type="text/javascript">
+			if (this !== window) {
+				cdaDemo.prototype = {
+					onClick: function(e) {
+						$(e.currentTarget).find("span").each(function(index, element) {
+							
+						});
+					}
+				};
+				this.lifecycle({
+					created: function(root) {
+						var shadow = $(root.querySelectorAll('*'));
+						$(this).on("DOMNodeInserted", function(e) {cda2g.Files.selectorParse(e.relatedNode.webkitShadowRoot, $(this));});
+						if(this.childNodes.length > 0) {
+							cda2g.Files.selectorParse(root, $(this));
+						}
+					}
+				});
+			}
+		</script>
+	</decorator>
+</element>

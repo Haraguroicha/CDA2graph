@@ -14,6 +14,19 @@ FileETag None
 	</ifModule>
 </filesMatch>
 
+<filesMatch ".version$">
+	<ifModule mod_headers.c>
+		Header unset ETag
+		Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+		Header set Pragma "no-cache"
+		Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+	</ifModule>
+</filesMatch>
+
+DirectoryIndex index.xhtml
+
 AddType text/plain              .properties
-AddType text/json               .json
-AddType font/woff               .woff
+AddType application/json        .json
+AddType application/font-woff   .woff
+
+SetEnvIf VCAP_SERVICES ^$ VCAP_SERVICES={"mysql-5.1":[{"name":"mysql-cda2g","label":"mysql-5.1","tags":["mysql","mysql-5.1","relational"],"credentials":{"name":"cda2g","hostname":"localhost","host":"localhost","port":3306,"user":"cda2g","username":"cda2g","password":"cda2g"}}]}

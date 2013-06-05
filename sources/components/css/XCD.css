@@ -1,0 +1,30 @@
+div._XCD_Component {
+	/*
+	color: white;
+	text-shadow: 3px 3px 10px gray;
+	*/
+}
+eachselector, selector {
+	display: inline-block;
+}
+eachselector {
+	display: block;
+}
+eachselector > *:not(result) {
+	display: none;
+}
+eachselector > result {
+	display: block;
+}
+eachselector > selector, each {
+	display: none;
+}
+img {
+	max-width: 690px;
+}
+info {
+	display: none;
+}
+processable, enumerator {
+	display: none;
+}

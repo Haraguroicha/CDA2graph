@@ -3,32 +3,14 @@
 .container {
 	background: url(images/DarkCommon/light.png) no-repeat top center;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: 'Open Sans', sans-serif;
-	color: #A5AAB0;
-	font-weight: 400;
-}
 code {
 	color: red;
 	text-shadow: none;
 }
 button {
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 400;
 	text-shadow: 0 1px #000;
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
-}
-table {
-	font-size: 12px;
-	font-family: 'Open Sans', sans-serif;
-	font-weight: 400;
-	text-shadow: 0 1px #000;
 }
 .align-right {
 	text-align: right !important;
@@ -40,15 +22,6 @@ table {
 /* Bootstrap reset */
 .page-header {
 	border-bottom: 1px solid #555;
-}
-label {
-	color: #A5AAB0;
-	text-shadow: 0 1px #000;
-}
-input, textarea, select {
-	font-family: 'Open Sans', sans-serif !important;
-	font-weight: 300 !important;
-	resize: none;
 }
 .ltr {
 	text-align: right;

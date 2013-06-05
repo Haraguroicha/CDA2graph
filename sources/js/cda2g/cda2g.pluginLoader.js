@@ -6,16 +6,17 @@ var pl = new function pluginLoader(mods) {
 		if(typeof(core) != "undefined")
 			if(typeof(core.Date) != "undefined") date = new core.Date();
 		console.log("** pl[" + date + "]: Loading Module: " + modName);
-		this.addScript("js/" + modName + ".js");
+		this.addScript(modName);
 		actived++;
 	}
-	this.addScript = function addScript(src) {
+	this.addScript = function addScript(mod) {
 		var script = document.createElement("script");
 		script.setAttribute("type","text/javascript");
-		script.setAttribute("src", src);
+		script.setAttribute("src", "js/" + mod + ".js");
 		script.onload = function () {
-			$( "#plProgress" ).progressbar({value: actived / modules.length * 100});
-			pl.init();
+			$("#plMessage").prepend('<span data-l10n-id="plLoading">Loading </span>\'' + mod + '\'...<br />');
+			$("#plProgress").progressbar({value: actived / modules.length * 100});
+			setTimeout(function(){pl.init();}, 25);
 		}
 		document.getElementsByTagName("head")[0].appendChild(script);
 	}
@@ -35,7 +36,10 @@ var pl = new function pluginLoader(mods) {
 				break;
 			}
 		}
-		if(isEnd && typeof(main) == "function") setTimeout("main();", 500);
+		if(isEnd && typeof(main) == "function") {
+			$("#plMessage").prepend('<span data-l10n-id="plFinalizing">Finalizing</span>...<br/>');
+			setTimeout("main();", 500);
+		}
 	}
 	if(mods != undefined) {
 		this.init(mods);

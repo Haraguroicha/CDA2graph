@@ -1,4 +1,5 @@
-(function(scope) {
+window.__exported_components_polyfill_scope__ = {"runManually": true};
+var __polyfill = (function(scope) {
 
 var scope = scope || {};
 
@@ -53,9 +54,25 @@ scope.Declaration.prototype = {
   },
 
   evalScript: function(script) {
-    //FIXME: Add support for external js loading.
-    SCRIPT_SHIM[1] = script.textContent;
-    eval(SCRIPT_SHIM.join(''));
+    var url = script.getAttribute('src');
+    if(url == undefined) {
+      SCRIPT_SHIM[1] = script.textContent;
+      eval(SCRIPT_SHIM.join(''));
+    } else {
+      //FIXME: Add support for external js loading.
+      var request = new XMLHttpRequest();
+
+      request.open('GET', url, false);
+      request.onloadend = function() {
+        if (request.status >= 200 && request.status < 300 || request.status === 304) {
+          SCRIPT_SHIM[1] = request.response;
+          eval(SCRIPT_SHIM.join(''));
+        } else {
+          console.error("Can't load external js file.", request.status, request);
+        }
+      };
+      request.send();
+    }
   },
 
   addTemplate: function(template) {
@@ -63,6 +80,18 @@ scope.Declaration.prototype = {
   },
 
   morph: function(element) {
+    //If not exist shadow root, then continue execute
+    if(element.webkitShadowRoot)
+      return;
+    var attributes = "";
+    $(element).filter('[is]').each(function() {
+      $(this.attributes).each(function() {
+        attributes += ((attributes.length > 0) ? " " : "") + this.nodeName + '="' + this.nodeValue + '"';
+      });
+    });
+    cda2g.logger.log(sprintf("Dynamically load component for: %s%s", $(element).getPath(),
+          (($(element).filter('[is]').length > 0) ? "[" + attributes + "]" : "")
+        ));
     // FIXME: We shouldn't be updating __proto__ like this on each morph.
     this.element.generatedConstructor.prototype.__proto__ = document.createElement(this.element.extends);
     element.__proto__ = this.element.generatedConstructor.prototype;
@@ -185,22 +214,21 @@ scope.Loader.prototype = {
     var loader = this;
 
     request.open('GET', url);
-    request.addEventListener('readystatechange', function(e) {
-      if (request.readyState === 4) {
-        if (request.status >= 200 && request.status < 300 || request.status === 304) {
-          loader.onload && loader.onload(request.response);
-        } else {
-          loader.onerror && loader.onerror(request.status, request);
-        }
+    request.onloadend = function() {
+      if (request.status >= 200 && request.status < 300 || request.status === 304) {
+        loader.onload && loader.onload(request.response);
+      } else {
+        loader.onerror && loader.onerror(request.status, request);
       }
-    });
+    };
     request.send();
   }
 }
 
-scope.run = function() {
+scope.run = function(obj, events) {
+  if(events == undefined)
+    events = 'DOMContentLoaded DOMNodeInserted';
   var loader = new scope.Loader();
-  document.addEventListener('DOMContentLoaded', loader.start);
   var parser = new scope.Parser();
   loader.onload = parser.parse;
   loader.onerror = function(status, resp) {
@@ -211,16 +239,21 @@ scope.run = function() {
   var factory = new scope.DeclarationFactory();
   parser.onparse = factory.createDeclaration;
   factory.oncreate = function(declaration) {
-    [].forEach.call(document.querySelectorAll(
-        declaration.element.extends + '[is=' + declaration.element.name +
-        ']'), declaration.morph);
+    [].forEach.call($(obj).findAndSelf(
+        declaration.element.extends + '[is="' + declaration.element.name +
+        '"]'), declaration.morph);
   }
+  if(events != '')
+    $(obj).on(events, loader.start);
+  else
+    loader.start();
 }
 
 if (!scope.runManually) {
-  scope.run();
+  scope.run($(document));
 }
 
 function nil() {}
 
-})(window.__exported_components_polyfill_scope__);
+});
+__polyfill(window.__exported_components_polyfill_scope__);

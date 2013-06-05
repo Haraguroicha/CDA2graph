@@ -1,0 +1,17 @@
+Options -Indexes
+
+<ifModule mod_headers.c>
+	RewriteEngine on
+
+	RewriteCond %{REQUEST_URI} (.*)/cdaDemo.xhtml?(.*)$ [NC]
+	RewriteRule ^ - [E=template:303,L]
+
+	RewriteCond %{REQUEST_URI} (.*)/cdaDemo.xhtml$ [NC]
+	RewriteRule ^ - [E=template:200,L]
+
+	Header unset ETag
+	Header always set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+	Header always set Pragma "no-cache"
+	Header always set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+	Header always set X-Template "%{template}e"
+</ifModule>
