@@ -1,6 +1,7 @@
 cda2g.Files = new function Files() {
 	var files = {};
 	var needGreen = null;
+	var needEditor = null;
 	this.__defineGetter__("files", function() {return files;});
 	this.isFiles = function isFiles(e) {
 		var ff = false;
@@ -12,7 +13,8 @@ cda2g.Files = new function Files() {
 	}
 	this.importFiles = function importFiles(e) {
 		if(e.dataTransfer.files.length > 0) {
-			needGreen = (e.ctrlKey && e.altKey);
+			needGreen = (e.ctrlKey && e.altKey && !e.shiftKey);
+			needEditor = (!e.ctrlKey && !e.altKey && e.shiftKey);
 			var fss = e.dataTransfer.files;
 			files = { "./size": 0, "./loader": [], "./list": [] };
 			for(var k in fss) {
@@ -108,7 +110,10 @@ cda2g.Files = new function Files() {
 			},
 			close: function(event,ui) {
 				$("#fileMessage").html('');
-				setTimeout(function(){ cda2g.green.requireConverting(needGreen); }, 500);
+				if(needGreen)
+					setTimeout(function(){ cda2g.green.requireConverting(needGreen); }, 500);
+				if(needEditor)
+					setTimeout(function(){ cda2g.Editor.init(); }, 500);
 			},
 			closeOnEscape: false,
 			draggable: false,

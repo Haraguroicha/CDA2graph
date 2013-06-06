@@ -86,7 +86,7 @@ cda2g.UI = new function _UI() {
 			return false;
 		}
 		var dpaf = function dpaDragHover(e) {
-			e.originalEvent.dataTransfer.dropEffect = (e.ctrlKey && e.altKey) ? "copy" : "link";
+			e.originalEvent.dataTransfer.dropEffect = (e.ctrlKey && e.altKey && !e.shiftKey) ? "copy" : (!e.ctrlKey && !e.altKey && e.shiftKey) ? "move" : "link";
 			if(e.type == "dragover" && cda2g.Files.isFiles(e.originalEvent)) {
 				if(!cda2g.UI.dropping)
 					this.classList.add("DragDropDisabledArea");
@@ -159,11 +159,5 @@ cda2g.UI = new function _UI() {
 			$("body > *").css("font-family", fontFamily);
 			cda2g.logger.log(sprintf("Change font to `%s` by language: %s", fontFamily, lang));
 		}
-	}
-	this.showEditor = function showEditor() {
-		return CKEDITOR.replace($('editor#editor')[0]);
-	}
-	this.closeEditor = function closeEditor() {
-		return CKEDITOR.instances.editor.destroy();
 	}
 }

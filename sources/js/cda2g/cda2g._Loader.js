@@ -66,6 +66,7 @@ function pluginLoad() {
 		pl.addModule("cda2g/cda2g.Files");
 		pl.addModule("cda2g/cda2g.green");
 		pl.addModule("cda2g/cda2g.Pages");
+		pl.addModule("cda2g/cda2g.Editor");
 		pl.addModule("cda2g/cda2g.logger");
 		pl.addModule("cda2g/cda2g.scroll.Extensions");
 		pl.addModule("cda2g/cda2g.String.Extensions");
@@ -75,7 +76,6 @@ function pluginLoad() {
 		pl.addModule("jQuery-ZenCoding");
 		pl.addModule("components-polyfill");
 		pl.addModule("vkbeautify.0.99.00.beta");
-		pl.addModule("ckeditor/ckeditor");
 		pl.init();
 	}
 }
