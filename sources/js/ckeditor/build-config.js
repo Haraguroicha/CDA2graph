@@ -14,7 +14,7 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'moono',
+	skin: 'moonocolor',
 	preset: 'full',
 	ignore: [
 		'dev',
@@ -92,7 +92,9 @@ var CKBUILDER_CONFIG = {
 		'fakeobjects' : 1,
 		'richcombo' : 1,
 		'listblock' : 1,
-		'menubutton' : 1
+		'menubutton' : 1,
+		'xml' : 1,
+		'codemirror' : 1
 	},
 	languages : {
 		'af' : 1,
