@@ -6,11 +6,5 @@
 	</head>
 	<body onload="setTimeout(function(){window.opener.cda2g.Editor.getEditor();}, 500);">
 		<textarea id="editor"></textarea>
-		<script>
-			var editor = null;
-			CKEDITOR.on('instanceReady', function(evt) {
-				window.opener.cda2g.Editor.setEditor(evt);
-			});
-		</script>
 	</body>
 </html>
