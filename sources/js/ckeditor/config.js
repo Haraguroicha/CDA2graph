@@ -15,10 +15,12 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	config.uiColor = '#14B8C4';
-	config.protectedSource.push(/<eachselector[^>]*[^"]*">[\s]*(<selector[^>]*[^"]*">[\s]*(<enumerator>[\s]*(<data[^>]*>[^<\/data>]*<\/data>[\s]*){0,}<\/enumerator>[\s]*)?(<data><\/data>)?[\s]*<\/selector>[\s]*){0,}(<each>[\s]*(<json[^>]*><\/json>[^<]*){0,}<\/each>[\s]*)<\/eachselector>/gi);
-	config.protectedSource.push(/<selector[^>]*[^"]*">[\s]*(<enumerator>[\s]*(<data[^>]*>[^<\/data>]*<\/data>[\s]*){0,}<\/enumerator>[\s]*)?(<data><\/data>)?[\s]*<\/selector>/gi);
+	config.protectedSource.push(/<eachselector[^>]*[^"]*">[\s]*(<selector[^>]*[^">]*">[\s]*(<enumerator>[\s]*(<data[^>]*>[^<\/data>]*<\/data>[\s]*){0,}<\/enumerator>[\s]*)?(<data><\/data>)?[\s]*<\/selector>[\s]*){0,}(<each>[\s]*(<json[^>]*><\/json>[^<]*){0,}<\/each>[\s]*)<\/eachselector>/gi);
+	config.protectedSource.push(/<selector[^>]*[^">]*">[\s]*(<enumerator>[\s]*(<data[^>]*>[^<\/data>]*<\/data>[\s]*){0,}<\/enumerator>[\s]*)?(<data><\/data>)?[\s]*<\/selector>/gi);
 	config.protectedSource.push(/<info>[.]*<\/info>/gi);
 	config.protectedSource.push(/<processable>[.]*<\/processable>/gi);
 	config.protectedSource.push(/<style[^>]*>[.]*<\/style>/gi);
 	config.protectedSource.push(/<element[^>]*>[.]*<\/element>/gi);
+	config.protectedSource.push(/<selector[^>]*[^">]*">[\s]*([^<]*<data><\/data>[^<]*)?[\s]*<selector[^>]*[^">]*">[\s]*([^<]*<(selector|data)[^>]*[^">]*"?>[^<]*<\/(selector|data)>[^<]*){0,}[\s]*<\/selector>[\s]*([^<]*<data><\/data>[^<]*)?[\s]*<\/selector>/gi);
+	config.protectedSource.push(/<selector[^>]*[^">]*">[\s]*([^<]*<(selector|data)[^>]*[^">]*"?>[^<]*<\/(selector|data)>[^<]*){0,}[\s]*<\/selector>/gi);
 };

@@ -10,11 +10,12 @@ cda2g.Editor = new function Editor() {
 		});
 		return editor;
 	}
-	this.getEditor = function getEditor() {
+	this.getEditor = function getEditor(cdaObject) {
+		if(!cdaObject) cdaObject = {CDACode: undefined, hospitalOID: undefined};
 		var textarea = $('#editor', editor.document)[0];
 		$.ajax({
 			type: "GET",
-			url: 'components/sample.xhtml',
+			url: sprintf('templates/%s/%s.xhtml', cdaObject.CDACode, cdaObject.hospitalOID),
 			dataType: "text",
 			async: false,
 			success: function (data, textStatus, jqXHR) {

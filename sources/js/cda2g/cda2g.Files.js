@@ -246,7 +246,9 @@ cda2g.Files = new function Files() {
 		if(CDAcode_code == undefined)
 			CDAcode_code = "";
 		var cdaName = sprintf("___%s___%s", CDAcode_code, hospitalOID_extension);
-		var template = sprintf("templates/%s/%s.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"), ((hospitalOID_extension != "") ? hospitalOID_extension.md5() : "default"));
+		this.CDACode = ((CDAcode_code != "") ? CDAcode_code.md5() : "default");
+		this.hospitalOID = ((hospitalOID_extension != "") ? hospitalOID_extension.md5() : "default");
+		var template = sprintf("templates/%s/%s.xhtml", this.CDACode, this.hospitalOID);
 		var cdah = $('<cdaHeader />');
 		var cdab = $('<cdaBody />');
 		var xTemplate = 0;
