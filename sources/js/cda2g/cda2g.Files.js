@@ -229,6 +229,9 @@ cda2g.Files = new function Files() {
 		cda2g.Pages.removePage(1);
 		setTimeout(function(){cda2g.Files.shadowRootToHTML(p);}, 250);
 	}
+	this.getFileName = function getFileName(code, oid) {
+		return { code: (code != '' ? code.md5() : 'default'), oid: (oid != '' ? oid.md5() : 'default') };
+	}
 	this.CDAParser = function CDAParser() {
 		if(!!!this.xml) return;
 		var doc = $(this.xml);
@@ -246,9 +249,10 @@ cda2g.Files = new function Files() {
 		if(CDAcode_code == undefined)
 			CDAcode_code = "";
 		var cdaName = sprintf("___%s___%s", CDAcode_code, hospitalOID_extension);
-		this.CDACode = ((CDAcode_code != "") ? CDAcode_code.md5() : "default");
-		this.hospitalOID = ((hospitalOID_extension != "") ? hospitalOID_extension.md5() : "default");
-		var template = sprintf("templates/%s/%s.xhtml", this.CDACode, this.hospitalOID);
+		var fn = cda2g.Files.getFileName(CDAcode_code, hospitalOID_extension);
+		var template = sprintf("templates/%s/%s.xhtml", fn.code, fn.oid);
+		this.CDACode = fn.code;
+		this.hospitalOID = fn.oid;
 		var cdah = $('<cdaHeader />');
 		var cdab = $('<cdaBody />');
 		var xTemplate = 0;
@@ -268,15 +272,18 @@ cda2g.Files = new function Files() {
 						cdaName = "Demo";
 						template = "components/cdaDemo.xhtml";
 						redirectMessage = template;
+						cda2g.Editor.registerTemplate('', '');
 						break;
 					case 307:
 						message = sprintf("GET '%s' failed, return default template.", template);
 						cdaName = sprintf("___%s", CDAcode_code);
-						template = sprintf("templates/%s/default.xhtml", ((CDAcode_code != "") ? CDAcode_code.md5() : "default"));
+						template = sprintf("templates/%s/default.xhtml", fn.code);
 						redirectMessage = template;
+						cda2g.Editor.registerTemplate(CDAcode_code, '');
 						break;
 					case 200:
 						message = "OK";
+						cda2g.Editor.registerTemplate(CDAcode_code, hospitalOID_extension);
 						break;
 					default:
 				}
