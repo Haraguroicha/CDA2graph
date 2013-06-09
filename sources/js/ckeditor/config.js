@@ -2,7 +2,19 @@
  * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
-
+CKEDITOR.extendDTD = function(tagName, custom, parentOnly) {
+	customArea = [ '$block', 'body', 'table', 'tr', 'th', 'td', 'tbody', 'div', 'span' ];
+	if((custom != undefined && custom != null) && parentOnly != true)
+		for(var i = 0; i < custom.length; i++)
+			customArea.push(custom[i]);
+	else
+		if(custom != undefined && custom != null)
+			customArea = custom;
+	var dtd = CKEDITOR.dtd;
+	dtd[tagName] = {'#':1};
+	for (var i = 0; i < customArea.length; i++)
+		dtd[customArea[i]][tagName] = 1;
+}
 CKEDITOR.editorConfig = function( config ) {
 	
 	// %REMOVE_START%
@@ -15,14 +27,4 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
 	config.uiColor = '#14B8C4';
-	config.protectedSource.push(/[\s]*<style[^>]*[^"]*">[\s\S]+<\/style>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<info>((?!<)(?!\/)(?!i)(?!n)(?!f)(?!o)(?!>)[\s\S]+)[\s]*<\/info>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<script[^>]*[^"]*">[\s\S]+<\/script>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<choose>[\s]*(<(exist|otherwise)>[\s]*(<selector[^>]*[^"]*">[^<\/selector>]*<\/selector>[\s]*){1,}<\/(exist|otherwise)>[\s]*){2}[\s]*<\/choose>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<eachselector[^>]*[^"]*">[\s]*(<selector[^>]*[^"]*">[\s]*(<enumerator>[\s]*(<data[^>]*>[^<\/data>]*<\/data>[\s]*){0,}<\/enumerator>[\s]*)?(<data><\/data>)?[\s]*<\/selector>[\s]*){0,}(<each>[\s]*(<json[^>]*><\/json>[^<]*){0,}<\/each>[\s]*)<\/eachselector>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<selector[^>]*[^"]*">[^<]*<\/selector>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<selector[^>]*[^"]*">[\s]*(<enumerator>[\s]*(<data[^>]*>[^<\/data>]*<\/data>[\s]*){0,}<\/enumerator>[\s]*)?(<data><\/data>)?[\s]*<\/selector>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<selector[^>]*[^"]*">[\s]*([^<]*<data><\/data>[^<]*)?[\s]*<selector[^>]*[^"]*">[\s]*([^<]*<(selector|data)[^>]*[^"]*"?>[^<]*<\/(selector|data)>[^<]*){0,}[\s]*<\/selector>[\s]*([^<]*<data><\/data>[^<]*)?[\s]*<\/selector>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<selector[^>]*[^"]*">[\s]*([^<]*<(selector|data)[^>]*[^"]*"?>[^<]*<\/(selector|data)>[^<]*){0,}[\s]*<\/selector>[\s]*/gi);
-	config.protectedSource.push(/[\s]*<processable>[\s\S]*<\/processable>[\s]*/gi);
 };
