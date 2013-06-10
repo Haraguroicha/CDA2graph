@@ -49,16 +49,16 @@ cda2g.Editor = new function Editor() {
 					
 					cda2g.Editor.extendElement('', 'style', attr.style);
 					
-					cda2g.Editor.extendElement('', 'processable');
+					cda2g.Editor.extendElement('body', 'processable', null , null, true);
 					cda2g.Editor.extendElement('processable', 'green', attr.green, ['processable']);
 					
-					cda2g.Editor.extendElement('', 'info');
+					cda2g.Editor.extendElement('body', 'info', null , null, true);
 					cda2g.Editor.extendElement('info', 'header', null, ['info']);
 					cda2g.Editor.extendElement('info', 'footer', null, ['info']);
-					cda2g.Editor.extendElement('header', 'choose', null, ['header']);
-					cda2g.Editor.extendElement('footer', 'choose', null, ['footer']);
-					cda2g.Editor.extendElement('header', 'selector', attr.selector, ['header']);
-					cda2g.Editor.extendElement('footer', 'selector', attr.selector, ['footer']);
+					cda2g.Editor.extendElement('header', 'choose', null, ['info', 'header']);
+					cda2g.Editor.extendElement('footer', 'choose', null, ['info', 'footer']);
+					cda2g.Editor.extendElement('header', 'selector', attr.selector, ['info', 'header']);
+					cda2g.Editor.extendElement('footer', 'selector', attr.selector, ['info', 'footer']);
 					
 					cda2g.Editor.extendElement('', 'choose');
 					cda2g.Editor.extendElement('choose', 'exist', null, ['choose']);

@@ -3,13 +3,14 @@
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 CKEDITOR.extendDTD = function(tagName, custom, parentOnly) {
-	customArea = [ '$block', 'body', 'table', 'tr', 'th', 'td', 'tbody', 'div', 'span' ];
-	if((custom != undefined && custom != null) && parentOnly != true)
+	var customArea = parentOnly ?
+								[ '$block', 'body' ] :
+								[ '$block', 'body', 'table', 'tr', 'th', 'td', 'tbody', 'div', 'span' ];
+	if(custom != null && typeof(custom) == 'object' && parentOnly)
+		customArea = custom;
+	if(custom != null && typeof(custom) == 'object' && !parentOnly)
 		for(var i = 0; i < custom.length; i++)
 			customArea.push(custom[i]);
-	else
-		if(custom != undefined && custom != null)
-			customArea = custom;
 	var dtd = CKEDITOR.dtd;
 	dtd[tagName] = {'#':1};
 	for (var i = 0; i < customArea.length; i++)
