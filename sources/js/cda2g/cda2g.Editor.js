@@ -76,8 +76,91 @@ cda2g.Editor = new function Editor() {
 					cda2g.Editor.extendElement('enumerator', 'data', attr.data, ['enumerator']);
 					cda2g.Editor.extendElement('selector', 'data', null, ['selector']);
 					
+					var editor_wc = function(element) {
+						var doc = editor.Editor.document.$.documentElement;
+						$(element, doc).each(function() {
+							var needSR = (this.webkitShadowRoot == null);
+							if(needSR) {
+								var sr = this.webkitCreateShadowRoot();
+								var self = $(this);
+								switch(element) {
+									case 'selector':
+										var id = self.attr('id');
+										var match = self.attr('match');
+										var format = self.attr('format');
+										var formatString = (match != undefined && format != undefined) ? sprintf('<span>formatting: %s =&gt; %s</span>', match, format) : '';
+										var path = self.attr('path');
+										var section = self.attr('section');
+										var attr = self.attr('attr');
+										attr = (attr == undefined) ? '' : sprintf('attr: %s<br/>', attr);
+										if(section == undefined)
+											section = '';
+										else
+											section = sprintf('@@%s<br/>', section);
+										path = (path == undefined) ? '' : sprintf('path: <div title="%s">%s</div>', path.replace(/"/g, '\\"'), path);
+										if(id != undefined)
+											sr.innerHTML = sprintf('<span>&lt;#%s&gt;</span><div>%s%s%s</div>%s', self.attr('id'), section, attr, path, formatString);
+										else
+											sr.innerHTML = sprintf('<div>%s%s%s</div>%s<content></content>', section, attr, path, formatString);
+										break;
+									case 'eachselector':
+										var path = self.attr('path');
+										var section = self.attr('section');
+										if(section == undefined)
+											section = '';
+										else
+											section = sprintf('@@%s<br/>', section);
+										path = (path == undefined) ? '' : sprintf('path: <div>%s</div>', path);
+										sr.innerHTML = sprintf('<span>%s</span><div>%s%s</div><content></content>', element, section, path);
+										break;
+									case 'json':
+										sr.innerHTML = sprintf('<span>&lt;#%s&gt;</span>', self.attr('id'));
+										break;
+									case 'data':
+										var match = self.attr('match');
+										if(match != undefined)
+											sr.innerHTML = sprintf('%s-&gt;<content></content>', match);
+										else
+											sr.innerHTML = '<span>#result#</span>';
+										break;
+									case 'each':
+									case 'choose':
+									case 'exist':
+									case 'otherwise':
+									case 'enumerator':
+										sr.innerHTML = sprintf('<span>%s</span><content></content>', element);
+										break;
+									default:
+										sr.innerHTML = '<content></content>';
+								}
+								sr.innerHTML = sprintf('<style>span,div{border:solid 1px orange;padding: 2px;background-color: lightblue;}div div{border: none;width: 100px;height: 10px;overflow: hidden;display: inline-block;text-overflow: ellipsis;white-space: nowrap;}</style>%s', sr.innerHTML);
+							}
+						});
+					}
+					var ewc = function() {
+						$([
+							'json',
+							'each',
+							'data',
+							'enumerator',
+							'selector',
+							'eachselector',
+							'exist',
+							'otherwise',
+							'choose'
+						]).each(function() {
+							editor_wc(this.toString());
+						});
+					}
+					
+					editor.Editor.on('mode', function(e) {
+						if(e.editor.mode == "wysiwyg")
+							ewc();
+					});
+					
 					editor.Editor.config.contentsCss = "css/editor.css";
 					editor.Editor.setData(sourceData);
+					ewc();
 					//editor.Editor.execCommand('source');
 				}
 			}
