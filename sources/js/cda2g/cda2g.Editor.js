@@ -6,7 +6,7 @@ cda2g.Editor = new function Editor() {
 	this.init = function init() {
 		editor = window.open("editor.html", "cda2g_Editor", "location=no,menubar=no,status=no,toolbar=no,top=1,left=1,width=1,height=1");
 		editor.close();
-		editor = window.open("editor.html", "cda2g_Editor", "location=no,menubar=no,status=no,toolbar=no,top=10,left=10,width=950,height=650");
+		editor = window.open("editor.html", "cda2g_Editor", "location=no,menubar=no,status=no,toolbar=no,top=10,left=10,width=1020,height=800");
 		$(editor).on('load', function() {
 			//cda2g.Editor.getEditor();
 		});
@@ -76,8 +76,9 @@ cda2g.Editor = new function Editor() {
 					cda2g.Editor.extendElement('enumerator', 'data', attr.data, ['enumerator']);
 					cda2g.Editor.extendElement('selector', 'data', null, ['selector']);
 					
+					editor.Editor.config.contentsCss = "css/editor.css";
 					editor.Editor.setData(sourceData);
-					editor.Editor.execCommand('source');
+					//editor.Editor.execCommand('source');
 				}
 			}
 		});

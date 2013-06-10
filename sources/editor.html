@@ -3,6 +3,11 @@
 	<head>
 		<title>Editor</title>
 		<script src="js/ckeditor/ckeditor.js"></script>
+		<style>
+			.CodeMirror {
+				font-family: 'Lucida Console' !important;
+			}
+		</style>
 	</head>
 	<body onload="setTimeout(function(){window.opener.cda2g.Editor.getEditor();}, 500);">
 		<textarea id="editor"></textarea>
