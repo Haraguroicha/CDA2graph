@@ -18,6 +18,7 @@ choose, exist, otherwise, eachselector, selector, enumerator, data, each {
 	display: block;
 	border: dotted 1px black;
 	opacity: 0.75;
+	cursor: pointer;
 }
 choose {
 	background-color: blue;

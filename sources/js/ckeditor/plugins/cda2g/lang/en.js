@@ -1,0 +1,35 @@
+﻿CKEDITOR.plugins.setLang( 'cda2g', 'en', {
+	Add: 'Add cda2g',
+	Edit: 'Edit cda2g',
+	menu: {
+		menu: 'Edit cda2g object',
+		Delete: 'Delete cda2g object'
+	},
+	title: 'cda2g Object',
+	dialog: {
+		type: 'Selecting Type',
+		section: 'Section of',
+		path: 'Selecting XPath route',
+		attr: 'Selecting Attribute',
+		match: 'Formatting condition',
+		format: 'Format output',
+		enumeratorData: 'Enumerator data converting'
+	},
+	errorMessage: {
+		path: 'Your XPath has error',
+		attr: 'Attribute can not use in EachSelector',
+		MF: 'Formatting condition must be paired',
+		MFE: 'You can not using formatting when listing data'
+	},
+	elements: {
+		selector: 'SELECTOR',
+		json: 'JSON',
+		each: 'EACH',
+		data: 'DATA',
+		enumerator: 'ENUMERATOR',
+		eachselector: 'EACHSELECTOR',
+		exist: 'EXIST',
+		otherwise: 'OTHERWISE',
+		choose: 'CHOOSE'
+	}
+});
