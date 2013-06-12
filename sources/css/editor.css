@@ -1,0 +1,50 @@
+/* Google fonts */
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,700italic,400italic);
+@import url(fonts.css);
+* {
+	font-family: cdaFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+info {
+	display: none;
+}
+processable {
+	display: none;
+}
+choose, exist, otherwise, eachselector, selector, enumerator, data, each {
+	min-height: 20px;
+	min-width: 50px;
+	margin: 3px;
+	padding: 3px;
+	display: block;
+	border: dotted 1px black;
+	opacity: 0.75;
+	cursor: pointer;
+}
+choose {
+	background-color: blue;
+}
+exist {
+	background-color: green;
+}
+otherwise {
+	background-color: red;
+}
+eachselector {
+	background-color: red;
+}
+selector {
+	background-color: blue;
+}
+enumerator {
+	background-color: yellow;
+}
+data {
+	background-color: orange;
+}
+enumerator data {
+	display: inline-block;
+	background-color: orange;
+}
+each {
+	background-color: orange;
+}
