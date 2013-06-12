@@ -353,6 +353,7 @@ cda2g.Files = new function Files() {
 			allChildren = ((!!allChildren) ? (allChildren.toLowerCase() == "yes") : false);
 			section = section.substring(0, 1).toUpperCase() + section.substring(1);
 			target = ((!!target) ? target : null );
+			if(target != null) target = target.replace(/&gt;/g, '>');
 			if(type == "observationMedia") {
 				path += "/*:value";
 				var val = data.xpath(path);
