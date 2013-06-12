@@ -86,7 +86,8 @@
 			} );
 			editor.on( 'doubleclick', function( evt ) {
 				var element = evt.data.element;
-				
+				element = getSelectedElement(editor, element);
+
 				$(cda2gElements).each(function() {
 					if ( element.is( this.toString() ) && !element.data( 'cke-realelement' ) && !element.isReadOnly() ) {
 						CKEDITOR.__cda2gTempSelection__ = element;
@@ -139,12 +140,19 @@
 				ret = element;
 		});
 		if(ret == undefined) {
-			element = element.getChildren().getItem(0);
-			$(cda2gElements).each(function() {
-				if(element.type == CKEDITOR.NODE_ELEMENT)
-					if ( element && element.is( this.toString() ) && !element.data( 'cke-realelement' ) && !element.isReadOnly() )
-						ret = element;
-			});
+			console.log(element)
+			var eles = element.getChildren();
+			var count = eles.count();
+			for(var i = 0; i < count; i++) {
+				ele = eles.getItem(i);
+				$(cda2gElements).each(function() {
+					if(ele.type == CKEDITOR.NODE_ELEMENT)
+						if ( ele && ele.is( this.toString() ) && !ele.data( 'cke-realelement' ) && !ele.isReadOnly() )
+							ret = ele;
+				});
+				if(!ret)
+					break;
+			}
 		}
 		if(ret == undefined) {
 			var sel = editor.getSelection();

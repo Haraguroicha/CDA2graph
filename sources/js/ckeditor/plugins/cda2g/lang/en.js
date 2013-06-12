@@ -7,6 +7,7 @@
 	},
 	title: 'cda2g Object',
 	dialog: {
+		id: 'Listing identify',
 		type: 'Selecting Type',
 		section: 'Section of',
 		path: 'Selecting XPath route',
@@ -17,10 +18,13 @@
 		enumeratorData: 'Enumerator data converting'
 	},
 	errorMessage: {
+		selectorType: 'Must select data selecting type',
 		path: 'Your XPath has error',
+		section: 'Must select data section',
 		attr: 'Attribute can not use in EachSelector',
 		MF: 'Formatting condition must be paired',
-		MFE: 'You can not using formatting when listing data'
+		MFE: 'You can not using formatting when listing data',
+		notCompleted: 'You are not completed the operate'
 	},
 	elements: {
 		selector: 'SELECTOR',

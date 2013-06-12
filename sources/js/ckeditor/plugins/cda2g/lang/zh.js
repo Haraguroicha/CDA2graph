@@ -7,6 +7,7 @@
 	},
 	title: 'cda2g物件',
 	dialog: {
+		id: '條列識別名稱',
 		type: '選擇形態',
 		section: '區段',
 		path: '選取XPath路徑',
@@ -17,10 +18,13 @@
 		enumeratorData: '列舉資料對應轉換'
 	},
 	errorMessage: {
+		selectorType: '必須選擇資料選擇型態',
 		path: '您的XPath路徑有誤',
+		section: '必須選擇資料區段',
 		attr: '屬性值不能在EachSelector中使用',
 		MF: '格式化條件必須成對完整',
-		MFE: '使用條列時不可使用格式化條件'
+		MFE: '使用條列時不可使用格式化條件',
+		notCompleted: '您尚未完成操作'
 	},
 	elements: {
 		selector: 'SELECTOR',

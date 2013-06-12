@@ -18,19 +18,27 @@
 	var getFirstElement = function getFirstElement(element) {
 		if(!element)
 			return;
+		if(CKEDITOR.__cda2gTempSelection__)
+			if(CKEDITOR.__cda2gTempSelection__.is('selector') && $(CKEDITOR.__cda2gTempSelection__.$).filter('selector[id]').length > 0) {
+				var ele = $(CKEDITOR.__cda2gTempSelection__.$);
+				ele.real = CKEDITOR.__cda2gTempSelection__;
+				return ele;
+			}
 		var ele = element.$;
 		var parent = null;
-		while(parent = ele.parentElement) {
-			var ret = undefined;
-			$(cda2gElements).each(function() {
-				if (parent.localName == this.toString())
-					ret = parent;
-			});
-			if(!ret)
-				break;
-			else
-				ele = parent;
-		}
+		if(!element.is('selector'))
+			while(parent = ele.parentElement) {
+				var ret = undefined;
+				$(cda2gElements).each(function() {
+					if (parent.localName == this.toString())
+						ret = parent;
+				});
+				if(!ret)
+					break;
+				else
+					ele = parent;
+			}
+		
 		if(ele)
 			ele = $(ele);
 		ele.real = element;
@@ -45,13 +53,19 @@
 			if ( element && element.is( this.toString() ) && !element.data( 'cke-realelement' ) && !element.isReadOnly() )
 				ret = element;
 		});
-		if(ret == undefined && element) {
-			element = element.getChildren().getItem(0);
-			$(cda2gElements).each(function() {
-				if(element.type == CKEDITOR.NODE_ELEMENT)
-					if ( element && element.is( this.toString() ) && !element.data( 'cke-realelement' ) && !element.isReadOnly() )
-						ret = element;
-			});
+		if(ret == undefined) {
+			var eles = element.getChildren();
+			var count = eles.count();
+			for(var i = 0; i < count; i++) {
+				var ele = eles.getItem(i);
+				$(cda2gElements).each(function() {
+					if(ele.type == CKEDITOR.NODE_ELEMENT)
+						if ( ele && ele.is( this.toString() ) && !ele.data( 'cke-realelement' ) && !ele.isReadOnly() )
+							ret = ele;
+				});
+				if(ret != undefined && ret == ele)
+					break;
+			}
 		}
 		return ret;
 	}
@@ -95,18 +109,11 @@
 				
 				this.cda2gElement = getFirstElement(getSelectedElement(editor, element));
 				this.cda2gEditing = (this.cda2gElement != undefined) ? (this.cda2gElement.length > 0) : false;
-				this.hasData = false;
+				this.cda2gEach = (this.cda2gElement.parent('eachselector').length > 0);
 				
-				if(this.cda2gEditing) {
-					this.hasData = (this.cda2gElement.find('enumerator data[match]').length > 0);
+				if(this.cda2gEditing)
 					this.setupContent(this.cda2gElement);
-				}
-				/*
-				if (this.hasData)
-					this.showPage('data');
-				else
-					this.hidePage('data');
-				*/
+				
 				if(CKEDITOR.__cda2gTempST__)
 					$('body', editor.document.$.documentElement)[0].scrollTop = CKEDITOR.__cda2gTempST__;
 				else
@@ -122,13 +129,15 @@
 					this.commitContent($(this.cda2gElement.$));
 					editor.insertElement(this.cda2gElement);
 				}
-				var range = editor.createRange();
-				if(this.cda2gEditing)
-					range.moveToPosition( this.cda2gElement.real, CKEDITOR.POSITION_BEFORE_START );
-				else
-					range.moveToPosition( this.cda2gElement, CKEDITOR.POSITION_BEFORE_START );
-				range.select();
-				
+				if(!this.cda2gElementRemoved) {
+					var range = editor.createRange();
+					if(this.cda2gEditing && this.cda2gElement)
+						range.moveToPosition( this.cda2gElement.real, CKEDITOR.POSITION_BEFORE_START );
+					else
+						range.moveToPosition( this.cda2gElement, CKEDITOR.POSITION_BEFORE_START );
+					range.select();
+				}
+
 				if(CKEDITOR.__cda2gTempST__) {
 					$('body', editor.document.$.documentElement)[0].scrollTop = CKEDITOR.__cda2gTempST__;
 					delete CKEDITOR.__cda2gTempST__;
@@ -151,16 +160,34 @@
 						setTimeout(function() {delete CKEDITOR.__cda2gTempSTop__;}, 500);
 					}
 				}, 100);
-				if(CKEDITOR.__cda2gTempSelection__)
-					delete CKEDITOR.__cda2gTempSelection__;
 				var editor = this.getParentEditor();
 				var range = editor.createRange();
-				if(this.cda2gElement)
-					if(this.cda2gElement.real) {
-						range.moveToPosition( this.cda2gElement.real, CKEDITOR.POSITION_BEFORE_START );
-						range.select();
-					}
+				if(!this.cda2gElementRemoved)
+					if(this.cda2gElement)
+						if(this.cda2gElement.real) {
+							range.moveToPosition( this.cda2gElement.real, CKEDITOR.POSITION_BEFORE_START );
+							range.select();
+						}
 				delete this.cda2gElement;
+				var notCompletedElement = $('selector[id]:not([path])', editor.document.$.documentElement);
+				if(notCompletedElement.length > 0 || this.cda2gElementInserted) {
+					if(!this.cda2gElementInserted)
+						alert(editor.lang.cda2g.errorMessage.notCompleted);
+					this.cda2gElementInserted = true;
+					CKEDITOR.__cda2gTempSelection__ = new CKEDITOR.dom.node($('selector[id]:not([path])', editor.document.$.documentElement)[0]);
+					var range = editor.createRange();
+					range.moveToPosition( CKEDITOR.__cda2gTempSelection__, CKEDITOR.POSITION_BEFORE_START );
+					range.select();
+				}
+				if(this.cda2gElementInserted)
+					setTimeout(function() {
+						editor.execCommand('cda2g');
+					}, 500);
+				else
+					if(CKEDITOR.__cda2gTempSelection__)
+						delete CKEDITOR.__cda2gTempSelection__;
+				delete this.cda2gElementInserted;
+				delete this.cda2gElementRemoved;
 			},
 			contents: [
 				{
@@ -174,7 +201,7 @@
 					children: [
 						{
 						type: 'hbox',
-						widths: [ '240px', '240px' ],
+						widths: [ '200px', '200px', '80px' ],
 						align: 'right',
 						children: [
 							{
@@ -217,7 +244,6 @@
 											break;
 										default:
 											this._.dialog.cda2g_type = '';
-											//$('#' + this.domId).find('div div').children().removeAttr('disabled');
 											this.setValue('-Select Type-')
 									}
 								}
@@ -229,7 +255,7 @@
 								var val = this.getValue();
 								var isValid = (val.substr(0, 1) + val.substr(-1) != '--');
 								if(!isValid)
-									alert();
+									alert(editor.lang.cda2g.errorMessage.selectorType);
 								return isValid;
 							}
 						},{
@@ -244,17 +270,62 @@
 							],
 							default: '-section-',
 							setup: function(element) {
+								if(this._.dialog.cda2gEach)
+									$('#' + this.domId).find('div div').children().attr('disabled', 'disabled');
+								else
+									$('#' + this.domId).find('div div').children().removeAttr('disabled');
 								this.setValue(element.attr(this.id.substr(3).toLowerCase()));
 							},
 							commit: function(element) {
-								element.attr(this.id.substr(3).toLowerCase(), this.getValue());
+								var value = this.getValue();
+								if(value != '')
+									element.attr(this.id.substr(3).toLowerCase(), value);
+								else
+									element.removeAttr(this.id.substr(3).toLowerCase());
 							},
 							validate: function() {
 								var val = this.getValue();
 								var isValid = (val.substr(0, 1) + val.substr(-1) != '--');
 								if(!isValid)
-									alert();
+									alert(editor.lang.cda2g.errorMessage.section);
 								return isValid;
+							}
+						},{
+							id: 'cdaId',
+							type: 'text',
+							label: editor.lang.cda2g.dialog.id,
+							required: true,
+							setup: function(element) {
+								if(this._.dialog.cda2gEach)
+									$('#' + this.domId).find('div div').children().removeAttr('disabled');
+								else
+									$('#' + this.domId).find('div div').children().attr('disabled', 'disabled');
+								$('#' + this.domId).find('div div').children().attr('disabled', 'disabled');
+								this.setValue(element.attr(this.id.substr(3).toLowerCase()));
+							},
+							commit: function(element) {
+								return;
+								var value = this.getValue();
+								if(value == '') {
+									var cda2gElement = CKEDITOR.__cda2gTempSelection__;
+									
+									if ( !cda2gElement )
+										return;
+									
+									// If the table's parent has only one child remove it as well (unless it's the body or a table cell) (#5416, #6289)
+									var parent = cda2gElement.getParent();
+									if ( parent.getChildCount() == 1 && !parent.is( 'body', 'td', 'th' ) )
+										cda2gElement = parent;
+									
+									var range = editor.createRange();
+									range.moveToPosition( cda2gElement, CKEDITOR.POSITION_BEFORE_START );
+									cda2gElement.remove();
+									range.select();
+									this._.dialog.cda2gElementRemoved = true;
+								}
+							},
+							validate: function() {
+								return true;
 							}
 						}
 						]
@@ -446,13 +517,31 @@
 							ele.html('');
 							var val = this.getValue();
 							var match = val.replace(/</g, '&gt;').replace(/&gt;#/g, '<#').match(/(<#[\w]+>|[^<]+)/gi);
+							var tags = [];
 							$(match).each(function() {
 								var val = this.toString();
-								if(val.match(/<#(\w+)>/) != null)
-									$('<json/>').attr('id', val.replace(/<#(\w+)>/g, '$1')).appendTo(ele);
-								else
+								if(val.match(/<#(\w+)>/) != null) {
+									var v = val.replace(/<#(\w+)>/g, '$1');
+									$('<json/>').attr('id', v).appendTo(ele);
+									tags.push(v);
+								} else {
 									ele.html(ele.html() + val);
+								}
 							});
+							var inserted = false;
+							$(tags).each(function() {
+								var id = this.toString();
+								var ele = element.find('selector[id="' + id + '"]');
+								if(ele.length > 0) {
+									ele.attr('accessed', 'accessed');
+								} else {
+									$('<selector/>').attr('id', id).attr('accessed', 'accessed').prependTo(element);
+									inserted = true;
+								}
+							});
+							this._.dialog.cda2gElementInserted = inserted;
+							element.find('selector:not([accessed])').remove();
+							element.find('selector[accessed]').removeAttr('accessed');
 						},
 						validate: function() {
 							return true;

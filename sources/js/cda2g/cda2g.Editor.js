@@ -120,7 +120,7 @@ cda2g.Editor = new function Editor() {
 				mode: function(e) {setTimeout(function() {ewc(e);}, 100);},
 				afterCommandExec: function(e) {
 					if(e.data.name.indexOf('cda2g') != -1)
-						setTimeout(function(){editor.CKEDITOR.dialog.getCurrent().on('ok', function(){ewc();});}, 500);
+						setTimeout(function(){editor.CKEDITOR.dialog.getCurrent().on('ok', function(){ewc();});}, 100);
 					setTimeout(function() {ewc(e);}, 100);
 				}
 			}
