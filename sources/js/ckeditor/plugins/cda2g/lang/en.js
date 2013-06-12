@@ -13,6 +13,7 @@
 		attr: 'Selecting Attribute',
 		match: 'Formatting condition',
 		format: 'Format output',
+		each: 'Listing format',
 		enumeratorData: 'Enumerator data converting'
 	},
 	errorMessage: {

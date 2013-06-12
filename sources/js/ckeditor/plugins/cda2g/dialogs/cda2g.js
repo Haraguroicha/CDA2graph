@@ -188,6 +188,22 @@
 								['EachSelector']
 							],
 							default: '-Select Type-',
+							onChange: function() {
+								var type = this._.dialog.cda2g_type;
+								switch(type) {
+									case 'selector':
+										this._.dialog.showPage('data');
+										this._.dialog.hidePage('each');
+										break;
+									case 'eachselector':
+										this._.dialog.hidePage('data');
+										this._.dialog.showPage('each');
+										break;
+									default:
+										this._.dialog.showPage('data');
+										this._.dialog.showPage('each');
+								}
+							},
 							setup: function(element) {
 								if(element) {
 									switch(element[0].localName.toLowerCase()) {
@@ -389,6 +405,54 @@
 								element.find('enumerator').remove();
 								element.find('data').remove();
 							}
+						},
+						validate: function() {
+							return true;
+						}
+					}
+				]
+			},{
+				id: 'each',
+				label: editor.lang.cda2g.elements.each,
+				accessKey: 'e',
+				elements: [
+					{
+						id: 'cdaEach',
+						type: 'text',
+						label: editor.lang.cda2g.dialog.each,
+						required: false,
+						setup: function(element) {
+							var ele = element.find('each');
+							if(ele.length == 0)
+								return;
+							ele = $(ele[0].childNodes);
+							var val = '';
+							ele.each(function() {
+								switch(this.nodeType) {
+									case Node.ELEMENT_NODE:
+										val += '<#' + $(this).attr('id') + '>'
+									case Node.TEXT_NODE:
+										val += $(this).text();
+								}
+							});
+							this.setValue(val);
+						},
+						commit: function(element) {
+							if(this.getValue().length == 0)
+								return;
+							if(element.find('each').length == 0)
+								$('<each/>').appendTo(element)
+							var ele = element.find('each');
+							ele.html('');
+							var val = this.getValue();
+							var match = val.replace(/</g, '&gt;').replace(/&gt;#/g, '<#').match(/(<#[\w]+>|[^<]+)/gi);
+							$(match).each(function() {
+								var val = this.toString();
+								if(val.match(/<#(\w+)>/) != null)
+									$('<json/>').attr('id', val.replace(/<#(\w+)>/g, '$1')).appendTo(ele);
+								else
+									ele.html(ele.html() + val);
+							});
 						},
 						validate: function() {
 							return true;

@@ -13,6 +13,7 @@
 		attr: '選取屬性值',
 		match: '格式化條件',
 		format: '格式化輸出',
+		each: '條列資料格式',
 		enumeratorData: '列舉資料對應轉換'
 	},
 	errorMessage: {
