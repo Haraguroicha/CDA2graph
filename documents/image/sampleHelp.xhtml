@@ -1,0 +1,74 @@
+<element extends="cda2g" name="cda___51897-7" constructor="cdaDemo">
+	<decorator>
+		<template>
+			<style scoped="scoped">/*此文件專用的樣式表內容*/</style>
+			<info>
+				<header><!--文件標題--></header>
+				<footer><!--文件結尾--></footer>
+			</info>
+			<processable>
+				<green root="輸出XML根元素名稱" filename="輸出XML文件檔名"></green>
+			</processable>
+			<div class="_XCD_Component" style="display: none;"><!--包裝輸出資料的元素-->
+				<selector section="使用header或body的資料" path="XPath選擇資料" 
+					target="輸出XML元素的位置"></selector>
+				<!--例如：<selector section="header" path="recordTarget/patientRole/patient/name" 
+					target="病患>姓名"></selector>-->
+				<!--attr="使用CDA資料的屬性"-->
+				<selector section="header" 
+					path="recordTarget/patientRole/patient/administrativeGenderCode[@code]" 
+					attr="code" target="病患>性別">
+					<!--設定列舉資料-->
+					<enumerator><!--<data match="符合的字串">轉換輸出的資料</data>-->
+						<data match="M">男</data><data match="F">女</data>
+					</enumerator>
+					<data><!--selector將資料輸出的位置(包含列舉中轉換的結果)--></data>
+				</selector>
+				<!--設定資料格式化-->
+				<selector section="header" 
+					path="recordTarget/patientRole/patient/birthTime[@value]" attr="value" 
+					match="([0-9]{4})([0-9]{2})([0-9]{2})" 
+					format="$1/$2/$3" target="病患>出生日"></selector>
+				<!--選取CDA Body的資料-->
+				<selector section="body" 
+					path="component/structuredBody/component/section/code[@code='11340-7']/../text" 
+					target="病患>職業"></selector>
+				<!--將符合的資料全部讀出，使用方式與範例的selector一致-->
+				<eachselector section="body" 
+					path="component/structuredBody/component/section/code[@code='29548-5']/../entry" 
+					target="通報項目>通報資料>採集檢體">
+					<!--根據eachselector的path繼續選擇資料，所有的path皆會被eachselector限制-->
+					<!--這裡會多id屬性，作為JSON資料對應用，當這裡遇到id屬性的時候，
+						selector會輸出JSON資料，且不顯示結果-->
+					<selector id="specimen" path="observation/code[@displayName]" 
+						attr="displayName" target="檢體名稱"></selector>
+					<selector id="desc" 
+						path="observation/specimen/specimenRole/specimenPlayingEntity/desc" 
+						target="是否採集"></selector>
+					<!--將結果的格式依照each內所編寫的內容依序輸出-->
+					<each>
+						<!--這裡的id會與selector的id對應，並且將selector輸出的JSON資料依序讀出至此輸出-->
+						<json id="specimen"></json>：<json id="desc"></json>
+					</each>
+				</eachselector>
+			</div>
+		</template>
+		<script type="text/javascript">
+			//以下是預設必備的程式碼，使用預設的程式碼可以自動的觸發以上語法的解析，
+			//若有其他功能需求，則可以修改此段程式碼
+			if (this !== window) {
+				this.lifecycle({
+					created: function(root) {
+						var shadow = $(root.querySelectorAll('*'));
+						$(this).on("DOMNodeInserted", function(e) {
+							cda2g.Files.selectorParse(e.relatedNode.webkitShadowRoot, $(this));
+						});
+						if(this.childNodes.length > 0) {
+							cda2g.Files.selectorParse(root, $(this));
+						}
+					}
+				});
+			}
+		</script>
+	</decorator>
+</element>
