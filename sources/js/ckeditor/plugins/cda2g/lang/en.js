@@ -15,7 +15,8 @@
 		match: 'Formatting condition',
 		format: 'Format output',
 		each: 'Listing format',
-		enumeratorData: 'Enumerator data converting'
+		enumeratorData: 'Enumerator data converting',
+		target: 'XML output target'
 	},
 	errorMessage: {
 		selectorType: 'Must select data selecting type',
