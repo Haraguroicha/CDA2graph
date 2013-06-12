@@ -201,7 +201,7 @@
 					children: [
 						{
 						type: 'hbox',
-						widths: [ '200px', '200px', '80px' ],
+						widths: [ '100px', '80px', '180px', '100px' ],
 						align: 'right',
 						children: [
 							{
@@ -289,6 +289,24 @@
 								if(!isValid)
 									alert(editor.lang.cda2g.errorMessage.section);
 								return isValid;
+							}
+						},{
+							id: 'cdaTarget',
+							type: 'text',
+							label: editor.lang.cda2g.dialog.target,
+							required: false,
+							setup: function(element) {
+								this.setValue(element.attr(this.id.substr(3).toLowerCase()));
+							},
+							commit: function(element) {
+								var value = this.getValue();
+								if(value != '')
+									element.attr(this.id.substr(3).toLowerCase(), value);
+								else
+									element.removeAttr(this.id.substr(3).toLowerCase());
+							},
+							validate: function() {
+								return true;
 							}
 						},{
 							id: 'cdaId',
