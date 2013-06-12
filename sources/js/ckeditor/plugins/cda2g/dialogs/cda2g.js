@@ -109,7 +109,10 @@
 				
 				this.cda2gElement = getFirstElement(getSelectedElement(editor, element));
 				this.cda2gEditing = (this.cda2gElement != undefined) ? (this.cda2gElement.length > 0) : false;
-				this.cda2gEach = (this.cda2gElement.parent('eachselector').length > 0);
+				if(this.cda2gElement != undefined)
+					this.cda2gEach = (this.cda2gElement.parent('eachselector').length > 0);
+				else
+					this.cda2gEdit = false;
 				
 				if(this.cda2gEditing)
 					this.setupContent(this.cda2gElement);
@@ -216,6 +219,8 @@
 							],
 							default: '-Select Type-',
 							onChange: function() {
+								if(this.getValue().indexOf('-') == -1)
+									this._.dialog.cda2g_type = this.getValue().toLowerCase();
 								var type = this._.dialog.cda2g_type;
 								switch(type) {
 									case 'selector':
@@ -270,7 +275,7 @@
 							],
 							default: '-section-',
 							setup: function(element) {
-								if(this._.dialog.cda2gEach)
+								if(element.attr('id') != null)
 									$('#' + this.domId).find('div div').children().attr('disabled', 'disabled');
 								else
 									$('#' + this.domId).find('div div').children().removeAttr('disabled');
@@ -343,6 +348,10 @@
 								}
 							},
 							validate: function() {
+								if(this._.dialog.cda2g_type == 'eachselector' && this.getValue() != '') {
+									alert(editor.lang.cda2g.errorMessage.id);
+									return false;
+								}
 								return true;
 							}
 						}
