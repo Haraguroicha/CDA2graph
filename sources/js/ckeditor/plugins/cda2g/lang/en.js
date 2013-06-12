@@ -25,7 +25,8 @@
 		attr: 'Attribute can not use in EachSelector',
 		MF: 'Formatting condition must be paired',
 		MFE: 'You can not using formatting when listing data',
-		notCompleted: 'You are not completed the operate'
+		notCompleted: 'You are not completed the operate',
+		id: 'Identify is using for Selector in EachSelector'
 	},
 	elements: {
 		selector: 'SELECTOR',

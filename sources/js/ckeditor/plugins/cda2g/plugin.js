@@ -140,7 +140,6 @@
 				ret = element;
 		});
 		if(ret == undefined) {
-			console.log(element)
 			var eles = element.getChildren();
 			var count = eles.count();
 			for(var i = 0; i < count; i++) {

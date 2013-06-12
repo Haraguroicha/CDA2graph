@@ -25,7 +25,8 @@
 		attr: '屬性值不能在EachSelector中使用',
 		MF: '格式化條件必須成對完整',
 		MFE: '使用條列時不可使用格式化條件',
-		notCompleted: '您尚未完成操作'
+		notCompleted: '您尚未完成操作',
+		id: '識別名稱是給EachSelector內的Selector使用的'
 	},
 	elements: {
 		selector: 'SELECTOR',
