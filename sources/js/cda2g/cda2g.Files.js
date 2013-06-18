@@ -2,6 +2,7 @@ cda2g.Files = new function Files() {
 	var files = {};
 	var needGreen = null;
 	var needEditor = null;
+	var cdaRegExp = /<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}(<(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>(\s*)(<\/(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\/(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?([\s\w\W]*)(<\/(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>)?/;
 	this.__defineGetter__("files", function() {return files;});
 	this.isFiles = function isFiles(e) {
 		var ff = false;
@@ -36,7 +37,7 @@ cda2g.Files = new function Files() {
 								} catch(e) {
 									f.xmlnsPrefix = null;
 								}
-								f.isDoc = ((f.data.match(/<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>([\s\w\W]*)/)) ? true : false);
+								f.isDoc = ((f.data.match(cdaRegExp)) ? true : false);
 								f.xml = null;
 								f.xss = null;
 								f.parser = cda2g.Files.CDAParser;
@@ -237,8 +238,8 @@ cda2g.Files = new function Files() {
 		var doc = $(this.xml);
 		var filename = this.name;
 		var filesize = this.size;
-		var cda_header = doc.xpath("*:ClinicalDocument/(* except self::*/*:component)");
-		var cda_body = doc.xpath("*:ClinicalDocument/*:component");
+		var cda_header = doc.xpath("//*:ClinicalDocument/(* except self::*/*:component)");
+		var cda_body = doc.xpath("//*:ClinicalDocument/*:component");
 		var CDAcode = cda_header.xpath("../*:code");
 		var hospitalOID = cda_header.xpath("../*:custodian/*:assignedCustodian/*:representedCustodianOrganization/*:id | ../*:recordTarget/*:patientRole/*:providerOrganization/*:id");
 		var components = cda_body.xpath("./*:structuredBody/*:component");
