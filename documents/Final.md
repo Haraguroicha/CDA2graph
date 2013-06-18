@@ -4,20 +4,11 @@
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 誌謝
 
-	var tz = '\040\050\x55\x54\x43\053\x38\051';
-	var finalDate = new Date(0x07DD,'\x35', 015, 0x0B, '\x33\x30').toLocaleString() + tz;
-	var ackDate = new Date(0x07DD,'\x35', 0x12, 025, 018).toLocaleString() + tz;
-	var Acknowledgements = [ '\\x8A\\x8C', '\\x8B\\x1D' ];
-	var str = '';
-	for(var i = 0; i < Acknowledgements.length; i++) {
-		str+=('%u' + Acknowledgements[i].replace(/\\x/g, ''));
-	}
-	console.log('Final Date: ' + finalDate + '\nAcknowledgements Date: ' + ackDate + '\n' + unescape(str));
-
 想到當初剛進研究所的時候，那時候的我還沒想到自己居然也能讀到研究所，但看到現在發現自己也已經完成了自己的研究，這些都要慶幸自己的過去有著父親的指引以及鼓勵，讓我從小就對軟體的研究有所興趣！另外，慶幸自己大學時期有在國泰醫院中實習，並且也開始對資訊醫療系統有所興趣，加上自己喜歡寫程式來處理資料，所以才決定要做這份研究。在這研究所的兩年中，感謝黃衍文老師在電子病歷的專業領域上指導，以及劉德明老師、張啟明老師、邱淑芬老師以及莊仁祥主任在我論文口試的時候給予許多的建議與肯定，讓我對於完成論文的自信心更高！
 
 感謝研究所的幾位同窗好友，在這兩年中可以隨時約出去一起談心吃飯，也謝謝建羽常常幫忙班上的同學處理一些學校的流程，以及感謝常常被我抓去參加各種大大小小的技術研討會的同學及學弟妹們總是無怨無悔的和我一起去這些研討會當志工，其中還要感謝卉瀅學姊幫我們留下了很多文件可以參考，以及丁安學長總是可以說出很多有趣的故事逗大家笑，最後當然還是要謝謝我的指導老師能夠收我做研究生讓我完成學業，讓我的這兩年來的研究生生涯實在非常充實。
 
+	const Acknowledgements = [ '\\x8A\\x8C', '\\x8B\\x1D' ];	const nameList = {		friend: [ '5C0F9B5A', '5EFA7FBD', '4E9E4E9E', '66F86607' ],		lab: [ '4E015B89', '53497005', '59FF6DB5', '76F86F22', '5BB68CE2' ],		teacher: [ '884D6587', '69606968' ]	};	const tz = '\040\050\x55\x54\x43\053\x38\051';	var finalDate = new Date(0x07DD,'\x35', 015, 0x0B, '\x33\x30').toLocaleString() + tz;	var ackDate = new Date(0x07DD,'\x35', 0x12, 025, 018).toLocaleString() + tz;	var str = '', nameListStr = undefined; nameListStr = '';	$(Acknowledgements).each(function(){str+=('%u' +this.toString().replace(/\\x/g, ''));});	for(var k in nameList) {		$(nameList[k]).each(function(){			nameListStr += (nameListStr.length > 0 ? '\x3B' : '') +				this.toString().replace(/([0-9A-Z]{4})/g, '%u$1');		});	}	console.log('Final Date: ' + finalDate + '\nAcknowledgements Date: ' + ackDate);	console.log(unescape(str + '%u7D66%uFF1A' + nameListStr));
 
 
 徐明睿 謹誌  
