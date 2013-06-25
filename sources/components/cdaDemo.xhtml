@@ -125,7 +125,7 @@
 						<td colspan="4">
 							<eachselector section="body" path="component/structuredBody/component/section/code[@code]/..">
 								<selector id="title" path="title[node()] | title[not(node())]/../code[@displayName]" attr="displayName"></selector>
-								<selector id="textParagraph" path="text/paragraph" allChildren="yes"></selector>
+								<selector id="textParagraph" path="text/paragraph | text" allChildren="yes"></selector>
 								<each>
 									<h4><json id="title"></json></h4>
 									<json id="textParagraph"></json>
