@@ -2,7 +2,7 @@ cda2g.Files = new function Files() {
 	var files = {};
 	var needGreen = null;
 	var needEditor = null;
-	var cdaRegExp = /<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}(<(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>(\s*)(<\/(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\/(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?([\s\w\W]*)(<\/(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>)?/;
+	var cdaRegExp = /<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}(<(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\!--[\s\S\w\W]*[^>]-->)?(\s*)?<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>(\s*)(<\/(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\/(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?([\s\w\W]*)(<\/(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>)?/;
 	this.__defineGetter__("files", function() {return files;});
 	this.isFiles = function isFiles(e) {
 		var ff = false;
