@@ -330,7 +330,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 1. 確認是否有`XML`的文件宣告
 2. 檢查是否有`ClinicalDocument`的Root Element，並且有Element結尾
 3. 檢查是否有`xmlns`宣告為`urn:hl7-org:v3`的schema
-4. 其使用的RegExp檢查式為：`/<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}(<(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>(\s*)(<\/(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\/(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?([\s\w\W]*)(<\/(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>)?/`
+4. 其使用的RegExp檢查式為：`/<\?xml[^?>]+\?>\s*(<\?xml-stylesheet[^\?]+\?>)?\s*(<\?[^xml-][^\?]+\?>\s*){0,}(<(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?(<(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\!--[\s\S\w\W]*[^>]-->)?(\s*)?<([\w]*:)?ClinicalDocument[^>]+>([\s\w\W]*)<\/([\w]*:)?ClinicalDocument>(\s*)(<\/(\w+:)?StructuredContent ?[\w\:\="\/'-\._\ ]*>(\s*))?(<\/(\w+:)?ContentContainer ?[\w\:\="\/'-\._\ ]*>(\s*))?([\s\w\W]*)(<\/(\w+:)?ContentPackage ?[\w\:\="\/'-\._\ ]*>)?/`
 5. 但本系統不會根據宣告的schema去驗證`XML`是否符合schema的宣告
 
 #### 3. 資料內嵌處理模組
