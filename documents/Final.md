@@ -16,12 +16,12 @@
 國立臺北護理健康大學 資訊管理研究所
 
 # 摘要
-國內衛生署推行電子病歷資料交換已經施行多年，電子病歷資料的交換必須透過健保局提供的虛擬私有網路與衛生署電子病歷交換平台交換電子病歷資料。各醫院的醫師看診時，必須有病患的健保卡與醫師的醫事憑證卡，連線至電子病歷交換平台申請資料調閱使用。鑒於目前雲端產業的興起，加上國內推動全民健康雲，病歷資料的交換互通與即時處理顯示已經成為了未來的趨勢。在電子病歷交換之後，會面臨到系統是否能直接呈現電子病歷包含的資料。因此本研究以公告的標準文件、超文本標記語言第五版技術及資訊技術與服務的構想來設計具有永續經營的電子病歷檢視器，並部署至雲端平台，提供醫療院所能夠自行設計客制化的樣板檔來顯示各種電子病歷單張。使用本研究之檢視器平台瀏覽電子病歷資料時，僅需要三秒即可呈現，大幅降低電子病歷資料調閱的解碼等待時間。同時，本系統可把電子病歷轉換成其他格式的XML文件，大幅增加電子病歷的可用性。
+國內衛生署推行電子病歷資料交換已經施行多年，電子病歷資料的交換必須透過健保局提供的虛擬私有網路與衛生署電子病歷交換平台交換電子病歷資料。各醫院的醫師看診時，必須有病患的健保卡與醫師的醫事憑證卡，連線至電子病歷交換平台申請資料調閱使用。鑒於目前雲端產業的興起，加上國內推動全民健康雲，病歷資料的交換互通與即時處理顯示已經成為了未來的趨勢。在電子病歷交換之後，會面臨到系統是否能直接呈現電子病歷包含的資料。因此本研究以公告的標準文件、超文本標記語言第五版技術及資訊技術與服務的構想來設計具有永續經營的電子病歷檢視器，並部署至雲端平台，提供醫療院所能夠自行設計客制化的樣板檔來顯示各種電子病歷單張。使用本研究之檢視器平台瀏覽電子病歷資料時，僅需要三至五秒即可呈現，大幅降低電子病歷資料調閱的解碼等待時間。同時，本系統可把電子病歷轉換成其他格式的XML文件，大幅增加電子病歷的可用性。
 
 **關鍵字：_電子病歷、臨床文件架構、雲端運算、檢視器、超文本標記語言第五版_**
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Abstract
-The implementation of Electronic Medical Record (EMR) data exchange has been practiced by Taiwan’s Department of Health for many years. The exchange of EMR must be provided through the National Health Insurance Bureau of Virtual Private Network (VPN) and Department of Health EMR Exchange Center (EEC). For the physician application to have EMR data access through EEC to use during visits, it must have both the health insurance and medical certificate cards. Given the current rise of the cloud industry and domestic promotion of a universal health cloud, the exchange of medical information and real-time processing have become the trend of the future. After the exchange of EMR, the system will face the challenge of displaying the EMR data directly. Therefore, this research used standard documents, HTML5 technology, and information technology and services concepts to design and create the idea of sustainability EMR Viewer, then deploy to the cloud platform to allow medical institutions to design their own customized template file to display a variety of EMR leaflets. Use of this research platform to view EMR data only requires three seconds to presented, and significantly reduces the latency of access time for EMR decoding. Meanwhile, the system can convert EMR into other formats like XML file, substantial increasing the availability of EMR.
+The implementation of Electronic Medical Record (EMR) data exchange has been practiced by Taiwan’s Department of Health for many years. The exchange of EMR must be provided through the National Health Insurance Bureau of Virtual Private Network (VPN) and Department of Health EMR Exchange Center (EEC). For the physician application to have EMR data access through EEC to use during visits, it must have both the health insurance and medical certificate cards. Given the current rise of the cloud industry and domestic promotion of a universal health cloud, the exchange of medical information and real-time processing have become the trend of the future. After the exchange of EMR, the system will face the challenge of displaying the EMR data directly. Therefore, this research used standard documents, HTML5 technology, and information technology and services concepts to design and create the idea of sustainability EMR Viewer, then deploy to the cloud platform to allow medical institutions to design their own customized template file to display a variety of EMR leaflets. Use of this research platform to view EMR data only requires three to five seconds to presented, and significantly reduces the latency of access time for EMR decoding. Meanwhile, the system can convert EMR into other formats like XML file, substantial increasing the availability of EMR.
 
 **Keywords:_Electronic Medical Records (EMR), Clinical Document Architecture (CDA), Cloud Computing, Viewer, Hyper-Text Markup Language 5 (HTML5)_**
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -186,7 +186,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 採用`RWD`設計的網站會使用到`CSS3`[[42]]的媒體查詢，即是對`CSS`的 `@media` 規則的擴充，以適應不同大小的裝置。但是這在比較舊版本的瀏覽器就無法使用。
 
 ### 參 行動裝置與平板電腦的崛起，Web 3.0的時代來臨
-在過去，Web 2.0所使用的元件、概念，現在完全顛覆。`RWD`的理念已經逐漸成為目前的主流，讓網頁可以自行適應於各種不同的裝置與設備上可以自動調整顯示的方式；若再以傳統概念設計系統，則無法完全發揮原先預期設計理念的成果。在過去，開發系統時僅需要一般電腦使用者能夠正常使用即可，但由於行動裝置與平板電腦的輕便，已經逐漸的讓使用者轉型。現在的使用者不再需要固定的電腦主機即可使用各式各樣的系統來完成工作，行動應用程式的崛起也創造不少商機，更多的醫療機構也逐漸陸續的投資使用平板電腦作為日常工作所需之設備。現在，大多數的網站設計都已經導入了`RWD`理念，這理念不僅能節省開發成本，專注於開發與增加應用程式更多方面的應用。
+在過去，Web 2.0所使用的元件、概念在現在已經完全被顛覆。`RWD`的理念已經逐漸成為目前的主流，讓網頁可以自行適應於各種不同的裝置與設備上可以自動調整顯示的方式；若再以傳統概念設計系統，則無法完全發揮原先預期設計理念的成果。在過去，開發系統時僅需要一般電腦使用者能夠正常使用即可，但由於行動裝置與平板電腦的輕便，已經逐漸的讓使用者轉型。現在的使用者不再需要固定的電腦主機即可使用各式各樣的系統來完成工作，行動應用程式的崛起也創造不少商機，更多的醫療機構也逐漸陸續的投資使用平板電腦作為日常工作所需之設備。現在，大多數的網站設計都已經導入了`RWD`理念，這理念不僅能節省開發成本，專注於開發與增加應用程式更多方面的應用。
 
 ## 第五節 雲端運算
 雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變[[43]]。雲端運算通常可以認為包括以下三個層次的服務[[3], [44]]：基礎設施即服務(`IaaS`, Infrastructure as a service)，即是使用「基礎運算資源」，如處理能力、儲存空間、網路元件或中介軟體，使用者能掌握作業系統、儲存空間及已部署的應用程式和網路元件(如防火牆、負載平衡器等)，但並不掌握雲端基礎架構。例如: Amazon AWS；平台即服務(`PaaS`, Platform as a service)，即是使用主機操作應用程式，使用者有掌控運作應用程式的環境(也擁有主機部分掌控權)，但並不掌控作業系統、硬體或運作的網路基礎架構。使用的平台通常是應用程式基礎架構。例如: Google App Engine；軟體即服務(`SaaS`, Software as a service)，即是使用應用程式，但並不擁有作業系統、硬體或運作的網路基礎架構，是一種服務的觀念基礎，軟體服務的供應商以租賃的方式提供客戶服務，而非購買，比較常見的模式是提供帳號密碼來操作使用。例如: Microsoft CRM。這些雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
@@ -528,11 +528,11 @@ cda2g物件中包含了Web Components的內容及cdaHeader與cdaBody的資料物
 圖31 系統載入所耗用的時間  
 總耗時約19秒，一共載入了57個檔案(包含重複使用快取資料)
 
-本研究之系統提供簡單的功能，令使用者僅需要簡單的動作即可套用樣板檔產生結果，而本系統在有對應的樣板檔的時候，系統載入與套用樣板檔僅需要約不到30秒的時間即可完成一個單張的樣板的套用並顯示結果，詳細如圖31與圖32所示，若是一次載入多個單張，每多一張僅需要多3至5秒時間即可處理完成並且顯示結果(以網際網路存取能力最佳化計算)。
+本研究之系統提供簡單的功能，令使用者僅需要簡單的動作即可套用樣板檔產生結果，而本系統在有對應的樣板檔的時候，系統載入與套用樣板檔僅需要不到30秒的時間即可完成一個單張的樣板的套用並顯示結果，詳細如圖31與圖32所示，若是一次載入多個單張，每多一張僅需要3至5秒時間即可處理完成並且顯示結果。
 
 ![樣板檔套用的資料要求耗用時間](./image/timelineParseCDA.png)  
 圖32 樣板檔套用的資料要求耗用時間  
-耗時約8.7秒，載入12個檔案(包含重複使用快取資料)
+耗時約8.7秒，載入12個檔案
 
 ### 參 多個電子病歷檔案讀取與輸出能力
 本研究之系統具有批量處理樣板檔套用的能力，當使用者一次拖拉超過一個檔案的時候會如圖33所示，就會依照使用者的需求而批量處理資料。如圖34為例，當系統一次載入10個檔案的時候，系統僅需要耗費約22秒即可全部載入並且顯示完成載入的10個檔案，約一個檔案使用2.2秒下載樣板檔資料與處理顯示。
