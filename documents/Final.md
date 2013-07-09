@@ -24,6 +24,49 @@
 The implementation of Electronic Medical Record (EMR) data exchange has been practiced by Taiwan’s Department of Health for many years. The exchange of EMR must be provided through the National Health Insurance Bureau of Virtual Private Network (VPN) and Department of Health EMR Exchange Center (EEC). For the physician application to have EMR data access through EEC to use during visits, it must have both the health insurance and medical certificate cards. Given the current rise of the cloud industry and domestic promotion of a universal health cloud, the exchange of medical information and real-time processing have become the trend of the future. After the exchange of EMR, the system will face the challenge of displaying the EMR data directly. Therefore, this research used standard documents, HTML5 technology, and information technology and services concepts to design and create the idea of sustainability EMR Viewer, then deploy to the cloud platform to allow medical institutions to design their own customized template file to display a variety of EMR leaflets. Use of this research platform to view EMR data only requires three to five seconds to presented, and significantly reduces the latency of access time for EMR decoding. Meanwhile, the system can convert EMR into other formats like XML file, substantial increasing the availability of EMR.
 
 **Keywords:_Electronic Medical Records (EMR), Clinical Document Architecture (CDA), Cloud Computing, Viewer, Hyper-Text Markup Language 5 (HTML5)_**
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# 縮寫表
+|縮寫|原文|
+|---|---|
+|EEC|E.M.R. Exchange Center, Electronic Medical Record Exchange Center|
+|VPN|Virtual Private Network|
+|HIS|Hospital Information System|
+|HL7|Health Level Seven|
+|CDA|Clinical Document Architecture|
+|EMR|Electronic Medical Record|
+|SOAP|Subjective; Objective; Assessment; Plan|
+|ITIL|Information Technology Infrastructure Library|
+|OGC|Office of Government Commerce|
+|CCTA|Consumer Credit Trade Association|
+|ITSM|IT Service Management|
+|XML|eXtensible Markup Language|
+|SGML|Standard Generalized Markup Language|
+|XSL|eXtensible Stylesheet Language|
+|XBRL|eXtensible Business Reporting Language|
+|XPath|XML Path Language|
+|HTML|Hyper-Text Markup Language|
+|HTML5|Hyper-Text Markup Language 5|
+|RIA|plug-in-based Rich Internet Application|
+|MIME|Multipurpose Internet Mail Extensions|
+|RWD|Responsive Web Design|
+|CSS|Cascading Style Sheets|
+|CSS3|Cascading Style Sheets 3|
+|IaaS|Infrastructure as a service|
+|PaaS|Platform as a service|
+|SaaS|Software as a service|
+|DICOM|Digital Imaging and Communications in Medicine|
+|PACS|Picture archiving and communication system|
+|API|Application Programming Interface|
+|XHTML|eXtensible HyperText Markup Language|
+|MVC|Modal View Controller|
+|XSLT|XSL Transformation|
+|XSL-FO|XSL Formatting Objects|
+|CCD|Continuity of Care Document|
+|UTF-8|UCS Transformation Format-8-bit|
+|UCS|Universal Character Set|
+|Big5|Big Five|
+
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 第壹章 緒論
 
@@ -186,7 +229,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 採用`RWD`設計的網站會使用到`CSS3`[[42]]的媒體查詢，即是對`CSS`的 `@media` 規則的擴充，以適應不同大小的裝置。但是這在比較舊版本的瀏覽器就無法使用。
 
 ### 參 行動裝置與平板電腦的崛起，Web 3.0的時代來臨
-在過去，Web 2.0所使用的元件、概念在現在已經完全被顛覆。`RWD`的理念已經逐漸成為目前的主流，讓網頁可以自行適應於各種不同的裝置與設備上可以自動調整顯示的方式；若再以傳統概念設計系統，則無法完全發揮原先預期設計理念的成果。在過去，開發系統時僅需要一般電腦使用者能夠正常使用即可，但由於行動裝置與平板電腦的輕便，已經逐漸的讓使用者轉型。現在的使用者不再需要固定的電腦主機即可使用各式各樣的系統來完成工作，行動應用程式的崛起也創造不少商機，更多的醫療機構也逐漸陸續的投資使用平板電腦作為日常工作所需之設備。現在，大多數的網站設計都已經導入了`RWD`理念，這理念不僅能節省開發成本，專注於開發與增加應用程式更多方面的應用。
+在過去，Web 2.0所使用的元件、概念在現在已經完全被顛覆。自適應網頁設計的理念已經逐漸成為目前的主流，讓網頁可以自行適應於各種不同的裝置與設備上可以自動調整顯示的方式；若再以傳統概念設計系統，則無法完全發揮原先預期設計理念的成果。在過去，開發系統時僅需要一般電腦使用者能夠正常使用即可，但由於行動裝置與平板電腦的輕便，已經逐漸的讓使用者轉型。現在的使用者不再需要固定的電腦主機即可使用各式各樣的系統來完成工作，行動應用程式的崛起也創造不少商機，更多的醫療機構也逐漸陸續的投資使用平板電腦作為日常工作所需之設備。現在，大多數的網站設計都已經導入了`RWD`理念，這理念不僅能節省開發成本，專注於開發與增加應用程式更多方面的應用。
 
 ## 第五節 雲端運算
 雲端運算是一種基於網際網路的運算方式，這種方式是繼1980年代的大型電腦到主從式架構的大轉變之後的再次巨變[[43]]。雲端運算通常可以認為包括以下三個層次的服務[[3], [44]]：基礎設施即服務(`IaaS`, Infrastructure as a service)，即是使用「基礎運算資源」，如處理能力、儲存空間、網路元件或中介軟體，使用者能掌握作業系統、儲存空間及已部署的應用程式和網路元件(如防火牆、負載平衡器等)，但並不掌握雲端基礎架構。例如: Amazon AWS；平台即服務(`PaaS`, Platform as a service)，即是使用主機操作應用程式，使用者有掌控運作應用程式的環境(也擁有主機部分掌控權)，但並不掌控作業系統、硬體或運作的網路基礎架構。使用的平台通常是應用程式基礎架構。例如: Google App Engine；軟體即服務(`SaaS`, Software as a service)，即是使用應用程式，但並不擁有作業系統、硬體或運作的網路基礎架構，是一種服務的觀念基礎，軟體服務的供應商以租賃的方式提供客戶服務，而非購買，比較常見的模式是提供帳號密碼來操作使用。例如: Microsoft CRM。這些雲端運算服務通常透過瀏覽器存取，讓軟體和資料可在資料中心儲存和使用。
