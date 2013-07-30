@@ -1,7 +1,9 @@
 **以雲端運算平台建置電子病歷檢視器系統之研究**
 =======================================
-### *The Study of Designing a Viewer of Electronic Medical Records Under Cloud Computing Platform*
+### *The Study of Designing a Viewer of Electronic Medical Records under Cloud Computing Platform*
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+![學位審定書](Degree%20Examination.jpg)
+
 # 誌謝
 
 想到當初剛進研究所的時候，那時候的我還沒想到自己居然也能讀到研究所，但看到現在發現自己也已經完成了自己的研究，這些都要慶幸自己的過去有著父親的指引以及鼓勵，讓我從小就對軟體的研究有所興趣！另外，慶幸自己大學時期有在國泰醫院中實習，並且也開始對資訊醫療系統有所興趣，加上自己喜歡寫程式來處理資料，所以才決定要做這份研究。在這研究所的兩年中，感謝黃衍文老師在電子病歷的專業領域上指導，以及劉德明老師、張啟明老師、邱淑芬老師以及莊仁祥主任在我論文口試的時候給予許多的建議與肯定，讓我對於完成論文的自信心更高！
