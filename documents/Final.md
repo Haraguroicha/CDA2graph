@@ -35,7 +35,7 @@
 
 
 徐明睿 謹誌  
-2013年6月  
+2013年8月  
 國立臺北護理健康大學 資訊管理研究所
 
 # 摘要
@@ -50,45 +50,45 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # 縮寫表
-|縮寫|原文|
-|---|---|
-|API|Application Programming Interface|
-|Big5|Big Five|
-|CCD|Continuity of Care Document|
-|CCTA|Consumer Credit Trade Association|
-|CDA|Clinical Document Architecture|
-|CSS|Cascading Style Sheets|
-|CSS3|Cascading Style Sheets 3|
-|DICOM|Digital Imaging and Communications in Medicine|
-|EEC|E.M.R. Exchange Center, Electronic Medical Record Exchange Center|
-|EMR|Electronic Medical Record|
-|HIS|Hospital Information System|
-|HL7|Health Level Seven|
-|HTML|Hyper-Text Markup Language|
-|HTML5|Hyper-Text Markup Language 5|
-|IaaS|Infrastructure as a service|
-|ITIL|Information Technology Infrastructure Library|
-|ITSM|IT Service Management|
-|MIME|Multipurpose Internet Mail Extensions|
-|MVC|Modal View Controller|
-|OGC|Office of Government Commerce|
-|PaaS|Platform as a service|
-|PACS|Picture archiving and communication system|
-|RIA|plug-in-based Rich Internet Application|
-|RWD|Responsive Web Design|
-|SaaS|Software as a service|
-|SGML|Standard Generalized Markup Language|
-|SOAP|Subjective; Objective; Assessment; Plan|
-|UCS|Universal Character Set|
-|UTF-8|UCS Transformation Format-8-bit|
-|VPN|Virtual Private Network|
-|XBRL|eXtensible Business Reporting Language|
-|XHTML|eXtensible HyperText Markup Language|
-|XML|eXtensible Markup Language|
-|XPath|XML Path Language|
-|XSL|eXtensible Stylesheet Language|
-|XSL-FO|XSL Formatting Objects|
-|XSLT|XSL Transformation|
+|縮寫|原文|中文|
+|---|---|---|
+|API|Application Programming Interface|應用程式介面|
+|Big5|Big Five|大五碼|
+|CCD|Continuity of Care Document|連續照護文件|
+|CCTA|Consumer Credit Trade Association|顧客信用貿易協會|
+|CDA|Clinical Document Architecture|臨床文件架構|
+|CSS|Cascading Style Sheets|層疊樣式表|
+|CSS3|Cascading Style Sheets 3|層疊樣式表第三版|
+|DICOM|Digital Imaging and Communications in Medicine|醫療數位影像傳輸協定|
+|EEC|E.M.R. Exchange Center, Electronic Medical Record Exchange Center|電子病歷交換中心|
+|EMR|Electronic Medical Record|電子病歷|
+|HIS|Hospital Information System|醫院資訊系統|
+|HL7|Health Level Seven|健康資訊交換第七層協定|
+|HTML|Hyper-Text Markup Language|超文本標記語言|
+|HTML5|Hyper-Text Markup Language 5|超文本標記語言第五版|
+|IaaS|Infrastructure as a service|基礎設施服務|
+|ITIL|Information Technology Infrastructure Library|資訊科技基礎構想|
+|ITSM|IT Service Management|模組服務管理|
+|MIME|Multipurpose Internet Mail Extensions|多用途網際網路郵件延伸|
+|MVC|Modal View Controller|模型、檢視和控制器軟體架構模式|
+|OGC|Office of Government Commerce|英國政府商務部|
+|PaaS|Platform as a service|平台即服務|
+|PACS|Picture archiving and communication system|醫療影像儲傳系統|
+|RIA|plug-in-based Rich Internet Application|豐富性網路應用服務|
+|RWD|Responsive Web Design|自適應網頁設計|
+|SaaS|Software as a service|軟體即服務|
+|SGML|Standard Generalized Markup Language|標準通用標記式語言|
+|SOAP|Subjective; Objective; Assessment; Plan|主觀陳訴; 客觀陳訴; 評估; 計畫|
+|UCS|Universal Character Set|通用字符集|
+|UTF-8|UCS Transformation Format-8-bit|八位元轉型通用字符集|
+|VPN|Virtual Private Network|虛擬私有網路|
+|XBRL|eXtensible Business Reporting Language|可擴展商業報告語言|
+|XHTML|eXtensible HyperText Markup Language|可擴展超文本標記語言|
+|XML|eXtensible Markup Language|可延伸標記式語言|
+|XPath|XML Path Language|可延伸標記式路徑語言|
+|XSL|eXtensible Stylesheet Language|可擴展樣式語言|
+|XSL-FO|XSL Formatting Objects|可擴展樣式語言格式化物件|
+|XSLT|XSL Transformation|可擴展樣式語言轉型|
 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -214,7 +214,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 	* 標記是用來配置資料或應用程式的設定
 
 ### 壹 XPath
-`XPath`即是表示資料或屬性在`XML`文件中所在的位置的一種表示方法。在使用`XPath`時，可以使用多種方式表示資料的查詢，或者使用不同的語義來過濾資料，例如可以在查詢中包含搜索的條件，或者是包含過濾的條件，甚至可用這些條件找出與其相符合的相對元素。使用`XPath`時，主要有以下表示及搜索方式：
+`XPath`即是表示資料或屬性在`XML`文件中所在位置的一種表示方法。在使用`XPath`時，可以使用多種方式表示資料的查詢，或者使用不同的語義來過濾資料，例如可以在查詢中包含搜索的條件，或者是包含過濾的條件，甚至可用這些條件找出與其相符合的相對元素。使用`XPath`時，主要有以下表示及搜索方式：
 
 * 使用任意搜索符號"`//node`"：即任何符合"`node`"的元素都會被選取
 * 使用絕對搜索"`/nodeA/nodeB`"：即是符合於根元素`nodeA`之下的`nodeB`將會被選取
@@ -293,7 +293,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 本研究為實驗設計以及實作資訊系統並評估其可行性。
 
 ## 第一節 研究流程與步驟
-本研究設計一個電子病歷的檢視平台，提供各醫療院所及民眾使用。依據研究動機確認其研究目的之範圍，再進行國內、外的文獻、規範、書籍的探討，彙整技術的可行性及能否符合預期設計和目標，最後實作系統。該系統主要提供醫療院所做為一個電子病歷資料交換後的檢視平台，可於線上開發各種單張所需的檢視模板。最後驗證實作是否能達預期目標。如圖1所示本研究的研究流程與步驟：
+本研究設計一個電子病歷的檢視平台，提供各醫療院所及民眾使用。依據研究動機確認其研究目的之範圍，再進行國內、外的文獻、規範、書籍的探討，彙整技術的可行性及能否符合預期設計和目標，最後實作系統。該系統主要提供醫療院所作為一個電子病歷資料交換後的檢視平台，可於線上開發各種單張所需的檢視模板。最後驗證實作是否能達預期目標。如圖1所示本研究的研究流程與步驟：
 
 ![研究流程與步驟圖](./graffle/studyProcess.png)
 圖1 研究流程與步驟圖
@@ -693,7 +693,7 @@ cda2g物件中包含了Web Components的內容及cdaHeader與cdaBody的資料物
 (價格參考時間：2013年6月)
 
 ### 陸 XML、XSL與HTML5、JavaScript套表技術比較
-XSL(eXtensible Stylesheet Language)是自從1997年開始製定至1999年正式開始變成W3C的標準規範，這種技術主要會以XSL轉型 (XSLT, XSL Transformation)、XSL物件格式化 (XSL-FO, XSL Formatting Objects)與XML路徑語言 (XPath, the XML Path Language)這三種分類來使用，傳統的XSL套表最少會需要用到XSLT與與XPath才有辦法將XML文件轉型呈現成為網頁的形式呈現，加上傳統瀏覽器(例如IE6)所套用的XSLT與現行常用的瀏覽器(如Google Chrome等)會有些許的不同結果，因此本研究不採用XSLT技術來套表呈現資料，而是採用包含自定義標籤的XHTML格式作為套表的描述檔來呈現XML的資料與XML資料的轉型。在表6中整理了XSLT與本研究中所使用的技術上的差異以及技術上的瓶頸。
+XSL(eXtensible Stylesheet Language)是自從1997年開始制定至1999年正式開始變成W3C的標準規範，這種技術主要會以XSL轉型 (XSLT, XSL Transformation)、XSL物件格式化 (XSL-FO, XSL Formatting Objects)與XML路徑語言 (XPath, the XML Path Language)這三種分類來使用，傳統的XSL套表最少會需要用到XSLT與與XPath才有辦法將XML文件轉型呈現成為網頁的形式呈現，加上傳統瀏覽器(例如IE6)所套用的XSLT與現行常用的瀏覽器(如Google Chrome等)會有些許的不同結果，因此本研究不採用XSLT技術來套表呈現資料，而是採用包含自定義標籤的XHTML格式作為套表的描述檔來呈現XML的資料與XML資料的轉型。在表6中整理了XSLT與本研究中所使用的技術上的差異以及技術上的瓶頸。
 
 表6 XSLT與XHTML描述檔的套表比較
 
