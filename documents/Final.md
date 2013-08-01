@@ -186,7 +186,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 
 服務永續管理(`SCM`, Service Continuity Management)：
 
-* 找出所需要的和協議的商業營運最低層級，以及系統、設備和服務需求所涵蓋的需求定義
+* 找出所需要和協議的商業營運最低層級，以及系統、設備和服務需求所涵蓋的需求定義
 * 檢查對這些需求的風險及威脅
 * 開發新系統的風險降低或是減輕計劃
 
