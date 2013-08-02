@@ -52,6 +52,7 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 # 縮寫表
 |縮寫|原文|中文|
 |---|---|---|
+|AJAX|Asynchronous JavaScript and XML|非同步爪哇腳本與可延伸標記式語言|
 |API|Application Programming Interface|應用程式介面|
 |Big5|Big Five|大五碼|
 |CCD|Continuity of Care Document|連續照護文件|
@@ -62,13 +63,18 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 |DICOM|Digital Imaging and Communications in Medicine|醫療數位影像傳輸協定|
 |EEC|E.M.R. Exchange Center, Electronic Medical Record Exchange Center|電子病歷交換中心|
 |EMR|Electronic Medical Record|電子病歷|
+|ESXi|Elastic Sky X Integrated|具有彈性的整合天空|
 |HIS|Hospital Information System|醫院資訊系統|
 |HL7|Health Level Seven|健康資訊交換第七層協定|
 |HTML|Hyper-Text Markup Language|超文本標記語言|
 |HTML5|Hyper-Text Markup Language 5|超文本標記語言第五版|
 |IaaS|Infrastructure as a service|基礎設施服務|
+|ICT|Information and communications technology|資通訊科技|
+|IEC|International Electrotechnical Commission|國際電工委員會|
+|ISO|International Organization for Standardization|國際標準化組織|
 |ITIL|Information Technology Infrastructure Library|資訊科技基礎構想|
 |ITSM|IT Service Management|模組服務管理|
+|MD5|Message-Digest Algorithm 5|訊息摘要算法第五版|
 |MIME|Multipurpose Internet Mail Extensions|多用途網際網路郵件延伸|
 |MVC|Modal View Controller|模型、檢視和控制器軟體架構模式|
 |OGC|Office of Government Commerce|英國政府商務部|
@@ -80,8 +86,10 @@ The implementation of Electronic Medical Record (EMR) data exchange has been pra
 |SGML|Standard Generalized Markup Language|標準通用標記式語言|
 |SOAP|Subjective; Objective; Assessment; Plan|主觀陳訴; 客觀陳訴; 評估; 計畫|
 |UCS|Universal Character Set|通用字符集|
+|URL|Uniform Resource Locator|統一資源定位者|
 |UTF-8|UCS Transformation Format-8-bit|八位元轉型通用字符集|
 |VPN|Virtual Private Network|虛擬私有網路|
+|VPS|Virtual Private Server|虛擬專屬主機|
 |XBRL|eXtensible Business Reporting Language|可擴展商業報告語言|
 |XHTML|eXtensible HyperText Markup Language|可擴展超文本標記語言|
 |XML|eXtensible Markup Language|可延伸標記式語言|
